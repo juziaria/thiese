@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gdy.thieseback.mapper.CompanyInfoMapper">
+
+    <insert id="insertSelf" >
+        insert into company(scc)
+        values (#{scc})
+    </insert>
+
+
+    <update id="modifiedInfo" >
+        update company
+        <set>
+            <if test="company.companyName!=null">
+                company_name=#{company.companyName},
+            </if>
+            <if test="company.companyPhone!=null">
+                company_phone=#{company.companyPhone},
+            </if>
+            <if test="company.companyEmail!=null">
+                company_email=#{company.companyEmail},
+            </if>
+            <if test="company.address!=null">
+                address=#{company.address},
+            </if>
+            <if test="company.sign!=null">
+                sign=#{company.sign},
+            </if>
+            <if test="company.principal!=null">
+                principal=#{company.principal},
+            </if>
+            <if test="company.identity!=null">
+                identity=#{company.identity}
+            </if>
+        </set>
+        where scc =#{company.scc}
+    </update>
+
+</mapper>

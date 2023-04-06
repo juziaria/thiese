@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gdy.thieseback.mapper.StudentInfoMapper">
+
+    <update id="modifiedInfo" >
+        update student
+        <set>
+            <if test="student.studentName!=null">
+                student_name=#{student.studentName},
+            </if>
+            <if test="student.studentPhone!=null">
+                student_phone=#{student.studentPhone},
+            </if>
+            <if test="student.studentEmail!=null">
+                student_email=#{student.studentEmail},
+            </if>
+            <if test="student.studentGender!=null">
+                student_gender=#{student.studentGender}
+            </if>
+            <if test="student.college!=null">
+                college=#{student.college},
+            </if>
+            <if test="student.studentHeadshot!=null">
+                student_headshot=#{student.studentHeadshot},
+            </if>
+            <if test="student.grade!=null">
+                grade=#{student.grade},
+            </if>
+            <if test="student.major!=null">
+                major=#{student.major},
+            </if>
+            <if test="student.student_class!=null">
+                student_class=#{student.studentClass}
+            </if>
+        </set>
+        where scc =#{company.scc}
+    </update>
+
+</mapper>

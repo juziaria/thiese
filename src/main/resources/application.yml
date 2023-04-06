@@ -1,0 +1,15 @@
+server:
+  port: 8086
+#สýพÝิด
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/zz?useUnicode=true&characterEncoding=utf-8
+    username: postgres
+    password: 2233
+
+mybatis-plus:
+  configuration:
+    aggressive-lazy-loading: true
+  mapper-locations: classpath*:com/gdy/thieseback/mapper/*.xml
+  type-aliases-package: com.gdy.thieseback.entity
