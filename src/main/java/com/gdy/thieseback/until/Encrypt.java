@@ -8,6 +8,7 @@ import java.util.UUID;
 
 @Data
 public class Encrypt implements Serializable {
+
     /**
      * 定义一个md5算法的加密处理
      */

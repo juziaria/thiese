@@ -20,9 +20,6 @@
             <if test="student.college!=null">
                 college=#{student.college},
             </if>
-            <if test="student.studentHeadshot!=null">
-                student_headshot=#{student.studentHeadshot},
-            </if>
             <if test="student.grade!=null">
                 grade=#{student.grade},
             </if>

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/gdy/studentInfo")
 @Api(tags = "学生信息")
 public class StudentInfoController {
+
     @Autowired
     public IStudentInfoService baseService;
 

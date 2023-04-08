@@ -8,6 +8,7 @@ import java.io.Serializable;
 
 @Data
 public class RegisterDto implements Serializable {
+
     @TableId
     @ApiModelProperty(value = "社会信用代码")
     private Long scc;

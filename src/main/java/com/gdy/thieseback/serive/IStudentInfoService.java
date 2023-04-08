@@ -5,6 +5,7 @@ import com.gdy.thieseback.dto.ChangePwdDto;
 import com.gdy.thieseback.entity.Student;
 
 public interface IStudentInfoService extends IService<Student> {
+
     /**
      * 登录
      * @param id

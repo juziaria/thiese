@@ -37,7 +37,6 @@ public class CompanyInfoController {
     @ApiOperation("更改个人信息")
     @PostMapping("/modifiedInfo")
     public Company modifiedInfo(@RequestBody Company comInfo){
-       Company a = comInfo;
         return baseService.modifiedInfo(comInfo);
     }
 
