@@ -1,10 +1,10 @@
-package com.gdy.thieseback.serive.Impl;
+package com.gdy.thieseback.service.Impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.gdy.thieseback.dto.ChangePwdDto;
 import com.gdy.thieseback.entity.Student;
 import com.gdy.thieseback.mapper.StudentInfoMapper;
-import com.gdy.thieseback.serive.IStudentInfoService;
+import com.gdy.thieseback.service.IStudentInfoService;
 import com.gdy.thieseback.until.Encrypt;
 import org.springframework.stereotype.Service;
 

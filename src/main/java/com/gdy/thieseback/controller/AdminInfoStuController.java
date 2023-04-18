@@ -3,7 +3,7 @@ package com.gdy.thieseback.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.gdy.thieseback.dto.StuInfoDto;
-import com.gdy.thieseback.serive.IAdminStuInfoService;
+import com.gdy.thieseback.service.IAdminStuInfoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

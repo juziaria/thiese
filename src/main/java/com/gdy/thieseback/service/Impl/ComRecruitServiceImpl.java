@@ -1,9 +1,9 @@
-package com.gdy.thieseback.serive.Impl;
+package com.gdy.thieseback.service.Impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.gdy.thieseback.entity.Recruit;
 import com.gdy.thieseback.mapper.ComRecruitMapper;
-import com.gdy.thieseback.serive.IComRecruitService;
+import com.gdy.thieseback.service.IComRecruitService;
 import org.springframework.stereotype.Service;
 
 

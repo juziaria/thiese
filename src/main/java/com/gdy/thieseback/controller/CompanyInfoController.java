@@ -3,7 +3,7 @@ package com.gdy.thieseback.controller;
 import com.gdy.thieseback.dto.ChangePwdDto;
 import com.gdy.thieseback.dto.RegisterDto;
 import com.gdy.thieseback.entity.Company;
-import com.gdy.thieseback.serive.ICompanyInfoService;
+import com.gdy.thieseback.service.ICompanyInfoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

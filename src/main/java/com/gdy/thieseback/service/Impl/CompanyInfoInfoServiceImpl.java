@@ -1,11 +1,11 @@
-package com.gdy.thieseback.serive.Impl;
+package com.gdy.thieseback.service.Impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.gdy.thieseback.dto.ChangePwdDto;
 import com.gdy.thieseback.dto.RegisterDto;
 import com.gdy.thieseback.entity.Company;
 import com.gdy.thieseback.mapper.CompanyInfoMapper;
-import com.gdy.thieseback.serive.ICompanyInfoService;
+import com.gdy.thieseback.service.ICompanyInfoService;
 import com.gdy.thieseback.until.Encrypt;
 import org.springframework.stereotype.Service;
 

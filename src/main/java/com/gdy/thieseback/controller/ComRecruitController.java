@@ -1,7 +1,7 @@
 package com.gdy.thieseback.controller;
 
 import com.gdy.thieseback.entity.Recruit;
-import com.gdy.thieseback.serive.IComRecruitService;
+import com.gdy.thieseback.service.IComRecruitService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

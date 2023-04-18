@@ -1,4 +1,4 @@
-package com.gdy.thieseback.serive;
+package com.gdy.thieseback.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.gdy.thieseback.entity.Recruit;

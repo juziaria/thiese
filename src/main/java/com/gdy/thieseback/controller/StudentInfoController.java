@@ -2,7 +2,7 @@ package com.gdy.thieseback.controller;
 
 import com.gdy.thieseback.dto.ChangePwdDto;
 import com.gdy.thieseback.entity.Student;
-import com.gdy.thieseback.serive.IStudentInfoService;
+import com.gdy.thieseback.service.IStudentInfoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
