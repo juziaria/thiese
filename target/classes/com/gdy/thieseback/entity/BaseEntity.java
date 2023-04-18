@@ -1,5 +1,6 @@
 package com.gdy.thieseback.entity;
 
+import com.alibaba.excel.annotation.ExcelProperty;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -33,6 +34,7 @@ public class BaseEntity implements Serializable {
     private Date modifiedTime;
 
     @JsonIgnore
+    @ExcelProperty("是否删除")
     @ApiModelProperty(value = "是否删除")
     private Integer deleted;
 }

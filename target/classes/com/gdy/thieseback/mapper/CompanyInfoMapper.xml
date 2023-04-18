@@ -7,7 +7,6 @@
         values (#{scc})
     </insert>
 
-
     <update id="modifiedInfo" >
         update company
         <set>

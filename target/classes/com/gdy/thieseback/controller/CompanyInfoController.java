@@ -5,14 +5,13 @@ import com.gdy.thieseback.dto.RegisterDto;
 import com.gdy.thieseback.entity.Company;
 import com.gdy.thieseback.serive.ICompanyInfoService;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/gdy/companyInfo")
-@Api(tags = "企业端")
+@RequestMapping("/gdy/company/Info")
+@Api(tags = "企业信息")
 public class CompanyInfoController {
     @Autowired
     public ICompanyInfoService baseService;
@@ -23,24 +22,26 @@ public class CompanyInfoController {
         return baseService.Register(registerDto);
     }
 
-    @ApiModelProperty("登录")
-    @PostMapping("/login")
+    @ApiOperation("登录")
+    @GetMapping("/login")
     public Company Login(@RequestParam Long scc,@RequestParam String pwd){
         return baseService.Login(scc, pwd);
     }
 
-    @ApiModelProperty("更改密码")
+    @ApiOperation("更改密码")
     @PostMapping("/changePwd")
     public String changePwd (@RequestBody ChangePwdDto changePwdDto){
         return baseService.changePwd(changePwdDto);
     }
 
-    @ApiModelProperty("更改个人信息")
+    @ApiOperation("更改个人信息")
     @PostMapping("/modifiedInfo")
     public Company modifiedInfo(@RequestBody Company comInfo){
-       Company a = comInfo;
         return baseService.modifiedInfo(comInfo);
     }
+
+
+
 
 
 }

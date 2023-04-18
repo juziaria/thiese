@@ -53,7 +53,7 @@ public class Student extends BaseEntity implements Serializable {
 
     @ExcelProperty("性别")
     @ApiModelProperty(value = "学生性别")
-    private Integer studentGender;
+    private String studentGender;
 
 //    @ExcelProperty("头像")
 //    @ApiModelProperty(value = "头像")

@@ -14,6 +14,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class ChangePwdDto implements Serializable {
 
+
     @TableId
     @ApiModelProperty(value = "社会信用代码/学号")
     private Long id;

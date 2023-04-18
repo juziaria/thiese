@@ -17,7 +17,7 @@ public class StudentInfoController {
     public IStudentInfoService baseService;
 
     @ApiOperation("登录")
-    @PostMapping("/login")
+    @GetMapping("/login")
     public Student login(@RequestParam Long id,@RequestParam String studentPwd){
         return  baseService.login(id, studentPwd);
     }

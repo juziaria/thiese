@@ -23,7 +23,7 @@ public class CompanyInfoController {
     }
 
     @ApiOperation("登录")
-    @PostMapping("/login")
+    @GetMapping("/login")
     public Company Login(@RequestParam Long scc,@RequestParam String pwd){
         return baseService.Login(scc, pwd);
     }
@@ -39,6 +39,9 @@ public class CompanyInfoController {
     public Company modifiedInfo(@RequestBody Company comInfo){
         return baseService.modifiedInfo(comInfo);
     }
+
+
+
 
 
 }
