@@ -29,7 +29,8 @@ public class AdminInfoStuController {
     @ApiOperation("学生信息展示")
     @PostMapping("/getPage")
     public IPage<StuInfoDto> getPage(@RequestBody StuInfoDto stuInfoDto) {
-        return baseService.getPage();
+        //return baseService.getPage();
+        return  null;
     }
 
 

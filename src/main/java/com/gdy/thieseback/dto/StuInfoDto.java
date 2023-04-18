@@ -4,10 +4,12 @@ import com.alibaba.excel.annotation.ExcelProperty;
 import com.gdy.thieseback.until.PageQuery;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
 import java.util.Date;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 public class StuInfoDto extends PageQuery implements Serializable {
     @ExcelProperty("学号")

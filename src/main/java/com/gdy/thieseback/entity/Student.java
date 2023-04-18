@@ -3,8 +3,10 @@ package com.gdy.thieseback.entity;
 import com.alibaba.excel.annotation.ExcelProperty;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
+@EqualsAndHashCode(callSuper = true)
 @Data
 public class Student extends BaseEntity implements Serializable {
 
