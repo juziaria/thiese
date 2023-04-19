@@ -29,4 +29,6 @@ public class StuInfo{
     private String studentGender;
 
     private String employment;
+
+
 }

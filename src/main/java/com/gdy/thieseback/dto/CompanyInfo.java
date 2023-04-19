@@ -22,5 +22,5 @@ public class CompanyInfo {
 
     private String createTime;
 
-    private String principal;
+    private String curator;
 }

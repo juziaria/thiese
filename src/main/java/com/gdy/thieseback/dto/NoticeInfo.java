@@ -1,5 +1,6 @@
 package com.gdy.thieseback.dto;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.util.HashMap;
@@ -8,8 +9,6 @@ import java.util.HashMap;
 @Data
 public class NoticeInfo {
     private int id;
-
-    private String type;
 
     private String publishTime;
 
