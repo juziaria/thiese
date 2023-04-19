@@ -13,7 +13,7 @@ import java.util.Collections;
 //@MapperScan("com.example.demo.mapper")
 public class MybatisPlusConfig {
 
-//h
+//hello world！
 //    /**
 //     * 分页插件 3.5.X
 //     */
