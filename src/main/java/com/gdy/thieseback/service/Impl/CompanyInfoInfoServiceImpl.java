@@ -6,7 +6,7 @@ import com.gdy.thieseback.dto.RegisterDto;
 import com.gdy.thieseback.entity.Company;
 import com.gdy.thieseback.mapper.CompanyInfoMapper;
 import com.gdy.thieseback.service.ICompanyInfoService;
-import com.gdy.thieseback.until.Encrypt;
+import com.gdy.thieseback.util.Encrypt;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;

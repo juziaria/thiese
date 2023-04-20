@@ -1,4 +1,4 @@
-package com.gdy.thieseback.until;
+package com.gdy.thieseback.util;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

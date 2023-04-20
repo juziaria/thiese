@@ -1,4 +1,4 @@
-package com.gdy.thieseback.until;
+package com.gdy.thieseback.util;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;

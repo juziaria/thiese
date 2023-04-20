@@ -1,7 +1,7 @@
 package com.gdy.thieseback.dto;
 
 import com.alibaba.excel.annotation.ExcelProperty;
-import com.gdy.thieseback.until.PageQuery;
+import com.gdy.thieseback.util.PageQuery;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

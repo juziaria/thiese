@@ -1,4 +1,4 @@
-package com.gdy.thieseback.until;
+package com.gdy.thieseback.util;
 
 import lombok.Data;
 import org.springframework.util.DigestUtils;

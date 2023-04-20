@@ -5,7 +5,7 @@ import com.gdy.thieseback.dto.ChangePwdDto;
 import com.gdy.thieseback.entity.Student;
 import com.gdy.thieseback.mapper.StudentInfoMapper;
 import com.gdy.thieseback.service.IStudentInfoService;
-import com.gdy.thieseback.until.Encrypt;
+import com.gdy.thieseback.util.Encrypt;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
