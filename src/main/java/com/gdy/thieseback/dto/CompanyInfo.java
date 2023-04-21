@@ -3,10 +3,11 @@ package com.gdy.thieseback.dto;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 
+import java.io.Serializable;
+
 
 @Data
 @ApiModel("企业展示信息")
-
 public class CompanyInfo {
 
     private String id;
@@ -21,5 +22,5 @@ public class CompanyInfo {
 
     private String createTime;
 
-    private String principal;
+    private String curator;
 }

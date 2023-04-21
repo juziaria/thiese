@@ -1,13 +1,12 @@
 package com.gdy.thieseback.entity;
 
-import com.gdy.thieseback.myEnum.FlagEnum;
 import com.gdy.thieseback.util.MyPath;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
-
+import com.gdy.thieseback.myEnum.*;
 import java.io.*;
 import java.util.Date;
 
@@ -36,6 +35,13 @@ public class Document {
 
 
     public Document(){}
+
+    @Autowired
+    public Document(String content, String filename, String extension){
+        this.content = content;
+        this.name = filename;
+        this.extension = extension;
+    }
 
     @Autowired
     public Document(String content){
@@ -81,7 +87,7 @@ public class Document {
         return result;
     }
 
-    public void save(String path){
+    public Boolean save(String path){
         MyPath myPath = new MyPath(path);
 
         try {
@@ -91,8 +97,11 @@ public class Document {
             os.write(bytes, 0, bytes.length);
             os.flush();
             os.close();
+
+            return true;
         } catch (IOException e) {
             e.printStackTrace();
+            return false;
         }
     }
 

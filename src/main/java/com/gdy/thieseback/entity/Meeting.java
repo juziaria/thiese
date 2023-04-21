@@ -3,6 +3,8 @@ package com.gdy.thieseback.entity;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.util.Date;
+
 @Data
 public class Meeting {
     @ApiModelProperty(value = "主键")
@@ -15,19 +17,19 @@ public class Meeting {
     private String companyId;
 
     @ApiModelProperty(value = "地点性质")
-    private Integer placeType;
+    private Integer meetingFormat;
 
     @ApiModelProperty(value = "地点")
-    private String place;
-
-    @ApiModelProperty(value = "数量")
-    private Integer amount;
+    private Integer classroomId;
 
     @ApiModelProperty(value = "面向专业")
     private String major;
 
     @ApiModelProperty(value = "会议类型")
     private Integer meetingType;
+
+    @ApiModelProperty(value = "开始时间")
+    private Date startTime;
 
     @ApiModelProperty(value = "状态")
     private Integer flag;

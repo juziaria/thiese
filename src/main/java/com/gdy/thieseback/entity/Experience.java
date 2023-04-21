@@ -59,7 +59,7 @@ public class Experience {
     private Integer companyProperty;
 
     @ApiModelProperty(value = "评价")
-    private String Evaluation;
+    private String evaluation;
 
     @ApiModelProperty(value = "是否删除")
     private Integer flag;

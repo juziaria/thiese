@@ -1,53 +1,48 @@
 package com.gdy.thieseback.entity;
 
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.jetbrains.annotations.Nullable;
+import nonapi.io.github.classgraph.json.Id;
 
 import java.io.Serializable;
+import java.util.Date;
 
-@EqualsAndHashCode(callSuper = true)
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @ApiModel("企业实体类")
 public class Company extends BaseEntity implements Serializable {
+     @Id
+     @ApiModelProperty(value = "公司账号")
+     private String id;
 
-    @TableId
-    @Nullable
-    @ApiModelProperty(value = "社会信用代码")
-    private String scc;
+     @ApiModelProperty(value ="公司密码")
+     private String pwd;
 
-    @JsonIgnore
-    @ApiModelProperty(value ="公司密码")
-    private String companyPwd;
+     @ApiModelProperty(value = "公司名称")
+     private String name;
 
-    @ApiModelProperty(value = "公司名称")
-    private String companyName;
+     @ApiModelProperty(value = "公司电话")
+     private String phone;
 
-    @ApiModelProperty(value = "公司电话")
-    private String companyPhone;
+     @ApiModelProperty(value = "公司邮箱")
+     private String email;
 
-    @ApiModelProperty(value = "公司邮箱")
-    private String companyEmail;
+     @ApiModelProperty(value = "公司地址")
+     private String address;
 
-    @ApiModelProperty(value = "公司地址")
-    private String address;
+     @ApiModelProperty(value = "公司创建时间")
+     private Date createTime;
 
-    @ApiModelProperty(value = "公司图像")
-    private String sign;
+     @ApiModelProperty(value = "招聘负责人")
+     private String curator;
 
-    @ApiModelProperty(value = "公司负责人")
-    private String principal;
+     @ApiModelProperty(value = "是否删除")
+     private Integer flag;
 
-    @ApiModelProperty(value = "负责人身份证")
-    private String identity;
-
-    @JsonIgnore
-    @ApiModelProperty(value = "盐值")
-    private String salt;
+     private Integer salt;
 }
+

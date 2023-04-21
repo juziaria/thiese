@@ -9,6 +9,8 @@ import java.util.HashMap;
 public class NoticeInfo {
     private int id;
 
+    private String type;
+
     private String publishTime;
 
     private String collage;
@@ -18,7 +20,5 @@ public class NoticeInfo {
     private String content;
 
     private HashMap<Integer, String> document;
-
-    private Integer type;
 
 }

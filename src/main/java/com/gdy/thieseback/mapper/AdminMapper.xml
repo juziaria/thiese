@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gdy.graduate.dao.AdminMapper">
+
+    <select id="findAdmin" resultType="com.gdy.graduate.entity.Admin">
+        select *
+        from admin
+        where flag = #{flag} and id = #{id} and pwd = #{pwd}
+    </select>
+
+    <select id="selectStuCollage" resultType="String">
+        select distinct collage
+        from student
+        where flag = #{flag}
+    </select>
+
+    <select id="selectStuGrade" resultType="Integer">
+        select distinct grade
+        from student
+        where flag = #{flag}
+    </select>
+
+    <select id="selectStuMajor" resultType="String">
+        select distinct major
+        from student
+        where flag = #{flag}
+    </select>
+
+    <select id="selectStuClass" resultType="Integer">
+        select distinct "studentClass"
+        from student
+        where flag = #{flag}
+    </select>
+
+    <select id="selectCompanyAddress" resultType="String">
+        select distinct address
+        from company
+        where flag = #{flag}
+    </select>
+
+    <update id="deleteStu">
+        update student
+        set flag = #{flag}
+        where id = #{id}
+    </update>
+
+    <update id="deleteCompany">
+        update company
+        set flag = #{flag}
+        where id = #{id}
+    </update>
+
+    <select id="selectStu" resultType="com.gdy.graduate.entity.Student">
+        select *
+        from student
+        where 1=1
+            and flag = #{flag}
+        <if test="grade != 0">
+            and grade = #{grade}
+        </if>
+        <if test="collage != null and collage != ''">
+            and collage = #{collage}
+        </if>
+        <if test="major != null and major != ''">
+            and major = #{major}
+        </if>
+        <if test="stuClass != 0">
+            and "studentClass" = #{stuClass}
+        </if>
+    </select>
+
+    <select id="selectCompany" resultType="com.gdy.graduate.entity.Company">
+        select *
+        from company
+        where 1=1
+            and flag = #{flag}
+        <if test="id != null">
+            and id = #{id}
+        </if>
+        <if test="start != null">
+            and company."createTime" >= #{start}
+        </if>
+        <if test="end != null">
+            and #{end} >= company."createTime"
+        </if>
+        <if test="address != null and address != ''">
+            and address = #{address}
+        </if>
+    </select>
+
+    <update id="initialStuPassword">
+        update student
+        set pwd = #{pwd}
+        where id = #{id}
+    </update>
+
+    <update id="initialCompanyPassword">
+        update company
+        set pwd = #{pwd}
+        where id = #{id}
+    </update>
+
+    <update id="updateStu">
+        update student
+        set identity = #{student.identity},
+            name = #{student.name},
+            collage = #{student.collage},
+            grade = #{student.grade},
+            "studentClass" = #{student.studentClass},
+            major = #{student.major},
+            phone = #{student.phone},
+            email = #{student.email},
+            gender = #{student.gender},
+            "employmentId" = #{student.employmentId}
+        where id = #{student.id}
+    </update>
+
+    <update id="updateCompany">
+        update company
+        set name = #{company.name},
+            phone = #{company.phone},
+            email = #{company.email},
+            address = #{company.address},
+            "createTime" = #{company.createTime},
+            curator = #{company.curator}
+        where id = #{company.id}
+    </update>
+
+    <insert id="insertDocument">
+        insert into document (extension, name, content, uploadtime, size, flag)
+        values (#{file.extension}, #{file.name}, #{file.content}, #{file.uploadTime}, #{file.size}, #{file.flag})
+    </insert>
+
+    <select id="selectDocument" resultType="com.gdy.graduate.entity.Document">
+        select *
+        from document
+        where flag = #{flag}
+        <if test="id != null and id != 0">
+            and id = #{id}
+        </if>
+    </select>
+
+    <select id="selectDocumentCount" resultType="Integer">
+        select distinct count(*)
+        from document
+        where flag = #{flag}
+    </select>
+
+    <update id="deleteDocument">
+        update document
+        set flag = #{flag}
+        where id = #{id}
+    </update>
+
+    <select id="selectNotices" resultType="com.gdy.graduate.entity.Notice">
+        select *
+        from notice
+
+        <if test="id != null and flag == null">
+            where id = #{id}
+        </if>
+        <if test="id == null and flag != null">
+            where flag = #{flag}
+        </if>
+        <if test="id != null and flag != null">
+            where flag = #{flag} and id = #{id}
+        </if>
+    </select>
+
+    <update id="updateNotice" parameterType="com.gdy.graduate.entity.Notice">
+        update notice
+        set "publishTime" = #{publishTime}, collage = #{collage},
+            title = #{notice.title}, content = #{notice.content},"documentId" = #{notice.documentId}
+        where id = #{notice.id}
+    </update>
+
+    <insert id="insertNotice" parameterType="com.gdy.graduate.entity.Notice">
+        insert into notice ("publishTime", collage, title, content, flag, "documentId", type)
+        values (#{notice.publishTime}, #{notice.collage}, #{notice.title}, 
+                #{notice.content}, #{notice.flag}, #{notice.documentId}, #{notice.type})
+    </insert>
+
+    <update id="updateNoticeFlag">
+        update notice
+        set flag = #{flag}
+        where id = #{id}
+    </update>
+
+    <insert id="insertRecruitment">
+        insert into recruitment (position, "workPlace", salary, "workContent", "companyId", "requirementId", flag)
+        values (#{recruitment.position}, #{recruitment.workPlace}, #{recruitment.salary}, #{recruitment.workContent},
+                #{companyId}, #{recruitment.requirementId}, #{recruitment.flag})
+    </insert>
+    
+    <insert id="insertRequirement" parameterType="com.gdy.graduate.entity.Requirement"
+            useGeneratedKeys="true" keyProperty="id">
+        insert into requirement (gender, major, content, degree, "minYear", "maxYear")
+        values (#{requirement.gender}, #{requirement.major}, #{requirement.content}, #{requirement.degree},
+                #{requirement.minYear}, #{requirement.maxYear});
+    </insert>
+
+    <select id="selectWorkPlace" resultType="String">
+        select distinct "workPlace"
+        from recruitment;
+    </select>
+
+    <select id="selectRecruitments" resultType="com.gdy.graduate.entity.Recruitment">
+        select *
+        from recruitment
+        where 1 = 1
+        <if test="flag != null">
+            and flag = #{flag}
+        </if>
+        <if test="salaryMin != null">
+            and salary >= #{salaryMin}
+        </if>
+        <if test="salaryMax != null">
+            and #{salaryMax} >= salary
+        </if>
+        <if test="workPlace != null and workPlace != ''">
+            and "workPlace" = #{workPlace}
+        </if>
+    </select>
+    
+    <select id="selectRequirement" resultType="com.gdy.graduate.entity.Requirement">
+        select *
+        from requirement
+        where id = #{id}
+    </select>
+
+    <update id="updateRecruitmentFlag">
+        update recruitment
+        set flag = #{flag}
+        where id = #{id}
+    </update>
+
+    <select id="selectResumes" resultType="com.gdy.graduate.entity.Resume">
+        select *
+        from resume
+        where flag = #{flag}
+        <if test="id != null">
+            and id = #{id}
+        </if>
+    </select>
+
+    <update id="deleteResume">
+        update resume
+        set flag = #{flag}
+        where id = #{id}
+    </update>
+
+    <insert id="insertResume">
+        insert into resume(content, filename, extension, flag)
+        values (#{resume.content}, #{resume.filename}, #{resume.extension}, #{resume.flag})
+    </insert>
+
+    <select id="selectMeeting" resultType="com.gdy.graduate.entity.Meeting">
+        select *
+        from meeting
+        where flag = #{flag}
+    </select>
+
+    <update id="updateMeetingFlag">
+        update meeting
+        set flag = #{flag}
+        where id = #{id}
+    </update>
+
+    <update id="updateMeetingClassroom">
+        update meeting
+        set "classroomId" = #{classroomId}
+        where id = #{id}
+    </update>
+
+    <select id="selectEmptyClassroom" resultType="com.gdy.graduate.entity.Classroom">
+        select *
+        from classroom
+        where flag = #{flag}
+    </select>
+
+    <update id="updateEmptyClassroomFlag">
+        update classroom
+        set flag = #{flag}
+        where id = #{id}
+    </update>
+</mapper>

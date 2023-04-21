@@ -1,0 +1,161 @@
+package com.gdy.thieseback.service;
+
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.gdy.thieseback.dto.*;
+import com.gdy.thieseback.entity.*;
+import com.gdy.thieseback.myEnum.*;
+import org.springframework.stereotype.Component;
+
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+
+@Component
+public interface AdminService extends IService<Admin> {
+    //List<Student> initialStuPassword();
+    /**
+     * 登录
+     */
+    Admin login(String id,String pwd);
+    /**
+     * 有效学生学院
+     */
+    List<String> selectStuCollage();
+    /**
+     * 有效学生年级
+     */
+    List<Integer> selectStuGrade();
+    /**
+     * 有效学生专业
+     */
+    List<String> selectStuMajor();
+    /**
+     * 有效学生班级
+     */
+    List<Integer> selectStuClass();
+    /**
+     * 有效企业地址
+     */
+    List<String> selectCompanyAddress();
+    /**
+     * 删除学生账号
+     */
+    String deleteStudents(String[] id);
+    /**
+     * 删除公司账号
+     */
+    String deleteCompany(String[] id);
+    /**
+     * 学生账号查询
+     */
+    List<StuInfo> SelectStu(Integer grade, String collage, String major, Integer stuClass);
+    /**
+     * 公司账号查询
+     */
+    List<CompanyInfo> SelectCompany(Date start, Date end, String address);
+    /**
+     * 初始化学生账号密码
+     */
+    Boolean initialStuPassword(String id);
+    /**
+     * 初始化公司账号密码
+     */
+    Boolean initialCompanyPassword(String id);
+    /**
+     * 修改学生信息
+     */
+    Boolean updateStu(StuInfo stuInfo);
+    /**
+     * 修改公司信息
+     */
+    Boolean updateCompany(CompanyInfo companyInfo);
+    /**
+     * 上传文件
+     */
+    Boolean uploadDocument(Document document);
+    /**
+     * 下载文件
+     */
+    Boolean downloadDocument(String saveDirPath, Integer id);
+    /**
+     * 删除文件
+     */
+    Boolean deleteDocument(Integer id);
+    /**
+     * 文件查询
+     */
+    List<DocumentInfo> showDocuments();
+    Document selectDocument(Integer id);
+    /**
+     * 文件数量查询
+     */
+    Integer selectDocumentCount();
+    /**
+     * 查询通知
+     */
+    List<Notice> selectNotice(Integer id, FlagEnum flagEnum);
+    /**
+     * 发布通知
+     */
+    Boolean insertNotice(Notice notice);
+    /**
+     * 修改通知状态
+     */
+    Boolean updateNoticeState(Integer id, FlagEnum flagEnum);
+    /**
+     * 修改通知
+     */
+    Boolean updateNotice(Notice notice);
+    /**
+     * 返回公司列表
+     */
+    HashMap<String, String> selectCompanyName();
+    /**
+     * 工作地点列表
+     */
+    List<String> selectWorkPlace();
+    /**
+     *发布招聘信息
+     */
+    Boolean publishRecruitment(Recruitment recruitment, Requirement requirement);
+    /**
+     *展示招聘信息（需二次处理）
+     */
+    List<RecruitInfo> recruitmentShow(FlagEnum flagEnum, Integer salaryMin, Integer salaryMax, String workPlace);
+    /**
+     *修改招聘信息状态
+     */
+    Boolean updateRecruitmentFlag(Integer id, FlagEnum flagEnum);
+    /**
+     *浏览简历库
+     */
+    List<ResumeInfo> showResumes();
+    /**
+     *删除简历
+     */
+    Boolean deleteResume(Integer id);
+    /**
+     *下载简历
+     */
+    Boolean downLoadResume(Integer id, String diePath);
+    /**
+     *上传简历
+     */
+    Boolean upLoadResume(Resume resume);
+    /**
+     *浏览会议信息
+     */
+    List<MeetingInfo> showMeeting(FlagEnum flagEnum);
+    /**
+     *删除会议信息
+     */
+    Boolean deleteMeeting();
+    /**
+     *分配教室，并发布
+     */
+    Boolean EnsureMeeting(Integer id, Integer classroomId);
+    /**
+     *查询空教室
+     */
+    HashMap<Integer, String> showEmptyClassroom();
+}

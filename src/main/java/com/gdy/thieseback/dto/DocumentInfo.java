@@ -8,5 +8,4 @@ public class DocumentInfo {
     private String fileName;
     private String uploadTime;
     private String size;
-
 }

@@ -1,16 +1,26 @@
 package com.gdy.thieseback.entity;
 
+import javax.swing.filechooser.FileSystemView;
+
 public class Parameter {
-    public static Integer NumPerPager = 20;
+    public static Integer NumPerPager;
 
-    public static String InitPwd = "123456";
+    public static String InitPwd;
 
-    public static String DatePattern = "yyyy-MM-dd";
+    public static String DatePattern;
 
-    public static String splitChar = ";";
+    public static String splitChar;
 
-    public static Boolean isOpenQuestionnaire = true;
+    public static Boolean isOpenQuestionnaire;
 
+    public static String defaultSavePath;
 
-
+    public Parameter(){
+        NumPerPager = 20;
+        InitPwd = "123456";
+        DatePattern = "yyyy-MM-dd";
+        splitChar = ";";
+        isOpenQuestionnaire = false;
+        defaultSavePath = FileSystemView.getFileSystemView().getHomeDirectory().getPath();
+    }
 }

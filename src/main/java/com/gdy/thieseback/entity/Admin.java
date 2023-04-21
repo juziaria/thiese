@@ -1,5 +1,6 @@
 package com.gdy.thieseback.entity;
 
+import com.gdy.thieseback.entity.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

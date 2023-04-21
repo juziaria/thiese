@@ -28,8 +28,8 @@ public class CompanyInfoInfoServiceImpl extends ServiceImpl<CompanyInfoMapper, C
         String salt = UUID.randomUUID().toString().toUpperCase();
         String pwd = encrypt.getMD5(registerDto.getCompanyPwd(), salt);
         company = baseMapper.selectById(registerDto.getScc());
-        company.setCompanyPwd(pwd);
-        company.setCompanyName(registerDto.getCompanyName());
+        company.setPwd(pwd);
+        company.setName(registerDto.getCompanyName());
         company.setSalt(salt);
         company.setDeleted(0);
         company.setCreateTime(new Date());
@@ -47,7 +47,7 @@ public class CompanyInfoInfoServiceImpl extends ServiceImpl<CompanyInfoMapper, C
              throw new RuntimeException("该用户不存在，请先注册。");
          }
          String checkPwd = encrypt.getMD5(pwd, res.getSalt());
-         if (!checkPwd.equals(res.getCompanyPwd())){
+         if (!checkPwd.equals(res.getPwd())){
              throw  new RuntimeException("密码错误！");
          }
         return res;
@@ -59,13 +59,13 @@ public class CompanyInfoInfoServiceImpl extends ServiceImpl<CompanyInfoMapper, C
     public String changePwd(ChangePwdDto changePwdDto){
        Company res = baseMapper.selectById(changePwdDto.getId());
        String checkPwd =encrypt.getMD5(changePwdDto.getOldPwd(),res.getSalt());
-       if (!checkPwd.equals(res.getCompanyPwd())){
+       if (!checkPwd.equals(res.getPwd())){
            return "原密码错误";
        }
        String salt = encrypt.getSalt();
        String newPwd = encrypt.getMD5(changePwdDto.getNewPwd(),salt);
        res.setSalt(salt);
-       res.setCompanyPwd(newPwd);
+       res.setPwd(newPwd);
        res.setModifiedTime(new Date());
        res.setModifiedUser(changePwdDto.getId());
        baseMapper.updateById(res);

@@ -1,9 +1,12 @@
 package com.gdy.thieseback.dto;
 
+import com.gdy.thieseback.entity.Recruitment;
 import com.gdy.thieseback.entity.Requirement;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.util.HashMap;
+import java.util.HashSet;
 
 @Data
 public class RecruitInfo {

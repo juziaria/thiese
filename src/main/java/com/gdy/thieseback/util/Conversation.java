@@ -2,11 +2,9 @@ package com.gdy.thieseback.util;
 
 import com.gdy.thieseback.dto.*;
 import com.gdy.thieseback.entity.*;
-import com.gdy.thieseback.myEnum.EmploymentStatusEnum;
-import com.gdy.thieseback.myEnum.FlagEnum;
-import com.gdy.thieseback.myEnum.GenderEnum;
-import com.gdy.thieseback.myEnum.NoticeTypeEnum;
-import org.apache.commons.lang3.StringUtils;
+import com.gdy.thieseback.myEnum.*;
+import lombok.val;
+import org.apache.tomcat.util.buf.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.text.DecimalFormat;
@@ -17,31 +15,30 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Conversation {
-    @Autowired
-    public Student StuInfoToStu(StuInfoDto stuInfoDto){
+    public Student StuInfoToStu(StuInfo stuInfo){
         Student student = new Student();
-        return StuInfoToStu(stuInfoDto, student);
+        return StuInfoToStu(stuInfo, student);
     }
 
     @Autowired
-    public Student StuInfoToStu(StuInfoDto stuInfoDto, Student student){
-        student.setId(stuInfoDto.getId());
-        student.setStudentIdentity(stuInfoDto.getStudentIdentity());
-        student.setStudentName(stuInfoDto.getStudentName());
-        student.setCollege(stuInfoDto.getCollege());
-        student.setGrade(stuInfoDto.getGrade());
-        student.setStudentClass(stuInfoDto.getStudentClass());
-        student.setMajor(stuInfoDto.getMajor());
-        student.setStudentPhone(stuInfoDto.getStudentPhone());
-        student.setStudentEmail(stuInfoDto.getStudentEmail());
+    public Student StuInfoToStu(StuInfo stuInfo, Student student){
+        student.setId(stuInfo.getId());
+        student.setIdentity(stuInfo.getStudentIdentity());
+        student.setName(stuInfo.getStudentName());
+        student.setCollage(stuInfo.getCollage());
+        student.setGrade(stuInfo.getGrade());
+        student.setStudentClass(stuInfo.getStudentClass());
+        student.setMajor(stuInfo.getMajor());
+        student.setPhone(stuInfo.getStudentPhone());
+        student.setEmail(stuInfo.getStudentEmail());
 
-        GenderEnum genderEnum = GenderEnum.find(stuInfoDto.getStudentGender());
+        GenderEnum genderEnum = GenderEnum.find(stuInfo.getStudentGender());
         if(genderEnum != null){
-           // Integer gender = genderEnum.getCode();
-            student.setStudentGender(Integer.toString(genderEnum.getCode()));
+            Integer gender = genderEnum.getCode();
+            student.setGender(gender);
         }
 
-        EmploymentStatusEnum employmentStatusEnum = EmploymentStatusEnum.find(stuInfoDto.getEmploymentStatus());
+        EmploymentStatusEnum employmentStatusEnum = EmploymentStatusEnum.find(stuInfo.getEmployment());
         if(employmentStatusEnum != null){
             Integer employmentId = employmentStatusEnum.getCode();
             student.setEmploymentStatus(employmentId);
@@ -50,80 +47,77 @@ public class Conversation {
         return student;
     }
 
-    @Autowired
-    public StuInfoDto StuToStuInfo(Student student){
-        StuInfoDto stuInfoDto = new StuInfoDto();
+    public StuInfo StuToStuInfo(Student student){
+        StuInfo stuInfo = new StuInfo();
 
-        stuInfoDto.setId(student.getId());
-        stuInfoDto.setStudentIdentity(student.getStudentIdentity());
-        stuInfoDto.setStudentName(student.getStudentName());
-        stuInfoDto.setCollege(student.getCollege());
-        stuInfoDto.setGrade(student.getGrade());
-        stuInfoDto.setStudentClass(student.getStudentClass());
-        stuInfoDto.setMajor(student.getMajor());
-        stuInfoDto.setStudentPhone(student.getStudentPhone());
-        stuInfoDto.setStudentEmail(student.getStudentEmail());
+        stuInfo.setId(student.getId());
+        stuInfo.setStudentIdentity(student.getIdentity());
+        stuInfo.setStudentName(student.getName());
+        stuInfo.setCollage(student.getCollage());
+        stuInfo.setGrade(student.getGrade());
+        stuInfo.setStudentClass(student.getStudentClass());
+        stuInfo.setMajor(student.getMajor());
+        stuInfo.setStudentPhone(student.getPhone());
+        stuInfo.setStudentEmail(student.getEmail());
 
-        GenderEnum genderEnum = GenderEnum.find(student.getStudentGender());
-        stuInfoDto.setStudentGender(genderEnum.getContent());
+        GenderEnum genderEnum = GenderEnum.find(student.getGender());
+        stuInfo.setStudentGender(genderEnum.getContent());
 
         EmploymentStatusEnum employmentStatusEnum = EmploymentStatusEnum.find(student.getEmploymentStatus());
-        stuInfoDto.setEmploymentStatus(Integer.valueOf(employmentStatusEnum.getContent()));
+        stuInfo.setEmployment(employmentStatusEnum.getContent());
 
-        return stuInfoDto;
+        return stuInfo;
     }
 
-    public Company CompanyInfoToCompany(CompanyInfoDto companyInfoDto){
+    public Company CompanyInfoToCompany(CompanyInfo companyInfo){
         Company company = new Company();
-        return CompanyInfoToCompany(companyInfoDto, company);
+        return CompanyInfoToCompany(companyInfo, company);
     }
 
     @Autowired
-    public Company CompanyInfoToCompany(CompanyInfoDto companyInfoDto, Company company){
-        company.setScc(companyInfoDto.getId());
-        company.setCompanyName(companyInfoDto.getName());
-        company.setCompanyPhone(companyInfoDto.getPhone());
-        company.setCompanyEmail(companyInfoDto.getEmail());
-        company.setAddress(companyInfoDto.getAddress());
+    public Company CompanyInfoToCompany(CompanyInfo companyInfo, Company company){
+        company.setId(companyInfo.getId());
+        company.setName(companyInfo.getName());
+        company.setPhone(companyInfo.getPhone());
+        company.setEmail(companyInfo.getEmail());
+        company.setAddress(companyInfo.getAddress());
 
-        Date createTime = this.StringToDate(companyInfoDto.getCreateTime());
+        Date createTime = this.StringToDate(companyInfo.getCreateTime());
         company.setCreateTime(createTime);
 
-        company.setPrincipal(companyInfoDto.getCurator());
+        company.setCurator(companyInfo.getCurator());
 
         return company;
     }
 
-    @Autowired
-    public CompanyInfoDto CompanyToCompanyInfo(Company company){
-        CompanyInfoDto companyInfoDto = new CompanyInfoDto();
+    public CompanyInfo CompanyToCompanyInfo(Company company){
+        CompanyInfo companyInfo = new CompanyInfo();
 
-        companyInfoDto.setId(company.getScc());
-        companyInfoDto.setName(company.getCompanyName());
-        companyInfoDto.setPhone(company.getCompanyPhone());
-        companyInfoDto.setEmail(company.getCompanyEmail());
-        companyInfoDto.setAddress(company.getAddress());
+        companyInfo.setId(company.getId());
+        companyInfo.setName(company.getName());
+        companyInfo.setPhone(company.getPhone());
+        companyInfo.setEmail(company.getEmail());
+        companyInfo.setAddress(company.getAddress());
 
         String transformDate = this.DateToString(company.getCreateTime());
-        companyInfoDto.setCreateTime(transformDate);
+        companyInfo.setCreateTime(transformDate);
 
-        companyInfoDto.setCurator(company.getPrincipal());
+        companyInfo.setCurator(company.getCurator());
 
-        return companyInfoDto;
+        return companyInfo;
     }
 
-    @Autowired
     public DocumentInfo DocumentToDocumentInfo(Document document){
-        DocumentInfo documentInfoDto = new DocumentInfo();
+        DocumentInfo documentInfo = new DocumentInfo();
 
-        documentInfoDto.setId(document.getId());
-        documentInfoDto.setSize(this.setSize(document.getSize()));
-        documentInfoDto.setFileName(documentInfoDto.getFileName());
+        documentInfo.setId(document.getId());
+        documentInfo.setSize(this.setSize(document.getSize()));
+        documentInfo.setFileName(documentInfo.getFileName());
 
         String transformDate = this.DateToString(document.getUploadTime());
-        documentInfoDto.setUploadTime(transformDate);
+        documentInfo.setUploadTime(transformDate);
 
-        return documentInfoDto;
+        return documentInfo;
     }
 
     private String setSize(long size) {
@@ -168,79 +162,75 @@ public class Conversation {
         return simpleDateFormat.format(date);
     }
 
-    @Autowired
     public NoticeInfo NoticeToNoticeInfo(Notice notice, List<Document> documents){
-        NoticeInfo noticeInfoDto = new NoticeInfo();
+        NoticeInfo noticeInfo = new NoticeInfo();
 
         NoticeTypeEnum noticeType = NoticeTypeEnum.find(notice.getType());
-        noticeInfoDto.setType(Integer.valueOf(noticeType.getContent()));
+        noticeInfo.setType(noticeType.getContent());
 
-        noticeInfoDto.setId(notice.getId());
-        noticeInfoDto.setCollage(notice.getCollage());
-        noticeInfoDto.setTitle(notice.getTitle());
-        noticeInfoDto.setContent(notice.getContent());
+        noticeInfo.setId(notice.getId());
+        noticeInfo.setCollage(notice.getCollage());
+        noticeInfo.setTitle(notice.getTitle());
+        noticeInfo.setContent(notice.getContent());
 
         HashMap<Integer, String> documentMap = new HashMap<>();
         for(Document document : documents){
             documentMap.put(document.getId(), document.getFileName());
         }
-        noticeInfoDto.setDocument(documentMap);
+        noticeInfo.setDocument(documentMap);
 
         if(notice.getPublishTime() != null){
             String publishTime = this.DateToString(notice.getPublishTime());
-            noticeInfoDto.setPublishTime(publishTime);
+            noticeInfo.setPublishTime(publishTime);
         }
 
-        return noticeInfoDto;
+        return noticeInfo;
     }
 
-    @Autowired
-    public Notice NoticeInfoToNotice(NoticeInfo noticeInfoDto){
+    public Notice NoticeInfoToNotice(NoticeInfo noticeInfo){
         Notice notice = new Notice();
 
-        NoticeTypeEnum noticeType = NoticeTypeEnum.find(noticeInfoDto.getType());
+        NoticeTypeEnum noticeType = NoticeTypeEnum.find(noticeInfo.getType());
         notice.setType(noticeType.getCode());
 
-        notice.setId(noticeInfoDto.getId());
-        notice.setCollage(noticeInfoDto.getCollage());
-        notice.setTitle(noticeInfoDto.getTitle());
-        notice.setContent(noticeInfoDto.getContent());
+        notice.setId(noticeInfo.getId());
+        notice.setCollage(noticeInfo.getCollage());
+        notice.setTitle(noticeInfo.getTitle());
+        notice.setContent(noticeInfo.getContent());
 
-        Integer[] documentIdList = noticeInfoDto.getDocument().keySet().toArray(new Integer[0]);
-        String documentIdStr = StringUtils.join(documentIdList, Parameter.splitChar);
+        val documentIdList = noticeInfo.getDocument().keySet().toArray(new String[0]);
+        String documentIdStr = String.join(Parameter.splitChar, documentIdList);
         notice.setDocumentId(documentIdStr);
 
-        Date publishTime = this.StringToDate(noticeInfoDto.getPublishTime());
+        Date publishTime = this.StringToDate(noticeInfo.getPublishTime());
         notice.setPublishTime(publishTime);
 
         return notice;
     }
 
-    @Autowired
-    public Requirement getRequirementFromRecruitInfo(RecruitInfo recruitInfoDto){
-        return recruitInfoDto.getRequirement();
+    public Requirement getRequirementFromRecruitInfo(RecruitInfo recruitInfo){
+        return recruitInfo.getRequirement();
     }
 
-    @Autowired
-    public Recruitment getRecruitmentFromRecruitInfo(RecruitInfo recruitInfoDto){
+    public Recruitment getRecruitmentFromRecruitInfo(RecruitInfo recruitInfo){
         Recruitment recruitment = new Recruitment();
 
-        Integer id = recruitInfoDto.getId();
+        Integer id = recruitInfo.getId();
         if(id != null){
-            recruitment.setId(recruitInfoDto.getId());
+            recruitment.setId(recruitInfo.getId());
         }
 
-        recruitment.setPosition(recruitInfoDto.getPosition());
-        recruitment.setWorkContent(recruitInfoDto.getWorkContent());
-        recruitment.setSalary(recruitInfoDto.getSalary());
-        recruitment.setWorkPlace(recruitInfoDto.getWorkPlace());
+        recruitment.setPosition(recruitInfo.getPosition());
+        recruitment.setWorkContent(recruitInfo.getWorkContent());
+        recruitment.setSalary(recruitInfo.getSalary());
+        recruitment.setWorkPlace(recruitInfo.getWorkPlace());
 
-        Integer requirementId = recruitInfoDto.getRequirement().getId();
+        Integer requirementId = recruitInfo.getRequirement().getId();
         if(requirementId != null){
             recruitment.setRequirementId(requirementId);
         }
 
-        HashMap<String, String> company = recruitInfoDto.getCompany();
+        HashMap<String, String> company = recruitInfo.getCompany();
         for(String key : company.keySet()){
             String companyId = company.get(key);
             if(key != null){
@@ -251,24 +241,22 @@ public class Conversation {
         return recruitment;
     }
 
-    @Autowired
     public RecruitInfo toRecruitInfo(Recruitment recruitment, Requirement requirement, Company company){
-        RecruitInfo recruitInfoDto = new RecruitInfo();
+        RecruitInfo recruitInfo = new RecruitInfo();
 
-        recruitInfoDto.setPosition(recruitment.getPosition());
-        recruitInfoDto.setWorkContent(recruitment.getWorkContent());
-        recruitInfoDto.setSalary(recruitment.getSalary());
-        recruitInfoDto.setWorkPlace(recruitment.getWorkPlace());
-        recruitInfoDto.setRequirement(requirement);
+        recruitInfo.setPosition(recruitment.getPosition());
+        recruitInfo.setWorkContent(recruitment.getWorkContent());
+        recruitInfo.setSalary(recruitment.getSalary());
+        recruitInfo.setWorkPlace(recruitment.getWorkPlace());
+        recruitInfo.setRequirement(requirement);
 
         HashMap<String, String> companyInfo = new HashMap<>();
-        companyInfo.put(company.getScc(), company.getCompanyName());
-        recruitInfoDto.setCompany(companyInfo);
+        companyInfo.put(company.getId(), company.getName());
+        recruitInfo.setCompany(companyInfo);
 
-        return recruitInfoDto;
+        return recruitInfo;
     }
 
-    @Autowired
     public ResumeInfo ResumeToResumeInfo(Resume resume){
         ResumeInfo resumeInfo = new ResumeInfo();
 
@@ -279,16 +267,12 @@ public class Conversation {
 
         return resumeInfo;
     }
-//
-//    @Autowired
-//    public Document ResumeToDocument(Resume resume){
-//        return new Document(resume.getContent(),
-//                resume.getFileName(), resume.getExtension());
-//
-//
-//    }
 
-    @Autowired
+    public Document ResumeToDocument(Resume resume){
+        return new Document(resume.getContent(),
+                resume.getFileName(), resume.getExtension());
+    }
+
     public Resume DocumentToResume(Document document, FlagEnum flagEnum){
         Resume resume = new Resume();
 
@@ -298,5 +282,71 @@ public class Conversation {
         resume.setFlag(flagEnum.getCode());
 
         return resume;
+    }
+
+    public MeetingInfo MeetingToMeetingInfo(Meeting meeting,
+                                            String companyName,
+                                            String classroomName,
+                                            Integer amount){
+        MeetingInfo meetingInfo = new MeetingInfo();
+
+        meetingInfo.setId(meeting.getId());
+        meetingInfo.setName(meeting.getName());
+
+        HashMap<String, String> company = new HashMap<>();
+        company.put(meeting.getCompanyId(), companyName);
+        meetingInfo.setCompany(company);
+
+        MeetingFormatEnum meetingFormat = MeetingFormatEnum.find(meeting.getMeetingFormat());
+        if(meetingFormat != null){
+            meetingInfo.setMeetingFormat(meetingFormat.getContent());
+        }
+
+        HashMap<Integer, String> classroom = new HashMap<>();
+        classroom.put(meeting.getClassroomId(), classroomName);
+        meetingInfo.setClassroom(classroom);
+
+        meetingInfo.setAmount(amount);
+        meetingInfo.setMajor(meeting.getMajor());
+
+        MeetingTypeEnum meetingType = MeetingTypeEnum.find(meeting.getMeetingType());
+        if(meetingType != null){
+            meetingInfo.setMeetingType(meetingType.getContent());
+        }
+
+        meetingInfo.setStartTime(this.DateToString(meeting.getStartTime()));
+
+        return meetingInfo;
+    }
+
+    public Meeting MeetingInfoToMeeting(MeetingInfo meetingInfo){
+        Meeting meeting = new Meeting();
+
+        meeting.setId(meetingInfo.getId());
+        meeting.setName(meetingInfo.getName());
+
+        String[] keys = meetingInfo.getCompany().keySet().toArray(new String[0]);
+        if(keys.length > 0){
+            meeting.setCompanyId(keys[0]);
+        }
+
+        MeetingFormatEnum meetingFormat = MeetingFormatEnum.find(meetingInfo.getMeetingFormat());
+        if(meetingFormat != null){
+            meeting.setMeetingFormat(meetingFormat.getCode());
+        }
+
+        Integer[] classroomIdList = meetingInfo.getClassroom().keySet().toArray(new Integer[0]);
+        meeting.setClassroomId(classroomIdList[0]);
+
+        meeting.setMajor(meetingInfo.getMajor());
+
+        MeetingTypeEnum meetingType = MeetingTypeEnum.find(meetingInfo.getMeetingType());
+        if(meetingType != null){
+            meeting.setMeetingType(meetingType.getCode());
+        }
+
+        meeting.setStartTime(this.StringToDate(meetingInfo.getStartTime()));
+
+        return meeting;
     }
 }

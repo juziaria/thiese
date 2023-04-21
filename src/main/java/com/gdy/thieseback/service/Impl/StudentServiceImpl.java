@@ -35,7 +35,7 @@ public class StudentServiceImpl extends ServiceImpl<StudentInfoMapper, Student> 
             throw new RuntimeException("该学生用户不存在，请联系管理员");
         }
         String checkPwd = encrypt.getMD5(studentPwd,res.getSalt());
-        if(!checkPwd.equals(res.getStudentPwd())){
+        if(!checkPwd.equals(res.getPwd())){
             throw new RuntimeException("密码错误");
         }
         return null;
@@ -50,13 +50,13 @@ public class StudentServiceImpl extends ServiceImpl<StudentInfoMapper, Student> 
     public String changePwd(ChangePwdDto changePwdDto){
         Student res = baseMapper.selectById(changePwdDto.getId());
         String checkPwd =encrypt.getMD5(changePwdDto.getOldPwd(),res.getSalt());
-        if (!checkPwd.equals(res.getStudentPwd())){
+        if (!checkPwd.equals(res.getPwd())){
             return "原密码错误";
         }
         String salt = encrypt.getSalt();
         String newPwd = encrypt.getMD5(changePwdDto.getNewPwd(),salt);
         res.setSalt(salt);
-        res.setStudentPwd(newPwd);
+        res.setPwd(newPwd);
         res.setModifiedTime(new Date());
         res.setModifiedUser(changePwdDto.getId());
         baseMapper.updateById(res);
