@@ -33,4 +33,14 @@
         where scc =#{company.scc}
     </update>
 
+    <select id = "selectDocument" resultType="com.gdy.thieseback.entity.Document">
+        select *
+        from document
+        where flag = #{flag};
+        <if test="id! = null and id! = 0">
+            and id = #{id}
+        </if>
+    </select>
+
+
 </mapper>

@@ -1,7 +1,9 @@
-package com.gdy.thieseback.entity;
+package com.gdy.thieseback.myEnum;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.Objects;
 
 public enum FlagEnum {
     Upload(0,"已上传"),//用户信息
@@ -33,7 +35,7 @@ public enum FlagEnum {
     }
 
     public static FlagEnum find(int code) {
-        for (FlagEnum value : FlagEnum.values()) {
+        for (FlagEnum value : values()) {
             if(code == value.code){
                 return value;
             }
@@ -44,8 +46,8 @@ public enum FlagEnum {
 
     @Autowired
     public static FlagEnum find(String content) {
-        for (FlagEnum value : FlagEnum.values()) {
-            if(content == value.content){
+        for (FlagEnum value : values()) {
+            if(Objects.equals(content, value.content)){
                 return value;
             }
         }

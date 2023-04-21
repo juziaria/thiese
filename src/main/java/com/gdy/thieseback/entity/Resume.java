@@ -11,7 +11,7 @@ import nonapi.io.github.classgraph.json.Id;
 @AllArgsConstructor
 @NoArgsConstructor
 @ApiModel("简历")
-public class Resumes {
+public class Resume {
     @Id
     @ApiModelProperty(value = "编号")
     private Integer id;

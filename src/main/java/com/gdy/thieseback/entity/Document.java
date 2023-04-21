@@ -1,5 +1,6 @@
 package com.gdy.thieseback.entity;
 
+import com.gdy.thieseback.myEnum.FlagEnum;
 import com.gdy.thieseback.util.MyPath;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

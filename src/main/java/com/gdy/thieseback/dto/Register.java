@@ -7,7 +7,7 @@ import lombok.Data;
 import java.io.Serializable;
 
 @Data
-public class RegisterDto implements Serializable {
+public class Register implements Serializable {
 
     @TableId
     @ApiModelProperty(value = "社会信用代码")

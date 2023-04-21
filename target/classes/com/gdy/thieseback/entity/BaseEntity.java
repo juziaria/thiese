@@ -27,7 +27,7 @@ public class BaseEntity implements Serializable {
 
     @JsonIgnore
     @ApiModelProperty(value = "最后修改执行人")
-    private Long modifiedUser;
+    private String modifiedUser;
 
     @JsonIgnore
     @ApiModelProperty(value = "最后修改时间")

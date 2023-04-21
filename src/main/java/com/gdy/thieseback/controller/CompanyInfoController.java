@@ -1,7 +1,7 @@
 package com.gdy.thieseback.controller;
 
 import com.gdy.thieseback.dto.ChangePwdDto;
-import com.gdy.thieseback.dto.RegisterDto;
+import com.gdy.thieseback.dto.Register;
 import com.gdy.thieseback.entity.Company;
 import com.gdy.thieseback.service.ICompanyInfoService;
 import io.swagger.annotations.Api;
@@ -18,7 +18,7 @@ public class CompanyInfoController {
 
     @ApiOperation("注册")
     @PostMapping("/register")
-    public String Register(@RequestBody RegisterDto registerDto){
+    public String Register(@RequestBody Register registerDto){
         return baseService.Register(registerDto);
     }
 

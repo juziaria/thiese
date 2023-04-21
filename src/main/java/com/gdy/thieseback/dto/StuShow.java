@@ -2,7 +2,7 @@ package com.gdy.thieseback.dto;
 
 import java.util.List;
 
-public class StuShowDto {
+public class StuShow {
     public List<StuInfoDto> stuInfoList;
     public List<String> major;
     public List<String> collage;

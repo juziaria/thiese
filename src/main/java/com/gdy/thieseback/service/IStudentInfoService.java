@@ -28,4 +28,17 @@ public interface IStudentInfoService extends IService<Student> {
      * @return
      */
     Student stuInfo(Student student);
+
+
+    /**
+     *
+     * 就业手续下载
+     *
+     */
+    Boolean downloadDocument(String saveDirPath,Integer id);
+
+    /**
+     * 文件查询
+     */
+    //List<DocumentInfoDto> showDocuments();
 }

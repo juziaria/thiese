@@ -3,11 +3,11 @@ package com.gdy.thieseback.dto;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DocumentShowDto {
+public class DocumentShow {
     public Integer count;
-    public List<DocumentInfoDto> documentInfoList;
+    public List<DocumentInfo> documentInfoList;
 
-    public DocumentShowDto(){
+    public DocumentShow(){
         this.count = 0;
         this.documentInfoList = new ArrayList<>();
     }

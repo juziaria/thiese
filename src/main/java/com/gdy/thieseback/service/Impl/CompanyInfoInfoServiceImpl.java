@@ -2,7 +2,7 @@ package com.gdy.thieseback.service.Impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.gdy.thieseback.dto.ChangePwdDto;
-import com.gdy.thieseback.dto.RegisterDto;
+import com.gdy.thieseback.dto.Register;
 import com.gdy.thieseback.entity.Company;
 import com.gdy.thieseback.mapper.CompanyInfoMapper;
 import com.gdy.thieseback.service.ICompanyInfoService;
@@ -18,7 +18,7 @@ public class CompanyInfoInfoServiceImpl extends ServiceImpl<CompanyInfoMapper, C
     Encrypt encrypt = new Encrypt();
 
     @Override
-    public String Register(RegisterDto registerDto){
+    public String Register(Register registerDto){
         Company company = baseMapper.selectById(registerDto.getScc());
         if (company!=null){
             return "该企业已注册！是否忘记密码";

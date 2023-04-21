@@ -20,7 +20,7 @@ public class Company extends BaseEntity implements Serializable {
     @TableId
     @Nullable
     @ApiModelProperty(value = "社会信用代码")
-    private Long scc;
+    private String scc;
 
     @JsonIgnore
     @ApiModelProperty(value ="公司密码")
@@ -50,5 +50,4 @@ public class Company extends BaseEntity implements Serializable {
     @JsonIgnore
     @ApiModelProperty(value = "盐值")
     private String salt;
-
 }

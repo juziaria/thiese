@@ -1,13 +1,13 @@
-package com.gdy.thieseback.entity;
+package com.gdy.thieseback.myEnum;
 
-
-import kotlin.OverloadResolutionByLambdaReturnType;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public enum GenderEnum {
-    MAN(0,"男"),
-    WOMAN(1,"女"),
-    NOLL(2,"不知道"),
+import java.util.Objects;
+
+public enum MeetingTypeEnum {
+    DoubleChoiceMeeting(0,"双选会"),
+    TeachIn(1,"宣讲会"),
+    NOLL(2,"暂定"),
     ;
 
     public int getCode() {
@@ -21,13 +21,13 @@ public enum GenderEnum {
     private int code;
     private String content;
 
-    GenderEnum(int code, String content){
+    MeetingTypeEnum(int code, String content){
         this.code = code;
         this.content = content;
     }
 
-    public static GenderEnum find(int code) {
-        for (GenderEnum value : GenderEnum.values()) {
+    public static MeetingTypeEnum find(int code) {
+        for (MeetingTypeEnum value : values()) {
             if(code == value.code){
                 return value;
             }
@@ -37,9 +37,9 @@ public enum GenderEnum {
     }
 
     @Autowired
-    public static GenderEnum find(String content) {
-        for (GenderEnum value : GenderEnum.values()) {
-            if(content == value.content){
+    public static MeetingTypeEnum find(String content) {
+        for (MeetingTypeEnum value : values()) {
+            if(Objects.equals(content, value.content)){
                 return value;
             }
         }

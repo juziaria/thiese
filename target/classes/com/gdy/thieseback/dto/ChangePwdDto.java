@@ -17,7 +17,7 @@ public class ChangePwdDto implements Serializable {
 
     @TableId
     @ApiModelProperty(value = "社会信用代码/学号")
-    private Long id;
+    private String id;
 
     @ApiModelProperty(value = "旧密码")
     private String oldPwd;

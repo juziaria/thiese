@@ -1,13 +1,12 @@
 package com.gdy.thieseback.dto;
 
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.util.HashMap;
 
 
 @Data
-public class NoticeInfoDto {
+public class NoticeInfo {
     private int id;
 
     private String publishTime;
@@ -19,5 +18,7 @@ public class NoticeInfoDto {
     private String content;
 
     private HashMap<Integer, String> document;
+
+    private Integer type;
 
 }

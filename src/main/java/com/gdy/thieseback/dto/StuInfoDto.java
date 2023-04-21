@@ -14,7 +14,7 @@ import java.util.Date;
 public class StuInfoDto extends PageQuery implements Serializable {
     @ExcelProperty("学号")
     @ApiModelProperty(value = "学号")
-    private Long id;
+    private String id;
 
     @ExcelProperty("学生身份证号码")
     @ApiModelProperty(value = "学生身份证号码")
@@ -69,11 +69,14 @@ public class StuInfoDto extends PageQuery implements Serializable {
 
 
     @ApiModelProperty(value = "最后修改执行人")
-    private Long modifiedUser;
+    private String modifiedUser;
 
 
     @ApiModelProperty(value = "最后修改时间")
     private Date modifiedTime;
 
+
+    @ApiModelProperty(value = "就业状态")
+    private Integer employmentStatus;
 
 }
