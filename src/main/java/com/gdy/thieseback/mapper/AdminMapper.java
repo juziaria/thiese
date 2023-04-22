@@ -2,7 +2,6 @@ package com.gdy.thieseback.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.gdy.thieseback.entity.*;
-import io.swagger.models.auth.In;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -14,10 +13,6 @@ import java.util.List;
  */
 @Mapper
 public interface AdminMapper extends BaseMapper<Admin> {
-    List<Admin> findAdmin(@Param("id") String id,
-                          @Param("pwd") String pwd,
-                          @Param("flag") Integer flag);
-
     List<String> selectStuCollage(@Param("flag") Integer flag);
 
     List<Integer> selectStuGrade(@Param("flag") Integer flag);
@@ -40,17 +35,13 @@ public interface AdminMapper extends BaseMapper<Admin> {
                             @Param("stuClass") Integer stuClass,
                             @Param("flag") Integer flag);
 
+    Employment selectEmployment(@Param("studentId") String studentId);
+
     List<Company> selectCompany(@Param("id") String id,
                                 @Param("start") Date start,
                                 @Param("end") Date end,
                                 @Param("address") String address,
                                 @Param("flag") Integer flag);
-
-    Boolean initialStuPassword(@Param("id") String id,
-                               @Param("pwd") String pwd);
-
-    Boolean initialCompanyPassword(@Param("id") String id,
-                                   @Param("pwd") String pwd);
 
     Boolean updateStu(@Param("student") Student student);
 
@@ -76,18 +67,10 @@ public interface AdminMapper extends BaseMapper<Admin> {
     Boolean updateNoticeFlag(@Param("id") Integer id,
                              @Param("flag") Integer flag);
 
-    Boolean insertRecruitment(@Param("recruitment") Recruitment recruitment);
-
-    Boolean insertRequirement(@Param("requirement") Requirement requirement);
-
-    List<String> selectWorkPlace();
-
-    List<Recruitment> selectRecruitments(@Param("flag") Integer flag,
-                                         @Param("salaryMin") Integer salaryMin,
-                                         @Param("salaryMax") Integer salaryMax,
-                                         @Param("workPlace") String workPlace);
-
-    Requirement selectRequirement(@Param("id") Integer id);
+    List<Recruit> selectRecruitments(@Param("id") Integer id,
+                                     @Param("flag") Integer flag,
+                                     @Param("companyScc") String companyScc,
+                                     @Param("major") String major);
 
     Boolean updateRecruitmentFlag(@Param("id") Integer id,
                                   @Param("flag") Integer flag);
@@ -106,14 +89,16 @@ public interface AdminMapper extends BaseMapper<Admin> {
     Boolean updateMeetingFlag(@Param("id") Integer id,
                               @Param("flag") Integer flag);
 
-    Boolean updateMeetingClassroom(@Param("id") Integer id,
-                                   @Param("classroomId")Integer classroomId);
+    MeetingLocation selectMeetingLocation(@Param("id") Integer id);
 
-    List<Classroom> selectEmptyClassroom(@Param("flag") Integer flag,
-                                         @Param("id") Integer id);
+    Boolean updateMeetingLocation(@Param("id") Integer id,
+                                  @Param("locationId")Integer locationId);
 
-    Boolean updateEmptyClassroomFlag(@Param("flag") Integer flag,
-                                     @Param("id") Integer id);
+    List<MeetingLocation> selectEmptyMeetingLocation(@Param("flag") Integer flag,
+                                                     @Param("id") Integer id);
+
+    Boolean updateMeetingLocationFlag(@Param("flag") Integer flag,
+                                      @Param("id") Integer id);
 
     List<String> selectAdvices(@Param("grade") Integer grade);
 

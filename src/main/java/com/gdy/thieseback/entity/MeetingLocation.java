@@ -4,9 +4,12 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 @Data
-public class Classroom {
+public class MeetingLocation {
     @ApiModelProperty(value = "主键")
     private Integer id;
+
+    @ApiModelProperty(value = "地点性质")
+    private Integer format;
 
     @ApiModelProperty(value = "最大容纳数量")
     private Integer maxCount;

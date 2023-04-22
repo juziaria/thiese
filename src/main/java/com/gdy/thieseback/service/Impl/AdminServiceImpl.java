@@ -7,7 +7,6 @@ import com.gdy.thieseback.entity.*;
 import com.gdy.thieseback.myEnum.*;
 import com.gdy.thieseback.util.Conversation;
 import com.gdy.thieseback.service.AdminService;
-import io.swagger.models.auth.In;
 import lombok.val;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,26 +28,6 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
     private AdminMapper adminMapper;
 
     private final Conversation conversation = new Conversation();
-
-    /**
-     * 定义一个md5算法的加密处理
-     */
-    private  String getMD5(String PWD,String salt){
-        for(int i = 0; i<3;i++){
-            PWD= DigestUtils.md5DigestAsHex((salt+PWD+salt).getBytes()).toUpperCase();
-        }
-        return PWD;
-    }
-
-
-    @Override
-    public Admin login(String id,String pwd) {
-        int flag = FlagEnum.Upload.getCode();
-
-        //密码加密
-
-        return adminMapper.findAdmin(id, pwd, flag).get(0);
-    }
 
     @Override
     public List<String> selectStuCollage() {
@@ -102,7 +81,9 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
         List<StuInfo> stuInfos = new ArrayList<>();
 
         for (Student student : students) {
-            stuInfos.add(conversation.StuToStuInfo(student));
+            Employment employment = adminMapper.selectEmployment(student.getId());
+            EmploymentStatusEnum employmentStatusEnum = EmploymentStatusEnum.find(employment.getId());
+            stuInfos.add(conversation.StuToStuInfo(student, employmentStatusEnum));
         }
         return stuInfos;
     }
@@ -117,16 +98,6 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
         }
 
         return companyInfos;
-    }
-
-    @Override
-    public Boolean initialStuPassword(String id) {
-        return adminMapper.initialStuPassword(id, Parameter.InitPwd);
-    }
-
-    @Override
-    public Boolean initialCompanyPassword(String id) {
-        return adminMapper.initialCompanyPassword(id, Parameter.InitPwd);
     }
 
     @Override
@@ -226,38 +197,8 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
     }
 
     @Override
-    public List<String> selectWorkPlace() {
-        return adminMapper.selectWorkPlace();
-    }
-
-    @Override
-    public Boolean publishRecruitment(Recruitment recruitment, Requirement requirement) {
-        Boolean result = false;
-
-        result = adminMapper.insertRequirement(requirement);
-
-        recruitment.setRequirementId(requirement.getId());
-        recruitment.setFlag(FlagEnum.Publish.getCode());
-        result = adminMapper.insertRecruitment(recruitment);
-
-        return result;
-    }
-
-    @Override
-    public List<RecruitInfo> recruitmentShow(FlagEnum flagEnum, Integer salaryMin, Integer salaryMax, String workPlace) {
-        List<RecruitInfo> recruitInfoList = new ArrayList<>();
-        List<Recruitment> recruitmentList = adminMapper.selectRecruitments(flagEnum.getCode(),
-                salaryMin, salaryMax, workPlace);
-
-        for(Recruitment recruitment : recruitmentList){
-            Requirement requirement = adminMapper.selectRequirement(recruitment.getId());
-            Company company = adminMapper.selectCompany(recruitment.getCompanyId(),
-                    null, null, null, FlagEnum.Upload.getCode()).get(0);
-
-            recruitInfoList.add(conversation.toRecruitInfo(recruitment, requirement, company));
-        }
-
-        return recruitInfoList;
+    public List<Recruit> recruitmentShow(FlagEnum flagEnum, String companyScc, String major) {
+        return adminMapper.selectRecruitments(null, flagEnum.getCode(), companyScc, major);
     }
 
     @Override
@@ -303,14 +244,17 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
         List<MeetingInfo> meetingInfoList = new ArrayList<>();
 
         for(val meeting : meetingList){
-            val company = adminMapper.selectCompany(meeting.getCompanyId(),
+            val company = adminMapper.selectCompany(meeting.getCompanyScc(),
                     null, null, null, FlagEnum.Upload.getCode()).get(0);
 
-            val classroom = adminMapper.selectEmptyClassroom(FlagEnum.NotUsed.getCode(),
-                    meeting.getClassroomId()).get(0);
+            val classroom = adminMapper.selectEmptyMeetingLocation(
+                    FlagEnum.NotUsed.getCode(), meeting.getMeetingLocationId()).get(0);
+
+            val meetingLocation = adminMapper.selectMeetingLocation(
+                    meeting.getMeetingLocationId());
 
             val meetingInfo = conversation.MeetingToMeetingInfo(meeting,
-                    company.getName(), classroom.getName(), classroom.getMaxCount());
+                    company.getName(), meetingLocation);
 
             meetingInfoList.add(meetingInfo);
         }
@@ -321,24 +265,24 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
     @Override
     public void deleteMeeting(Integer id) {
         val meeting = adminMapper.selectMeeting(null, id).get(0);
-        adminMapper.updateEmptyClassroomFlag(FlagEnum.NotUsed.getCode(), meeting.getClassroomId());
+        adminMapper.updateMeetingLocation(FlagEnum.NotUsed.getCode(), meeting.getMeetingLocationId());
         adminMapper.updateMeetingFlag(id, FlagEnum.Delete.getCode());
     }
 
     @Override
     public Boolean EnsureMeeting(Integer id, Integer classroomId) {
-        adminMapper.updateEmptyClassroomFlag(classroomId, FlagEnum.Using.getCode());
-        adminMapper.updateMeetingClassroom(id, classroomId);
+        adminMapper.updateMeetingLocationFlag(classroomId, FlagEnum.Using.getCode());
+        adminMapper.updateMeetingLocation(id, classroomId);
         return adminMapper.updateMeetingFlag(id, FlagEnum.NotStarted.getCode());
     }
 
     @Override
     public HashMap<Integer, String> showEmptyClassroom() {
-        List<Classroom> classroomList = adminMapper.selectEmptyClassroom(
+        List<MeetingLocation> meetingLocationList = adminMapper.selectEmptyMeetingLocation(
                 FlagEnum.NotUsed.getCode(), null);
 
         HashMap<Integer, String> emptyClassrooom = new HashMap<>();
-        for(val classroom : classroomList){
+        for(val classroom : meetingLocationList){
             emptyClassrooom.put(classroom.getId(), classroom.getName());
         }
         return emptyClassrooom;

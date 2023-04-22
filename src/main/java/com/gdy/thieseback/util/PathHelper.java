@@ -5,7 +5,7 @@ import lombok.Data;
 import java.io.UnsupportedEncodingException;
 
 @Data
-public class MyPath {
+public class PathHelper {
     private String path;
 
     public String getPath() {
@@ -18,9 +18,9 @@ public class MyPath {
         return null;
     }
 
-    public MyPath(){}
+    public PathHelper(){}
 
-    public MyPath(String path){
+    public PathHelper(String path){
         path = path.replace("\\\\","/");
         this.path = path;
     }

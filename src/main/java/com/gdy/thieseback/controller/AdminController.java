@@ -5,11 +5,10 @@ import com.gdy.thieseback.entity.*;
 import com.gdy.thieseback.myEnum.FlagEnum;
 import com.gdy.thieseback.service.AdminService;
 import com.gdy.thieseback.util.Conversation;
-import com.gdy.thieseback.util.MyPath;
+import com.gdy.thieseback.util.PathHelper;
 import com.gdy.thieseback.entity.Admin;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,12 +29,6 @@ public class AdminController{
     private AdminService adminService;
     private final Conversation conversation = new Conversation();
     private final Parameter p = new Parameter();
-
-    @ApiOperation("登录")
-    @GetMapping("/login")
-    public Admin login(@RequestParam String id, @RequestParam String pwd){
-        return adminService.login(id, pwd);
-    }
 
     @ApiOperation("删除学生")
     @GetMapping("/deleteStudents")
@@ -82,18 +75,6 @@ public class AdminController{
         return companyShow;
     }
 
-    @ApiOperation("设置学生初始密码")
-    @GetMapping("/initialStuPassword")
-    public Boolean initialStuPassword(@RequestParam String id){
-        return adminService.initialStuPassword(id);
-    }
-
-    @ApiOperation("密码初始化")
-    @GetMapping("/initialCompanyPassword")
-    public Boolean initialCompanyPassword(@RequestParam String id){
-        return adminService.initialCompanyPassword(id);
-    }
-
     @ApiOperation("更新学生信息")
     @PostMapping("/updateStu")
     public Boolean updateStu(@RequestBody StuInfo stuInfo){
@@ -109,7 +90,7 @@ public class AdminController{
     @ApiOperation("上传文件")
     @GetMapping("/uploadDocument")
     public Boolean documentUpload(@RequestParam String documentPath){
-        MyPath filePath = new MyPath(documentPath);
+        PathHelper filePath = new PathHelper(documentPath);
         File file = new File(filePath.getPath());
         if(file.exists() && file.isFile()){
             Document document = new Document(file);
@@ -239,33 +220,18 @@ public class AdminController{
         return adminService.selectCompanyName();
     }
 
-    @ApiOperation("返回工作地点列表")
-    @GetMapping("/selectWorkPlace")
-    List<String> selectWorkPlace(){
-        return adminService.selectWorkPlace();
-    }
-
-    @ApiOperation("发布招聘信息")
-    @PostMapping("/publishRecruitment")
-    public Boolean publishRecruitment(@RequestBody RecruitInfo recruitInfo){
-        Recruitment recruitment = conversation.getRecruitmentFromRecruitInfo(recruitInfo);
-        Requirement requirement = conversation.getRequirementFromRecruitInfo(recruitInfo);
-        return adminService.publishRecruitment(recruitment, requirement);
-    }
-
     @ApiOperation("浏览招聘信息")
     @GetMapping("/recruitmentShow")
-    public List<RecruitInfo> recruitmentShow(@RequestParam String flagContent,
-                                             @RequestParam Integer salaryMin,
-                                             @RequestParam Integer salaryMAX,
-                                             @RequestParam String workPlace){
+    public List<Recruit> recruitmentShow(@RequestParam String flagContent,
+                                         @RequestParam String companyScc,
+                                         @RequestParam String major){
         if(flagContent != null && !flagContent.equals("")){
             FlagEnum flagEnum = FlagEnum.find(flagContent);
 
-            return adminService.recruitmentShow(flagEnum, salaryMin, salaryMAX, workPlace);
+            return adminService.recruitmentShow(flagEnum, companyScc, major);
         }
 
-        return new ArrayList<RecruitInfo>();
+        return new ArrayList<>();
     }
 
     @ApiOperation("驳回")
@@ -308,7 +274,7 @@ public class AdminController{
     @ApiOperation("上传简历")
     @GetMapping("/uploadResume")
     public Boolean uploadResume(@RequestParam String resumePath){
-        MyPath filePath = new MyPath(resumePath);
+        PathHelper filePath = new PathHelper(resumePath);
         File file = new File(filePath.getPath());
         if(file.exists() && file.isFile()){
             Document document = new Document(file);

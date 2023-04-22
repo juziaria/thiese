@@ -12,11 +12,6 @@ import java.util.List;
 
 @Component
 public interface AdminService extends IService<Admin> {
-    //List<Student> initialStuPassword();
-    /**
-     * 登录
-     */
-    Admin login(String id,String pwd);
     /**
      * 有效学生学院
      */
@@ -53,14 +48,6 @@ public interface AdminService extends IService<Admin> {
      * 公司账号查询
      */
     List<CompanyInfo> SelectCompany(Date start, Date end, String address);
-    /**
-     * 初始化学生账号密码
-     */
-    Boolean initialStuPassword(String id);
-    /**
-     * 初始化公司账号密码
-     */
-    Boolean initialCompanyPassword(String id);
     /**
      * 修改学生信息
      */
@@ -111,17 +98,9 @@ public interface AdminService extends IService<Admin> {
      */
     HashMap<String, String> selectCompanyName();
     /**
-     * 工作地点列表
-     */
-    List<String> selectWorkPlace();
-    /**
-     *发布招聘信息
-     */
-    Boolean publishRecruitment(Recruitment recruitment, Requirement requirement);
-    /**
      *展示招聘信息（需二次处理）
      */
-    List<RecruitInfo> recruitmentShow(FlagEnum flagEnum, Integer salaryMin, Integer salaryMax, String workPlace);
+    List<Recruit> recruitmentShow(FlagEnum flagEnum, String companyScc, String major);
     /**
      *修改招聘信息状态
      */

@@ -14,7 +14,7 @@ public class MeetingInfo {
 
     private String meetingFormat;
 
-    private HashMap<Integer, String> classroom;
+    private HashMap<Integer, String> location;
 
     private Integer amount;
 

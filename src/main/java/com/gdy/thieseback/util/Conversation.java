@@ -4,7 +4,6 @@ import com.gdy.thieseback.dto.*;
 import com.gdy.thieseback.entity.*;
 import com.gdy.thieseback.myEnum.*;
 import lombok.val;
-import org.apache.tomcat.util.buf.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.text.DecimalFormat;
@@ -38,16 +37,10 @@ public class Conversation {
             student.setGender(gender);
         }
 
-        EmploymentStatusEnum employmentStatusEnum = EmploymentStatusEnum.find(stuInfo.getEmployment());
-        if(employmentStatusEnum != null){
-            Integer employmentId = employmentStatusEnum.getCode();
-            student.setEmploymentId(employmentId);
-        }
-
         return student;
     }
 
-    public StuInfo StuToStuInfo(Student student){
+    public StuInfo StuToStuInfo(Student student, EmploymentStatusEnum employmentStatusEnum){
         StuInfo stuInfo = new StuInfo();
 
         stuInfo.setId(student.getId());
@@ -63,7 +56,6 @@ public class Conversation {
         GenderEnum genderEnum = GenderEnum.find(student.getGender());
         stuInfo.setStudentGender(genderEnum.getContent());
 
-        EmploymentStatusEnum employmentStatusEnum = EmploymentStatusEnum.find(student.getEmploymentId());
         stuInfo.setEmployment(employmentStatusEnum.getContent());
 
         return stuInfo;
@@ -208,55 +200,6 @@ public class Conversation {
         return notice;
     }
 
-    public Requirement getRequirementFromRecruitInfo(RecruitInfo recruitInfo){
-        return recruitInfo.getRequirement();
-    }
-
-    public Recruitment getRecruitmentFromRecruitInfo(RecruitInfo recruitInfo){
-        Recruitment recruitment = new Recruitment();
-
-        Integer id = recruitInfo.getId();
-        if(id != null){
-            recruitment.setId(recruitInfo.getId());
-        }
-
-        recruitment.setPosition(recruitInfo.getPosition());
-        recruitment.setWorkContent(recruitInfo.getWorkContent());
-        recruitment.setSalary(recruitInfo.getSalary());
-        recruitment.setWorkPlace(recruitInfo.getWorkPlace());
-
-        Integer requirementId = recruitInfo.getRequirement().getId();
-        if(requirementId != null){
-            recruitment.setRequirementId(requirementId);
-        }
-
-        HashMap<String, String> company = recruitInfo.getCompany();
-        for(String key : company.keySet()){
-            String companyId = company.get(key);
-            if(key != null){
-                recruitment.setCompanyId(companyId);
-            }
-        }
-
-        return recruitment;
-    }
-
-    public RecruitInfo toRecruitInfo(Recruitment recruitment, Requirement requirement, Company company){
-        RecruitInfo recruitInfo = new RecruitInfo();
-
-        recruitInfo.setPosition(recruitment.getPosition());
-        recruitInfo.setWorkContent(recruitment.getWorkContent());
-        recruitInfo.setSalary(recruitment.getSalary());
-        recruitInfo.setWorkPlace(recruitment.getWorkPlace());
-        recruitInfo.setRequirement(requirement);
-
-        HashMap<String, String> companyInfo = new HashMap<>();
-        companyInfo.put(company.getScc(), company.getName());
-        recruitInfo.setCompany(companyInfo);
-
-        return recruitInfo;
-    }
-
     public ResumeInfo ResumeToResumeInfo(Resume resume){
         ResumeInfo resumeInfo = new ResumeInfo();
 
@@ -286,30 +229,29 @@ public class Conversation {
 
     public MeetingInfo MeetingToMeetingInfo(Meeting meeting,
                                             String companyName,
-                                            String classroomName,
-                                            Integer amount){
+                                            MeetingLocation meetingLocation){
         MeetingInfo meetingInfo = new MeetingInfo();
 
         meetingInfo.setId(meeting.getId());
         meetingInfo.setName(meeting.getName());
 
         HashMap<String, String> company = new HashMap<>();
-        company.put(meeting.getCompanyId(), companyName);
+        company.put(meeting.getCompanyScc(), companyName);
         meetingInfo.setCompany(company);
 
-        MeetingFormatEnum meetingFormat = MeetingFormatEnum.find(meeting.getMeetingFormat());
+        MeetingFormatEnum meetingFormat = MeetingFormatEnum.find(meetingLocation.getFormat());
         if(meetingFormat != null){
             meetingInfo.setMeetingFormat(meetingFormat.getContent());
         }
 
         HashMap<Integer, String> classroom = new HashMap<>();
-        classroom.put(meeting.getClassroomId(), classroomName);
-        meetingInfo.setClassroom(classroom);
+        classroom.put(meetingLocation.getId(), meetingLocation.getName());
+        meetingInfo.setLocation(classroom);
 
-        meetingInfo.setAmount(amount);
+        meetingInfo.setAmount(meetingLocation.getMaxCount());
         meetingInfo.setMajor(meeting.getMajor());
 
-        MeetingTypeEnum meetingType = MeetingTypeEnum.find(meeting.getMeetingType());
+        MeetingTypeEnum meetingType = MeetingTypeEnum.find(meeting.getType());
         if(meetingType != null){
             meetingInfo.setMeetingType(meetingType.getContent());
         }
@@ -327,22 +269,17 @@ public class Conversation {
 
         String[] keys = meetingInfo.getCompany().keySet().toArray(new String[0]);
         if(keys.length > 0){
-            meeting.setCompanyId(keys[0]);
+            meeting.setCompanyScc(keys[0]);
         }
 
-        MeetingFormatEnum meetingFormat = MeetingFormatEnum.find(meetingInfo.getMeetingFormat());
-        if(meetingFormat != null){
-            meeting.setMeetingFormat(meetingFormat.getCode());
-        }
-
-        Integer[] classroomIdList = meetingInfo.getClassroom().keySet().toArray(new Integer[0]);
-        meeting.setClassroomId(classroomIdList[0]);
+        Integer[] classroomIdList = meetingInfo.getLocation().keySet().toArray(new Integer[0]);
+        meeting.setMeetingLocationId(classroomIdList[0]);
 
         meeting.setMajor(meetingInfo.getMajor());
 
         MeetingTypeEnum meetingType = MeetingTypeEnum.find(meetingInfo.getMeetingType());
         if(meetingType != null){
-            meeting.setMeetingType(meetingType.getCode());
+            meeting.setType(meetingType.getCode());
         }
 
         meeting.setStartTime(this.StringToDate(meetingInfo.getStartTime()));

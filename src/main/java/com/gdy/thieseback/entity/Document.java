@@ -1,6 +1,6 @@
 package com.gdy.thieseback.entity;
 
-import com.gdy.thieseback.util.MyPath;
+import com.gdy.thieseback.util.PathHelper;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -88,12 +88,12 @@ public class Document {
     }
 
     public Boolean save(String path){
-        MyPath myPath = new MyPath(path);
+        PathHelper pathHelper = new PathHelper(path);
 
         try {
             BASE64Decoder decoder = new BASE64Decoder();
             byte[] bytes = decoder.decodeBuffer(this.content);
-            OutputStream os = new FileOutputStream(myPath.getPath());
+            OutputStream os = new FileOutputStream(pathHelper.getPath());
             os.write(bytes, 0, bytes.length);
             os.flush();
             os.close();
@@ -107,8 +107,8 @@ public class Document {
 
     public String getSavaPath(String dirPath){
         String path = String.format("%s\\\\%s.%s", dirPath, this.name, this.extension);
-        MyPath myPath = new MyPath(path);
-        return myPath.getPath();
+        PathHelper pathHelper = new PathHelper(path);
+        return pathHelper.getPath();
     }
 
     public String getFileName(){

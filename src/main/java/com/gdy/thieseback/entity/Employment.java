@@ -18,6 +18,9 @@ public class Employment {
     @ApiModelProperty(value = "主键")
     private Integer id;
 
+    @ApiModelProperty(value = "学生ID")
+    private String studentId;
+
     @ApiModelProperty(value = "工作现状")
     private Integer employmentStatus;
 

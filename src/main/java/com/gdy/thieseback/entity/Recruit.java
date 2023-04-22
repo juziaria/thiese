@@ -18,7 +18,7 @@ public class Recruit extends BaseEntity implements Serializable {
 
     @JsonIgnore
     @ApiModelProperty(value = "社会信用代码")
-    private Long scc;
+    private String scc;
 
     @ApiModelProperty(value = "企业名称")
     private String companyName;
@@ -34,4 +34,7 @@ public class Recruit extends BaseEntity implements Serializable {
 
     @ApiModelProperty(value = "办公地址")
     private String address;
+
+    @ApiModelProperty(value = "状态")
+    private Integer flag;
 }

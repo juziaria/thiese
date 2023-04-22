@@ -2,12 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gdy.graduate.dao.AdminMapper">
 
-    <select id="findAdmin" resultType="com.gdy.thieseback.entity.Admin">
-        select *
-        from admin
-        where flag = #{flag} and id = #{id} and pwd = #{pwd}
-    </select>
-
     <select id="selectStuCollage" resultType="String">
         select distinct collage
         from student
@@ -69,6 +63,12 @@
         </if>
     </select>
 
+    <select id="selectEmployment" resultType="com.gdy.thieseback.entity.Employment">
+        select *
+        from employment
+        where studentId = #{studentId}
+    </select>
+
     <select id="selectCompany" resultType="com.gdy.thieseback.entity.Company">
         select *
         from company
@@ -87,18 +87,6 @@
             and address = #{address}
         </if>
     </select>
-
-    <update id="initialStuPassword">
-        update student
-        set pwd = #{pwd}
-        where id = #{id}
-    </update>
-
-    <update id="initialCompanyPassword">
-        update company
-        set pwd = #{pwd}
-        where id = #{id}
-    </update>
 
     <update id="updateStu">
         update student
@@ -186,50 +174,26 @@
         where id = #{id}
     </update>
 
-    <insert id="insertRecruitment">
-        insert into recruitment (position, "workPlace", salary, "workContent", "companyId", "requirementId", flag)
-        values (#{recruitment.position}, #{recruitment.workPlace}, #{recruitment.salary}, #{recruitment.workContent},
-                #{companyId}, #{recruitment.requirementId}, #{recruitment.flag})
-    </insert>
-    
-    <insert id="insertRequirement" parameterType="com.gdy.thieseback.entity.Requirement"
-            useGeneratedKeys="true" keyProperty="id">
-        insert into requirement (gender, major, content, degree, "minYear", "maxYear")
-        values (#{requirement.gender}, #{requirement.major}, #{requirement.content}, #{requirement.degree},
-                #{requirement.minYear}, #{requirement.maxYear});
-    </insert>
-
-    <select id="selectWorkPlace" resultType="String">
-        select distinct "workPlace"
-        from recruitment;
-    </select>
-
     <select id="selectRecruitments" resultType="com.gdy.thieseback.entity.Recruitment">
         select *
-        from recruitment
+        from recruit
         where 1 = 1
+        <if test="id != null">
+            and id = #{id}
+        </if>
         <if test="flag != null">
             and flag = #{flag}
         </if>
-        <if test="salaryMin != null">
-            and salary >= #{salaryMin}
+        <if test="companyScc != null and companyScc != ''">
+            and companyScc = #{companyScc}
         </if>
-        <if test="salaryMax != null">
-            and #{salaryMax} >= salary
+        <if test="major != null and major != ''">
+            and major like %#{major}%
         </if>
-        <if test="workPlace != null and workPlace != ''">
-            and "workPlace" = #{workPlace}
-        </if>
-    </select>
-    
-    <select id="selectRequirement" resultType="com.gdy.thieseback.entity.Requirement">
-        select *
-        from requirement
-        where id = #{id}
     </select>
 
     <update id="updateRecruitmentFlag">
-        update recruitment
+        update recruit
         set flag = #{flag}
         where id = #{id}
     </update>
@@ -274,23 +238,29 @@
         where id = #{id}
     </update>
 
-    <update id="updateMeetingClassroom">
+    <select id="selectMeetingLocation" resultType="com.gdy.thieseback.entity.MeetingLocation">
+        select *
+        from meetinLocation
+        where id = #{id}
+    </select>
+
+    <update id="updateMeetingLocation">
         update meeting
-        set "classroomId" = #{classroomId}
+        set locationId = #{locationId}
         where id = #{id}
     </update>
 
-    <select id="selectEmptyClassroom" resultType="com.gdy.thieseback.entity.Classroom">
+    <select id="selectEmptyMeetingLocation" resultType="com.gdy.thieseback.entity.MeetingLocation">
         select *
-        from classroom
+        from meetingLocation
         where flag = #{flag}
         <if test="id != null">
             and id = #{id}
         </if>
     </select>
 
-    <update id="updateEmptyClassroomFlag">
-        update classroom
+    <update id="updateMeetingLocationFlag">
+        update meetingLocation
         set flag = #{flag}
         where id = #{id}
     </update>
