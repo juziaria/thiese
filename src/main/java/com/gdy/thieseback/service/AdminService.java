@@ -149,7 +149,7 @@ public interface AdminService extends IService<Admin> {
     /**
      *删除会议信息
      */
-    Boolean deleteMeeting();
+    void deleteMeeting(Integer id);
     /**
      *分配教室，并发布
      */
@@ -158,4 +158,12 @@ public interface AdminService extends IService<Admin> {
      *查询空教室
      */
     HashMap<Integer, String> showEmptyClassroom();
+    /**
+     *查询空教室
+     */
+    List<String> showAdvices(Integer grade);
+    /**
+     *是否打开问卷填写
+     */
+    Boolean updateIfOpenQuestionnaire(Boolean value);
 }

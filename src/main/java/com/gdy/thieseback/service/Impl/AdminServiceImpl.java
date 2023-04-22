@@ -7,6 +7,8 @@ import com.gdy.thieseback.entity.*;
 import com.gdy.thieseback.myEnum.*;
 import com.gdy.thieseback.util.Conversation;
 import com.gdy.thieseback.service.AdminService;
+import io.swagger.models.auth.In;
+import lombok.val;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
@@ -217,7 +219,7 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
 
         HashMap<String, String> companyInfo = new HashMap<>();
         for (Company company : companyList) {
-            companyInfo.put(company.getId(), company.getName());
+            companyInfo.put(company.getScc(), company.getName());
         }
 
         return companyInfo;
@@ -297,22 +299,59 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
 
     @Override
     public List<MeetingInfo> showMeeting(FlagEnum flagEnum) {
-        return null;
+        List<Meeting> meetingList = adminMapper.selectMeeting(flagEnum.getCode(), null);
+        List<MeetingInfo> meetingInfoList = new ArrayList<>();
+
+        for(val meeting : meetingList){
+            val company = adminMapper.selectCompany(meeting.getCompanyId(),
+                    null, null, null, FlagEnum.Upload.getCode()).get(0);
+
+            val classroom = adminMapper.selectEmptyClassroom(FlagEnum.NotUsed.getCode(),
+                    meeting.getClassroomId()).get(0);
+
+            val meetingInfo = conversation.MeetingToMeetingInfo(meeting,
+                    company.getName(), classroom.getName(), classroom.getMaxCount());
+
+            meetingInfoList.add(meetingInfo);
+        }
+
+        return meetingInfoList;
     }
 
     @Override
-    public Boolean deleteMeeting() {
-        return null;
+    public void deleteMeeting(Integer id) {
+        val meeting = adminMapper.selectMeeting(null, id).get(0);
+        adminMapper.updateEmptyClassroomFlag(FlagEnum.NotUsed.getCode(), meeting.getClassroomId());
+        adminMapper.updateMeetingFlag(id, FlagEnum.Delete.getCode());
     }
 
     @Override
     public Boolean EnsureMeeting(Integer id, Integer classroomId) {
-        return null;
+        adminMapper.updateEmptyClassroomFlag(classroomId, FlagEnum.Using.getCode());
+        adminMapper.updateMeetingClassroom(id, classroomId);
+        return adminMapper.updateMeetingFlag(id, FlagEnum.NotStarted.getCode());
     }
 
     @Override
     public HashMap<Integer, String> showEmptyClassroom() {
-        return null;
+        List<Classroom> classroomList = adminMapper.selectEmptyClassroom(
+                FlagEnum.NotUsed.getCode(), null);
+
+        HashMap<Integer, String> emptyClassrooom = new HashMap<>();
+        for(val classroom : classroomList){
+            emptyClassrooom.put(classroom.getId(), classroom.getName());
+        }
+        return emptyClassrooom;
+    }
+
+    @Override
+    public List<String> showAdvices(Integer grade) {
+        return adminMapper.selectAdvices(grade);
+    }
+
+    @Override
+    public Boolean updateIfOpenQuestionnaire(Boolean value) {
+        return adminMapper.updateIfOpenQuestionnaire(value);
     }
 
 

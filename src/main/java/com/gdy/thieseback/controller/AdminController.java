@@ -9,6 +9,7 @@ import com.gdy.thieseback.util.MyPath;
 import com.gdy.thieseback.entity.Admin;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -318,5 +319,68 @@ public class AdminController{
         return false;
     }
 
+    @ApiOperation("浏览未发布会议")
+    @GetMapping("/showNotPublishMeeting")
+    public List<MeetingInfo> showNotPublishMeeting(){
+        return adminService.showMeeting(FlagEnum.NotPublish);
+    }
 
+    @ApiOperation("浏览发布，但未开始会议")
+    @GetMapping("/showNotStartedMeeting")
+    public List<MeetingInfo> showNotStartedMeeting(){
+        return adminService.showMeeting(FlagEnum.NotStarted);
+    }
+
+    @ApiOperation("浏览正在进行的会议")
+    @GetMapping("/showInProgressMeeting")
+    public List<MeetingInfo> showInProgressMeeting(){
+        return adminService.showMeeting(FlagEnum.InProgress);
+    }
+
+    @ApiOperation("浏览已结束的会议")
+    @GetMapping("/showEndMeeting")
+    public List<MeetingInfo> showEndMeeting(){
+        return adminService.showMeeting(FlagEnum.End);
+    }
+
+    @ApiOperation("删除指定会议")
+    @GetMapping("/delectMeeting")
+    public Boolean delectMeeting(@RequestParam Integer id){
+        try {
+            adminService.deleteMeeting(id);
+            return true;
+        }
+        catch (Exception ex){
+            return false;
+        }
+    }
+
+    public Boolean ensureMeeting(@RequestParam Integer id,
+                                 @RequestParam Integer classroomId){
+        return adminService.EnsureMeeting(id, classroomId);
+    }
+
+    @ApiOperation("查看空教室")
+    @GetMapping("/showEmptyClassroom")
+    public HashMap<Integer, String> showEmptyClassroom(){
+        return adminService.showEmptyClassroom();
+    }
+
+    @ApiOperation("查看问卷中的建议")
+    @GetMapping("/showEmptyClassroom")
+    public List<String> showAdvices (@RequestParam Integer grade){
+        return adminService.showAdvices(grade);
+    }
+
+    @ApiOperation("开启问卷")
+    @GetMapping("/openQuestionnaire")
+    public Boolean openQuestionnaire(){
+        return adminService.updateIfOpenQuestionnaire(true);
+    }
+
+    @ApiOperation("关闭问卷")
+    @GetMapping("/closeQuestionnaire")
+    public Boolean closeQuestionnaire(){
+        return adminService.updateIfOpenQuestionnaire(false);
+    }
 }

@@ -41,7 +41,7 @@ public class Conversation {
         EmploymentStatusEnum employmentStatusEnum = EmploymentStatusEnum.find(stuInfo.getEmployment());
         if(employmentStatusEnum != null){
             Integer employmentId = employmentStatusEnum.getCode();
-            student.setEmploymentStatus(employmentId);
+            student.setEmploymentId(employmentId);
         }
 
         return student;
@@ -63,7 +63,7 @@ public class Conversation {
         GenderEnum genderEnum = GenderEnum.find(student.getGender());
         stuInfo.setStudentGender(genderEnum.getContent());
 
-        EmploymentStatusEnum employmentStatusEnum = EmploymentStatusEnum.find(student.getEmploymentStatus());
+        EmploymentStatusEnum employmentStatusEnum = EmploymentStatusEnum.find(student.getEmploymentId());
         stuInfo.setEmployment(employmentStatusEnum.getContent());
 
         return stuInfo;
@@ -76,7 +76,7 @@ public class Conversation {
 
     @Autowired
     public Company CompanyInfoToCompany(CompanyInfo companyInfo, Company company){
-        company.setId(companyInfo.getId());
+        company.setScc(companyInfo.getId());
         company.setName(companyInfo.getName());
         company.setPhone(companyInfo.getPhone());
         company.setEmail(companyInfo.getEmail());
@@ -85,7 +85,7 @@ public class Conversation {
         Date createTime = this.StringToDate(companyInfo.getCreateTime());
         company.setCreateTime(createTime);
 
-        company.setCurator(companyInfo.getCurator());
+        company.setPrincipal(companyInfo.getPrincipal());
 
         return company;
     }
@@ -93,7 +93,7 @@ public class Conversation {
     public CompanyInfo CompanyToCompanyInfo(Company company){
         CompanyInfo companyInfo = new CompanyInfo();
 
-        companyInfo.setId(company.getId());
+        companyInfo.setId(company.getScc());
         companyInfo.setName(company.getName());
         companyInfo.setPhone(company.getPhone());
         companyInfo.setEmail(company.getEmail());
@@ -102,7 +102,7 @@ public class Conversation {
         String transformDate = this.DateToString(company.getCreateTime());
         companyInfo.setCreateTime(transformDate);
 
-        companyInfo.setCurator(company.getCurator());
+        companyInfo.setPrincipal(company.getPrincipal());
 
         return companyInfo;
     }
@@ -251,7 +251,7 @@ public class Conversation {
         recruitInfo.setRequirement(requirement);
 
         HashMap<String, String> companyInfo = new HashMap<>();
-        companyInfo.put(company.getId(), company.getName());
+        companyInfo.put(company.getScc(), company.getName());
         recruitInfo.setCompany(companyInfo);
 
         return recruitInfo;

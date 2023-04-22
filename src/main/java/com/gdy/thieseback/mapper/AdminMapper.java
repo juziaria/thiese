@@ -2,6 +2,7 @@ package com.gdy.thieseback.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.gdy.thieseback.entity.*;
+import io.swagger.models.auth.In;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -99,7 +100,8 @@ public interface AdminMapper extends BaseMapper<Admin> {
 
     Boolean insertResume(@Param("resume") Resume resume);
 
-    List<Meeting> selectMeeting(@Param("flag")Integer flag);
+    List<Meeting> selectMeeting(@Param("flag")Integer flag,
+                                @Param("id") Integer id);
 
     Boolean updateMeetingFlag(@Param("id") Integer id,
                               @Param("flag") Integer flag);
@@ -107,8 +109,13 @@ public interface AdminMapper extends BaseMapper<Admin> {
     Boolean updateMeetingClassroom(@Param("id") Integer id,
                                    @Param("classroomId")Integer classroomId);
 
-    List<Classroom> selectEmptyClassroom(@Param("flag") Integer flag);
+    List<Classroom> selectEmptyClassroom(@Param("flag") Integer flag,
+                                         @Param("id") Integer id);
 
     Boolean updateEmptyClassroomFlag(@Param("flag") Integer flag,
                                      @Param("id") Integer id);
+
+    List<String> selectAdvices(@Param("grade") Integer grade);
+
+    Boolean updateIfOpenQuestionnaire(@Param("value") Boolean value);
 }

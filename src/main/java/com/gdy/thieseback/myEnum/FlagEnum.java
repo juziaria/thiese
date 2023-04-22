@@ -6,13 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.Objects;
 
 public enum FlagEnum {
-    //用户信息
+    //用户信息、文件、简历
     Upload(0,"已上传"),
     Delete(1,"已删除"),
 
     // 通知
     Publish(2,"已发布"),
     NotPublish(3,"未发布"),
+    //Delete 删除
 
     //招聘信息
     //Publish 已发布
@@ -25,6 +26,7 @@ public enum FlagEnum {
     NotStarted(7,"未开始"),
     InProgress(8,"进行中"),
     //End 已结束
+    //Delete 删除
 
     //教室
     //Delete 已删除

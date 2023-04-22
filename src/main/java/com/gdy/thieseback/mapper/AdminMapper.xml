@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gdy.graduate.dao.AdminMapper">
 
-    <select id="findAdmin" resultType="com.gdy.graduate.entity.Admin">
+    <select id="findAdmin" resultType="com.gdy.thieseback.entity.Admin">
         select *
         from admin
         where flag = #{flag} and id = #{id} and pwd = #{pwd}
@@ -50,7 +50,7 @@
         where id = #{id}
     </update>
 
-    <select id="selectStu" resultType="com.gdy.graduate.entity.Student">
+    <select id="selectStu" resultType="com.gdy.thieseback.entity.Student">
         select *
         from student
         where 1=1
@@ -69,7 +69,7 @@
         </if>
     </select>
 
-    <select id="selectCompany" resultType="com.gdy.graduate.entity.Company">
+    <select id="selectCompany" resultType="com.gdy.thieseback.entity.Company">
         select *
         from company
         where 1=1
@@ -131,7 +131,7 @@
         values (#{file.extension}, #{file.name}, #{file.content}, #{file.uploadTime}, #{file.size}, #{file.flag})
     </insert>
 
-    <select id="selectDocument" resultType="com.gdy.graduate.entity.Document">
+    <select id="selectDocument" resultType="com.gdy.thieseback.entity.Document">
         select *
         from document
         where flag = #{flag}
@@ -152,7 +152,7 @@
         where id = #{id}
     </update>
 
-    <select id="selectNotices" resultType="com.gdy.graduate.entity.Notice">
+    <select id="selectNotices" resultType="com.gdy.thieseback.entity.Notice">
         select *
         from notice
 
@@ -167,14 +167,14 @@
         </if>
     </select>
 
-    <update id="updateNotice" parameterType="com.gdy.graduate.entity.Notice">
+    <update id="updateNotice" parameterType="com.gdy.thieseback.entity.Notice">
         update notice
         set "publishTime" = #{publishTime}, collage = #{collage},
             title = #{notice.title}, content = #{notice.content},"documentId" = #{notice.documentId}
         where id = #{notice.id}
     </update>
 
-    <insert id="insertNotice" parameterType="com.gdy.graduate.entity.Notice">
+    <insert id="insertNotice" parameterType="com.gdy.thieseback.entity.Notice">
         insert into notice ("publishTime", collage, title, content, flag, "documentId", type)
         values (#{notice.publishTime}, #{notice.collage}, #{notice.title}, 
                 #{notice.content}, #{notice.flag}, #{notice.documentId}, #{notice.type})
@@ -192,7 +192,7 @@
                 #{companyId}, #{recruitment.requirementId}, #{recruitment.flag})
     </insert>
     
-    <insert id="insertRequirement" parameterType="com.gdy.graduate.entity.Requirement"
+    <insert id="insertRequirement" parameterType="com.gdy.thieseback.entity.Requirement"
             useGeneratedKeys="true" keyProperty="id">
         insert into requirement (gender, major, content, degree, "minYear", "maxYear")
         values (#{requirement.gender}, #{requirement.major}, #{requirement.content}, #{requirement.degree},
@@ -204,7 +204,7 @@
         from recruitment;
     </select>
 
-    <select id="selectRecruitments" resultType="com.gdy.graduate.entity.Recruitment">
+    <select id="selectRecruitments" resultType="com.gdy.thieseback.entity.Recruitment">
         select *
         from recruitment
         where 1 = 1
@@ -222,7 +222,7 @@
         </if>
     </select>
     
-    <select id="selectRequirement" resultType="com.gdy.graduate.entity.Requirement">
+    <select id="selectRequirement" resultType="com.gdy.thieseback.entity.Requirement">
         select *
         from requirement
         where id = #{id}
@@ -234,7 +234,7 @@
         where id = #{id}
     </update>
 
-    <select id="selectResumes" resultType="com.gdy.graduate.entity.Resume">
+    <select id="selectResumes" resultType="com.gdy.thieseback.entity.Resume">
         select *
         from resume
         where flag = #{flag}
@@ -254,10 +254,18 @@
         values (#{resume.content}, #{resume.filename}, #{resume.extension}, #{resume.flag})
     </insert>
 
-    <select id="selectMeeting" resultType="com.gdy.graduate.entity.Meeting">
+    <select id="selectMeeting" resultType="com.gdy.thieseback.entity.Meeting">
         select *
         from meeting
-        where flag = #{flag}
+        <if test="flag != null and id != null">
+            where flag = #{flag} and id = #{id}
+        </if>
+        <if test="flag != null and id == null">
+            where flag = #{flag}
+        </if>
+        <if test="flag == null and id != null">
+            where id = #{id}
+        </if>
     </select>
 
     <update id="updateMeetingFlag">
@@ -272,15 +280,30 @@
         where id = #{id}
     </update>
 
-    <select id="selectEmptyClassroom" resultType="com.gdy.graduate.entity.Classroom">
+    <select id="selectEmptyClassroom" resultType="com.gdy.thieseback.entity.Classroom">
         select *
         from classroom
         where flag = #{flag}
+        <if test="id != null">
+            and id = #{id}
+        </if>
     </select>
 
     <update id="updateEmptyClassroomFlag">
         update classroom
         set flag = #{flag}
         where id = #{id}
+    </update>
+
+    <select id="selectAdvices" resultType="String">
+        select advice
+        from questionaire
+        <if test="grade != null">
+            where grade = #{grade}
+        </if>
+    </select>
+
+    <update id="updateIfOpenQuestionaire">
+
     </update>
 </mapper>
