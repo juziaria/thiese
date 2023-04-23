@@ -13,50 +13,6 @@ import java.util.List;
 @Component
 public interface AdminService extends IService<Admin> {
     /**
-     * 有效学生学院
-     */
-    List<String> selectStuCollage();
-    /**
-     * 有效学生年级
-     */
-    List<Integer> selectStuGrade();
-    /**
-     * 有效学生专业
-     */
-    List<String> selectStuMajor();
-    /**
-     * 有效学生班级
-     */
-    List<Integer> selectStuClass();
-    /**
-     * 有效企业地址
-     */
-    List<String> selectCompanyAddress();
-    /**
-     * 删除学生账号
-     */
-    String deleteStudents(String[] id);
-    /**
-     * 删除公司账号
-     */
-    String deleteCompany(String[] id);
-    /**
-     * 学生账号查询
-     */
-    List<StuInfo> SelectStu(Integer grade, String collage, String major, Integer stuClass);
-    /**
-     * 公司账号查询
-     */
-    List<CompanyInfo> SelectCompany(Date start, Date end, String address);
-    /**
-     * 修改学生信息
-     */
-    Boolean updateStu(StuInfo stuInfo);
-    /**
-     * 修改公司信息
-     */
-    Boolean updateCompany(CompanyInfo companyInfo);
-    /**
      * 上传文件
      */
     Boolean uploadDocument(Document document);

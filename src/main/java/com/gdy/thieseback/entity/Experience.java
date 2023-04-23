@@ -20,7 +20,7 @@ public class Experience {
     private Integer id;
 
     @ApiModelProperty(value = "公司")
-    private Integer companyId;
+    private String companyScc;
 
     @ApiModelProperty(value = "工作状态")
     private Integer employmentId;

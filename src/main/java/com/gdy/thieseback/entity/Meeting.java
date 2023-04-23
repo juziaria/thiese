@@ -31,4 +31,5 @@ public class Meeting extends BaseEntity implements Serializable {
 
     @ApiModelProperty(value = "状态")
     private Integer flag;
+
 }

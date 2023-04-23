@@ -2,11 +2,13 @@ package com.gdy.thieseback.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.gdy.thieseback.entity.*;
+import io.swagger.models.auth.In;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 管理员持久层接口
@@ -103,4 +105,20 @@ public interface AdminMapper extends BaseMapper<Admin> {
     List<String> selectAdvices(@Param("grade") Integer grade);
 
     Boolean updateIfOpenQuestionnaire(@Param("value") Boolean value);
+
+    Integer countEmploymentStatus(@Param("grade") Integer grade,
+                                  @Param("collage") String collage,
+                                  @Param("major") String major,
+                                  @Param("employmentStatus") Integer employmentStatus,
+                                  @Param("workProperty") Integer workProperty);
+
+    Map<String, Integer> employmentDistributionByCompany(@Param("grade") Integer grade,
+                                                         @Param("collage") String collage,
+                                                         @Param("major") String major,
+                                                         @Param("workProperty") Integer workProperty);
+
+    Map<String, Integer> employmentDistributionByWorkplace(@Param("grade") Integer grade,
+                                                           @Param("collage") String collage,
+                                                           @Param("major") String major,
+                                                           @Param("workProperty") Integer workProperty);
 }

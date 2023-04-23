@@ -30,89 +30,6 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
     private final Conversation conversation = new Conversation();
 
     @Override
-    public List<String> selectStuCollage() {
-        return adminMapper.selectStuCollage(FlagEnum.Upload.getCode());
-    }
-
-    @Override
-    public List<Integer> selectStuGrade() {
-        return adminMapper.selectStuGrade(FlagEnum.Upload.getCode());
-    }
-
-    @Override
-    public List<String> selectStuMajor() {
-        return adminMapper.selectStuMajor(FlagEnum.Upload.getCode());
-    }
-
-    @Override
-    public List<Integer> selectStuClass() {
-        return adminMapper.selectStuClass(FlagEnum.Upload.getCode());
-    }
-
-    @Override
-    public List<String> selectCompanyAddress() {
-        return adminMapper.selectCompanyAddress(FlagEnum.Upload.getCode());
-    }
-
-    @Override
-    public String deleteStudents(String[] idArray) {
-        for (String id : idArray) {
-            if(!adminMapper.deleteStu(id, FlagEnum.Delete.getCode())) {
-                return String.format("The Student {0} deleted failed!", id);
-            }
-        }
-        return "success";
-    }
-
-    @Override
-    public String deleteCompany(String[] idArray) {
-        for (String id : idArray) {
-            if(!adminMapper.deleteCompany(id, FlagEnum.Delete.getCode())){
-                return String.format("The Company {0} deleted failed!", id);
-            }
-        }
-        return "success";
-    }
-
-    @Override
-    public List<StuInfo> SelectStu(Integer grade, String collage, String major, Integer stuClass) {
-        List<Student> students = adminMapper.selectStu(grade, collage, major, stuClass, FlagEnum.Upload.getCode());
-
-        List<StuInfo> stuInfos = new ArrayList<>();
-
-        for (Student student : students) {
-            Employment employment = adminMapper.selectEmployment(student.getId());
-            EmploymentStatusEnum employmentStatusEnum = EmploymentStatusEnum.find(employment.getId());
-            stuInfos.add(conversation.StuToStuInfo(student, employmentStatusEnum));
-        }
-        return stuInfos;
-    }
-
-    @Override
-    public List<CompanyInfo> SelectCompany(Date start, Date end, String address) {
-        List<Company> companies = adminMapper.selectCompany(null, start, end, address, FlagEnum.Upload.getCode());
-        List<CompanyInfo> companyInfos = new ArrayList<>();
-
-        for (Company company: companies ) {
-            companyInfos.add(conversation.CompanyToCompanyInfo(company));
-        }
-
-        return companyInfos;
-    }
-
-    @Override
-    public Boolean updateStu(StuInfo stuInfo) {
-        Student student = conversation.StuInfoToStu(stuInfo);
-        return adminMapper.updateStu(student);
-    }
-
-    @Override
-    public Boolean updateCompany(CompanyInfo companyInfo) {
-        Company company = conversation.CompanyInfoToCompany(companyInfo);
-        return adminMapper.updateCompany(company);
-    }
-
-    @Override
     public Boolean uploadDocument(Document document) {
         return adminMapper.insertDocument(document);
     }
@@ -243,17 +160,14 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
         List<Meeting> meetingList = adminMapper.selectMeeting(flagEnum.getCode(), null);
         List<MeetingInfo> meetingInfoList = new ArrayList<>();
 
-        for(val meeting : meetingList){
-            val company = adminMapper.selectCompany(meeting.getCompanyScc(),
+        for(Meeting meeting : meetingList){
+            Company company = adminMapper.selectCompany(meeting.getCompanyScc(),
                     null, null, null, FlagEnum.Upload.getCode()).get(0);
 
-            val classroom = adminMapper.selectEmptyMeetingLocation(
-                    FlagEnum.NotUsed.getCode(), meeting.getMeetingLocationId()).get(0);
-
-            val meetingLocation = adminMapper.selectMeetingLocation(
+            MeetingLocation meetingLocation = adminMapper.selectMeetingLocation(
                     meeting.getMeetingLocationId());
 
-            val meetingInfo = conversation.MeetingToMeetingInfo(meeting,
+            MeetingInfo meetingInfo = conversation.MeetingToMeetingInfo(meeting,
                     company.getName(), meetingLocation);
 
             meetingInfoList.add(meetingInfo);

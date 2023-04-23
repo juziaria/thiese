@@ -30,63 +30,6 @@ public class AdminController{
     private final Conversation conversation = new Conversation();
     private final Parameter p = new Parameter();
 
-    @ApiOperation("删除学生")
-    @GetMapping("/deleteStudents")
-    public String deleteStudents(@RequestParam String id){
-        String[] idArray = id.split(Parameter.splitChar);
-        return adminService.deleteStudents(idArray);
-    }
-
-    @ApiOperation("删除公司")
-    @GetMapping("/deleteCompanies")
-    public String deleteCompanies(@RequestParam String id){
-        String[] idArray = id.split(Parameter.splitChar);
-        return adminService.deleteCompany(idArray);
-    }
-
-    @ApiOperation("学生信息筛查")
-    @GetMapping("/selectStu")
-    public StuShow SelectStu(@RequestParam Integer grade,
-                             @RequestParam String collage,
-                             @RequestParam String major,
-                             @RequestParam Integer stuClass) {
-        StuShow stuShow = new StuShow();
-        stuShow.stuInfoList = adminService.SelectStu(grade, collage, major, stuClass);
-        stuShow.collage = adminService.selectStuCollage();
-        stuShow.grade = adminService.selectStuGrade();
-        stuShow.major = adminService.selectStuMajor();
-        stuShow.stuClass = adminService.selectStuClass();
-
-        return stuShow;
-    }
-
-    @ApiOperation("公司信息筛查")
-    @GetMapping("/selectCompany")
-    public CompanyShow SelectCompany(@RequestParam String start,
-                                     @RequestParam String end,
-                                     @RequestParam String address) {
-        Date startTime = conversation.StringToDate(start);
-        Date endTime = conversation.StringToDate(end);
-
-        CompanyShow companyShow = new CompanyShow();
-        companyShow.companyInfoList = adminService.SelectCompany(startTime, endTime, address);
-        companyShow.companyAddresses = adminService.selectCompanyAddress();
-
-        return companyShow;
-    }
-
-    @ApiOperation("更新学生信息")
-    @PostMapping("/updateStu")
-    public Boolean updateStu(@RequestBody StuInfo stuInfo){
-        return adminService.updateStu(stuInfo);
-    }
-
-    @ApiOperation("更新公司信息")
-    @PostMapping("/updateCompany")
-    public Boolean updateCompany(@RequestBody CompanyInfo companyInfo){
-        return adminService.updateCompany(companyInfo);
-    }
-
     @ApiOperation("上传文件")
     @GetMapping("/uploadDocument")
     public Boolean documentUpload(@RequestParam String documentPath){
