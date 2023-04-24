@@ -18,6 +18,9 @@ import java.util.Date;
 @ApiModel("正式岗位、实习岗位")
 public class EmployPosition extends BaseEntity implements Serializable {
 
+    @ApiModelProperty(value = "id")
+    private Integer id;
+
     @ApiModelProperty(value = "有效期")
     private Date availbletime;
 
@@ -33,105 +36,17 @@ public class EmployPosition extends BaseEntity implements Serializable {
     @ApiModelProperty(value = "相关专业")
     private String major;
 
-
     @ApiModelProperty(value = "学历")
     private String degree;
 
-
     @ApiModelProperty(value = "0-实习岗位 1-正式岗位")
     private String pay;
-
-    @ApiModelProperty(value = "id")
-    private String id;
-
 
     @ApiModelProperty(value = "类型")
     private String type;
 
     @ApiModelProperty(value = "状态")
-    private String flag;
-
-    public Date getAvailbletime() {
-        return availbletime;
-    }
-
-    public void setAvailbletime(Date availbletime) {
-        this.availbletime = availbletime;
-    }
-
-    public String getJobname() {
-        return jobname;
-    }
-
-    public void setJobname(String jobname) {
-        this.jobname = jobname;
-    }
-
-    public String getComname() {
-        return comname;
-    }
-
-    public void setComname(String comname) {
-        this.comname = comname;
-    }
-
-    public String getWorkplace() {
-        return workplace;
-    }
-
-    public void setWorkplace(String workplace) {
-        this.workplace = workplace;
-    }
-
-
-
-    public String getDegree() {
-        return degree;
-    }
-
-    public void setDegree(String degree) {
-        this.degree = degree;
-    }
-
-    public String getPay() {
-        return pay;
-    }
-
-    public void setPay(String pay) {
-        this.pay = pay;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getMajor() {
-        return major;
-    }
-
-    public void setMajor(String major) {
-        this.major = major;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getFlag() {
-        return flag;
-    }
-
-    public void setFlag(String flag) {
-        this.flag = flag;
-    }
+    private Integer flag;
 
     @Override
     public String toString() {
