@@ -269,12 +269,6 @@ public class AdminController{
         return adminService.EnsureMeeting(id, classroomId);
     }
 
-    @ApiOperation("查看空教室")
-    @GetMapping("/showEmptyClassroom")
-    public HashMap<Integer, String> showEmptyClassroom(){
-        return adminService.showEmptyClassroom();
-    }
-
     @ApiOperation("查看问卷中的建议")
     @GetMapping("/showEmptyClassroom")
     public List<String> showAdvices (@RequestParam Integer grade){

@@ -85,22 +85,11 @@ public interface AdminMapper extends BaseMapper<Admin> {
 
     Boolean insertResume(@Param("resume") Resume resume);
 
-    List<Meeting> selectMeeting(@Param("flag")Integer flag,
-                                @Param("id") Integer id);
+    List<EmployMeeting> selectMeeting(@Param("flag")Integer flag,
+                                      @Param("id") Integer id);
 
     Boolean updateMeetingFlag(@Param("id") Integer id,
                               @Param("flag") Integer flag);
-
-    MeetingLocation selectMeetingLocation(@Param("id") Integer id);
-
-    Boolean updateMeetingLocation(@Param("id") Integer id,
-                                  @Param("locationId")Integer locationId);
-
-    List<MeetingLocation> selectEmptyMeetingLocation(@Param("flag") Integer flag,
-                                                     @Param("id") Integer id);
-
-    Boolean updateMeetingLocationFlag(@Param("flag") Integer flag,
-                                      @Param("id") Integer id);
 
     List<String> selectAdvices(@Param("grade") Integer grade);
 

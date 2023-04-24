@@ -218,9 +218,9 @@
         values (#{resume.content}, #{resume.filename}, #{resume.extension}, #{resume.flag})
     </insert>
 
-    <select id="selectMeeting" resultType="com.gdy.thieseback.entity.Meeting">
+    <select id="selectMeeting" resultType="com.gdy.thieseback.entity.EmployMeeting">
         select *
-        from meeting
+        from employMeeting
         <if test="flag != null and id != null">
             where flag = #{flag} and id = #{id}
         </if>
@@ -234,33 +234,6 @@
 
     <update id="updateMeetingFlag">
         update meeting
-        set flag = #{flag}
-        where id = #{id}
-    </update>
-
-    <select id="selectMeetingLocation" resultType="com.gdy.thieseback.entity.MeetingLocation">
-        select *
-        from meetinLocation
-        where id = #{id}
-    </select>
-
-    <update id="updateMeetingLocation">
-        update meeting
-        set locationId = #{locationId}
-        where id = #{id}
-    </update>
-
-    <select id="selectEmptyMeetingLocation" resultType="com.gdy.thieseback.entity.MeetingLocation">
-        select *
-        from meetingLocation
-        where flag = #{flag}
-        <if test="id != null">
-            and id = #{id}
-        </if>
-    </select>
-
-    <update id="updateMeetingLocationFlag">
-        update meetingLocation
         set flag = #{flag}
         where id = #{id}
     </update>

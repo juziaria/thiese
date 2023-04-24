@@ -5,8 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.Objects;
 
 public enum MeetingTypeEnum {
-    DoubleChoiceMeeting(0,"双选会"),
-    TeachIn(1,"宣讲会"),
+    TeachIn(0,"宣讲会"),
+    DoubleChoiceMeeting(1,"双选会"),
     NOLL(2,"暂定"),
     ;
 

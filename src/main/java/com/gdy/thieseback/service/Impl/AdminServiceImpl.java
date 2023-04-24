@@ -157,49 +157,22 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
 
     @Override
     public List<MeetingInfo> showMeeting(FlagEnum flagEnum) {
-        List<Meeting> meetingList = adminMapper.selectMeeting(flagEnum.getCode(), null);
+        List<EmployMeeting> meetingList = adminMapper.selectMeeting(flagEnum.getCode(), null);
         List<MeetingInfo> meetingInfoList = new ArrayList<>();
 
-        for(Meeting meeting : meetingList){
-            Company company = adminMapper.selectCompany(meeting.getCompanyScc(),
-                    null, null, null, FlagEnum.Upload.getCode()).get(0);
-
-            MeetingLocation meetingLocation = adminMapper.selectMeetingLocation(
-                    meeting.getMeetingLocationId());
-
-            MeetingInfo meetingInfo = conversation.MeetingToMeetingInfo(meeting,
-                    company.getName(), meetingLocation);
-
-            meetingInfoList.add(meetingInfo);
-        }
+        //TODO
 
         return meetingInfoList;
     }
 
     @Override
     public void deleteMeeting(Integer id) {
-        val meeting = adminMapper.selectMeeting(null, id).get(0);
-        adminMapper.updateMeetingLocation(FlagEnum.NotUsed.getCode(), meeting.getMeetingLocationId());
         adminMapper.updateMeetingFlag(id, FlagEnum.Delete.getCode());
     }
 
     @Override
     public Boolean EnsureMeeting(Integer id, Integer classroomId) {
-        adminMapper.updateMeetingLocationFlag(classroomId, FlagEnum.Using.getCode());
-        adminMapper.updateMeetingLocation(id, classroomId);
         return adminMapper.updateMeetingFlag(id, FlagEnum.NotStarted.getCode());
-    }
-
-    @Override
-    public HashMap<Integer, String> showEmptyClassroom() {
-        List<MeetingLocation> meetingLocationList = adminMapper.selectEmptyMeetingLocation(
-                FlagEnum.NotUsed.getCode(), null);
-
-        HashMap<Integer, String> emptyClassrooom = new HashMap<>();
-        for(val classroom : meetingLocationList){
-            emptyClassrooom.put(classroom.getId(), classroom.getName());
-        }
-        return emptyClassrooom;
     }
 
     @Override

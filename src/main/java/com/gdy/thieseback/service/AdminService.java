@@ -92,10 +92,6 @@ public interface AdminService extends IService<Admin> {
     /**
      *查询空教室
      */
-    HashMap<Integer, String> showEmptyClassroom();
-    /**
-     *查询空教室
-     */
     List<String> showAdvices(Integer grade);
     /**
      *是否打开问卷填写
