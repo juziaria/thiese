@@ -2,9 +2,11 @@ package com.gdy.thieseback.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.gdy.thieseback.entity.*;
+import com.gdy.thieseback.myEnum.NoticeTypeEnum;
 import io.swagger.models.auth.In;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Date;
 import java.util.List;
@@ -15,29 +17,6 @@ import java.util.Map;
  */
 @Mapper
 public interface AdminMapper extends BaseMapper<Admin> {
-    List<String> selectStuCollage(@Param("flag") Integer flag);
-
-    List<Integer> selectStuGrade(@Param("flag") Integer flag);
-
-    List<String> selectStuMajor(@Param("flag") Integer flag);
-
-    List<Integer> selectStuClass(@Param("flag") Integer flag);
-
-    List<String> selectCompanyAddress(@Param("flag") Integer flag);
-
-    Boolean deleteStu(@Param("id") String id,
-                     @Param("flag") Integer flag);
-
-    Boolean deleteCompany(@Param("id") String id,
-                     @Param("flag") Integer flag);
-
-    List<Student> selectStu(@Param("grade") Integer grade,
-                            @Param("collage") String collage,
-                            @Param("major") String major,
-                            @Param("stuClass") Integer stuClass,
-                            @Param("flag") Integer flag);
-
-    Employment selectEmployment(@Param("studentId") String studentId);
 
     List<Company> selectCompany(@Param("id") String id,
                                 @Param("start") Date start,
@@ -45,22 +24,25 @@ public interface AdminMapper extends BaseMapper<Admin> {
                                 @Param("address") String address,
                                 @Param("flag") Integer flag);
 
-    Boolean updateStu(@Param("student") Student student);
-
-    Boolean updateCompany(@Param("company")Company company);
-
     Boolean insertDocument(@Param("file")Document file);
 
     List<Document> selectDocument(@Param("id") Integer id,
+                                  @Param("name") String name,
                                   @Param("flag") Integer flag);
 
-    Integer selectDocumentCount(@Param("flag") Integer flag);
+    Integer selectDocumentCount(@Param("flag") Integer flag,
+                                @Param("name") String name);
 
     Boolean deleteDocument(@Param("id") Integer id,
                            @Param("flag") Integer flag);
 
-    List<Notice> selectNotices(@Param("id") Integer id,
-                               @Param("flag") Integer flag);
+    List<Notice> selectNotices_1(@Param("id") Integer id,
+                                 @Param("flag") Integer flag);
+
+    List<Notice> selectNotices_2(@Param("type") Integer type,
+                                 @Param("name") String name,
+                                 @Param("timeBefore") Date timeBefore,
+                                 @Param("timeLast") Date timeLast);
 
     Boolean updateNotice(@Param("notice") Notice notice);
 

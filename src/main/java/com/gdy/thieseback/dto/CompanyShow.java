@@ -1,5 +1,7 @@
 package com.gdy.thieseback.dto;
 
+import lombok.Data;
+
 import java.util.List;
 
 public class CompanyShow {
