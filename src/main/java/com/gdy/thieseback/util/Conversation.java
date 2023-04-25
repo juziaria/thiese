@@ -227,5 +227,38 @@ public class Conversation {
         return resume;
     }
 
+    public MeetingInfo MeetingToMeetingInfo(EmployMeeting employMeeting){
+        MeetingInfo meetingInfo = new MeetingInfo();
+
+        meetingInfo.setId(employMeeting.getId());
+        meetingInfo.setTime(this.DateToString(employMeeting.getTime()));
+        meetingInfo.setName(employMeeting.getName());
+        meetingInfo.setMaster(employMeeting.getMaster());
+        meetingInfo.setPlace(employMeeting.getPlace());
+        meetingInfo.setAmount(employMeeting.getAmount());
+        meetingInfo.setMajor(employMeeting.getMajor());
+
+        MeetingTypeEnum meetingTypeEnum = MeetingTypeEnum.find(employMeeting.getType());
+        meetingInfo.setType(meetingTypeEnum.getContent());
+
+        return meetingInfo;
+    }
+
+    public EmployMeeting MeetingInfoToMeeting(MeetingInfo meetingInfo){
+        EmployMeeting employMeeting = new EmployMeeting();
+
+        employMeeting.setId(meetingInfo.getId());
+        employMeeting.setTime(this.StringToDate(meetingInfo.getTime()));
+        employMeeting.setName(meetingInfo.getName());
+        employMeeting.setMaster(meetingInfo.getMaster());
+        employMeeting.setPlace(meetingInfo.getPlace());
+        employMeeting.setAmount(meetingInfo.getAmount());
+        employMeeting.setMajor(meetingInfo.getMajor());
+
+        MeetingTypeEnum meetingTypeEnum = MeetingTypeEnum.find(meetingInfo.getType());
+        employMeeting.setType(meetingTypeEnum.getCode());
+
+        return employMeeting;
+    }
 
 }

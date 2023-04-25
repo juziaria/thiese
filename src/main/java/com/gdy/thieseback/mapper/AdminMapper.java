@@ -1,6 +1,7 @@
 package com.gdy.thieseback.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.gdy.thieseback.dto.MeetingInfo;
 import com.gdy.thieseback.entity.*;
 import com.gdy.thieseback.myEnum.NoticeTypeEnum;
 import io.swagger.models.auth.In;
@@ -42,11 +43,12 @@ public interface AdminMapper extends BaseMapper<Admin> {
     List<Notice> selectNotices_2(@Param("type") Integer type,
                                  @Param("name") String name,
                                  @Param("timeBefore") Date timeBefore,
-                                 @Param("timeLast") Date timeLast);
+                                 @Param("timeLast") Date timeLast,
+                                 @Param("flag") Integer flag);
 
     Boolean updateNotice(@Param("notice") Notice notice);
 
-    Boolean insertNotice(@Param("notice") Notice notice);
+    Integer insertNotice(@Param("notice") Notice notice);
 
     Boolean updateNoticeFlag(@Param("id") Integer id,
                              @Param("flag") Integer flag);
@@ -72,6 +74,8 @@ public interface AdminMapper extends BaseMapper<Admin> {
 
     Boolean updateMeetingFlag(@Param("id") Integer id,
                               @Param("flag") Integer flag);
+
+    Boolean InsertMeeting(@Param("meeting") EmployMeeting employMeeting);
 
     List<String> selectAdvices(@Param("grade") Integer grade);
 

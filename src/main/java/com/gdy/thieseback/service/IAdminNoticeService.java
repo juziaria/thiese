@@ -16,11 +16,11 @@ public interface IAdminNoticeService extends IService<Admin> {
      */
     List<Notice> selectNotice(Integer id, FlagEnum flagEnum);
 
-    List<Notice> selectNotice(NoticeTypeEnum noticeTypeEnum, String name, Integer Day);
+    List<Notice> selectNotice(NoticeTypeEnum noticeTypeEnum, String name, Integer Day, FlagEnum flagEnum);
     /**
      * 发布通知
      */
-    Boolean insertNotice(Notice notice);
+    Integer insertNotice(Notice notice);
     /**
      * 修改通知状态
      */

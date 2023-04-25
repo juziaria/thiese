@@ -10,17 +10,15 @@ public class MeetingInfo {
 
     private String name;
 
-    private HashMap<String, String> company;
+    private String place;
 
-    private String meetingFormat;
-
-    private HashMap<Integer, String> location;
+    private String master;
 
     private Integer amount;
 
     private String major;
 
-    private String meetingType;
+    private String type;
 
-    private String startTime;
+    private String time;
 }

@@ -26,7 +26,6 @@ public class AdminNoticeServiceImpl extends ServiceImpl<AdminMapper, Admin> impl
     private final Conversation conversation = new Conversation();
 
 
-
     @Override
     public List<Notice> selectNotice(Integer id, FlagEnum flagEnum) {
         if (flagEnum == null){
@@ -38,15 +37,18 @@ public class AdminNoticeServiceImpl extends ServiceImpl<AdminMapper, Admin> impl
     }
 
     @Override
-    public List<Notice> selectNotice(NoticeTypeEnum noticeTypeEnum, String name, Integer Day) {
+    public List<Notice> selectNotice(NoticeTypeEnum noticeTypeEnum,
+                                     String name,
+                                     Integer Day,
+                                     FlagEnum flagEnum) {
         Date now = new Date();
         Date last = new Date(Day);
 
-        return adminMapper.selectNotices_2(noticeTypeEnum.getCode(), name, now, last);
+        return adminMapper.selectNotices_2(noticeTypeEnum.getCode(), name, now, last, flagEnum.getCode());
     }
 
     @Override
-    public Boolean insertNotice(Notice notice) {
+    public Integer insertNotice(Notice notice) {
         return adminMapper.insertNotice(notice);
     }
 

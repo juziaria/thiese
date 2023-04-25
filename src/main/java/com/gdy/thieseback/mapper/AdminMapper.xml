@@ -67,10 +67,10 @@
         </if>
     </select>
 
-    <select id="selectNotice" resultType="com.gdy.thieseback.entity.Notice">
+    <select id="selectNotice_2" resultType="com.gdy.thieseback.entity.Notice">
         select *
         from notice
-        where 1 = 1
+        where flag = #{flag}
         <if test="type != null">
             and type = #{type}
         </if>
@@ -89,7 +89,8 @@
         where id = #{notice.id}
     </update>
 
-    <insert id="insertNotice" parameterType="com.gdy.thieseback.entity.Notice">
+    <insert id="insertNotice" parameterType="com.gdy.thieseback.entity.Notice"
+            useGeneratedKeys="true" keyProperty="id">
         insert into notice ("publishTime", collage, title, content, flag, "documentId", type)
         values (#{notice.publishTime}, #{notice.collage}, #{notice.title}, 
                 #{notice.content}, #{notice.flag}, #{notice.documentId}, #{notice.type})
@@ -164,6 +165,11 @@
         set flag = #{flag}
         where id = #{id}
     </update>
+
+    <insert id="InsertMeeting">
+        insert into emplotMeeting()
+        values()
+    </insert>
 
     <select id="selectAdvices" resultType="String">
         select advice

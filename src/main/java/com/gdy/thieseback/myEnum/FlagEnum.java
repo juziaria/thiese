@@ -22,7 +22,6 @@ public enum FlagEnum {
     End(6,"已结束"),
 
     //会议
-    //NotPublish 未发布
     NotStarted(7,"未开始"),
     InProgress(8,"进行中"),
     //End 已结束

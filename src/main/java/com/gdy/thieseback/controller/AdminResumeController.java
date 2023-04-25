@@ -35,8 +35,6 @@ public class AdminResumeController {
     private final Parameter p = new Parameter();
 
 
-
-
     @ApiOperation("浏览简历")
     @GetMapping("/showResumes")
     public List<ResumeInfo> showResumes(){

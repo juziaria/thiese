@@ -35,19 +35,18 @@ public class AdminNoticeController {
     private final Parameter p = new Parameter();
 
 
-    @ApiOperation("展示所有已经发布了的通知")
+    @ApiOperation("预览已发布的通知")
     @GetMapping("/showNotices")
     public List<NoticeInfo> showNotices(){
         return this.noticeShow(FlagEnum.Publish);
     }
 
-    @ApiOperation("展示所有未发布的通知，即草稿箱")
+    @ApiOperation("预览草稿箱")
     @GetMapping("/showDraft")
     public List<NoticeInfo> showDraft(){
         return this.noticeShow(FlagEnum.NotPublish);
     }
 
-    @ApiOperation("展示通知")
     private List<NoticeInfo> noticeShow(FlagEnum flagEnum){
         List<NoticeInfo> noticeInfoList = new ArrayList<>();
         List<Notice> notices = IAdminNoticeService.selectNotice(null, flagEnum);
@@ -70,15 +69,26 @@ public class AdminNoticeController {
         return noticeInfoList;
     }
 
-    @ApiOperation("筛选通知")
-    @GetMapping("/selectNotices")
-    public List<NoticeInfo> selectNotices(@RequestParam String type,
-                                    @RequestParam String name,
-                                    @RequestParam Integer day){
+
+    @ApiOperation("筛选已发布的通知")
+    @GetMapping("/selectPublishNotices")
+    public List<NoticeInfo> selectPublishNotices(@RequestParam String type,
+                                                 @RequestParam String name,
+                                                 @RequestParam Integer day){
+        return this.selectNotices(type, name, day, FlagEnum.Publish);
+    }
+
+    @ApiOperation("筛选草稿箱")
+    @GetMapping("/selectDraft")
+    public List<NoticeInfo> selectDraft(@RequestParam String name){
+        return this.selectNotices(null, name, null, FlagEnum.NotPublish);
+    }
+
+    private List<NoticeInfo> selectNotices(String type, String name, Integer day, FlagEnum flagEnum) {
         List<NoticeInfo> noticeInfoList = new ArrayList<>();
 
         NoticeTypeEnum noticeTypeEnum = NoticeTypeEnum.find(type);
-        List<Notice> notices = IAdminNoticeService.selectNotice(noticeTypeEnum, name, day);
+        List<Notice> notices = IAdminNoticeService.selectNotice(noticeTypeEnum, name, day, flagEnum);
 
         for(Notice notice : notices){
             List<Document> documents = new ArrayList<>();
@@ -102,7 +112,9 @@ public class AdminNoticeController {
         Notice notice = conversation.NoticeInfoToNotice(noticeInfo);
         notice.setFlag(FlagEnum.Publish.getCode());
 
-        return IAdminNoticeService.insertNotice(notice);
+        Integer noticeId = IAdminNoticeService.insertNotice(notice);
+
+        return IAdminNoticeService.updateNoticeState(noticeId, FlagEnum.Publish);
     }
 
     @ApiOperation("保存到草稿箱")
@@ -116,7 +128,8 @@ public class AdminNoticeController {
             return IAdminNoticeService.updateNotice(notice);
         }
         else {
-            return IAdminNoticeService.insertNotice(notice);
+            Integer noticeId = IAdminNoticeService.insertNotice(notice);
+            return IAdminNoticeService.updateNoticeState(noticeId, FlagEnum.Publish);
         }
     }
 

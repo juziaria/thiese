@@ -10,10 +10,7 @@ import com.gdy.thieseback.util.Conversation;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -56,8 +53,8 @@ public class AdminMeetingController {
     }
 
     @ApiOperation("删除指定会议")
-    @GetMapping("/delectMeeting")
-    public Boolean delectMeeting(@RequestParam Integer id){
+    @GetMapping("/deleteMeeting")
+    public Boolean deleteMeeting(@RequestParam Integer id){
         try {
             IAdminMeetingService.deleteMeeting(id);
             return true;
@@ -67,8 +64,9 @@ public class AdminMeetingController {
         }
     }
 
-    public Boolean ensureMeeting(@RequestParam Integer id,
-                                 @RequestParam Integer classroomId){
-        return IAdminMeetingService.EnsureMeeting(id, classroomId);
+    @ApiOperation("添加招聘会")
+    @PostMapping("/RequestParam")
+    public Boolean AddMeeting(@RequestBody MeetingInfo meetingInfo){
+        return IAdminMeetingService.AddMeeting(meetingInfo);
     }
 }

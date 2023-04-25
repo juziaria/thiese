@@ -20,8 +20,8 @@ public interface IAdminMeetingService extends IService<Admin> {
      */
     void deleteMeeting(Integer id);
     /**
-     *分配教室，并发布
+     *添加招聘会
      */
-    Boolean EnsureMeeting(Integer id, Integer classroomId);
+    Boolean AddMeeting(MeetingInfo meetingInfo);
 
 }

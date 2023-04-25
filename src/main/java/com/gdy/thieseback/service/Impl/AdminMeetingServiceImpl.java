@@ -33,7 +33,9 @@ public class AdminMeetingServiceImpl extends ServiceImpl<AdminMapper, Admin> imp
         List<EmployMeeting> meetingList = adminMapper.selectMeeting(flagEnum.getCode(), null);
         List<MeetingInfo> meetingInfoList = new ArrayList<>();
 
-        //TODO
+        for(EmployMeeting employMeeting : meetingList){
+            meetingInfoList.add(conversation.MeetingToMeetingInfo(employMeeting));
+        }
 
         return meetingInfoList;
     }
@@ -44,7 +46,9 @@ public class AdminMeetingServiceImpl extends ServiceImpl<AdminMapper, Admin> imp
     }
 
     @Override
-    public Boolean EnsureMeeting(Integer id, Integer classroomId) {
-        return adminMapper.updateMeetingFlag(id, FlagEnum.NotStarted.getCode());
+    public Boolean AddMeeting(MeetingInfo meetingInfo){
+        EmployMeeting employMeeting = conversation.MeetingInfoToMeeting(meetingInfo);
+        employMeeting.setFlag(FlagEnum.NotStarted.getCode());
+        return adminMapper.InsertMeeting(employMeeting);
     }
 }
