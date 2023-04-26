@@ -9,7 +9,9 @@ import com.gdy.thieseback.mapper.AdminMapper;
 import com.gdy.thieseback.myEnum.FlagEnum;
 import com.gdy.thieseback.service.IAdminRecruitService;
 import com.gdy.thieseback.service.IAdminResumeService;
+import com.gdy.thieseback.util.AdminToolHelper;
 import com.gdy.thieseback.util.Conversation;
+import com.gdy.thieseback.util.ListHelper;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -45,7 +47,7 @@ public class AdminResumeServiceImpl extends ServiceImpl<AdminMapper, Admin> impl
 
     @Override
     public Boolean downLoadResume(Integer id, String dirPath) {
-        Resume resume = adminMapper.selectResumes(FlagEnum.Upload.getCode(), id).get(0);
+        Resume resume = ListHelper.FirstOrDefault(adminMapper.selectResumes(FlagEnum.Upload.getCode(), id));
         Document document = conversation.ResumeToDocument(resume);
 
         String savePath = document.getSavaPath(dirPath);

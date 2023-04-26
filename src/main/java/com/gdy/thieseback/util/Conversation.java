@@ -5,15 +5,12 @@ import com.gdy.thieseback.entity.*;
 import com.gdy.thieseback.myEnum.*;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import java.text.DecimalFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
 public class Conversation {
+
     public Student StuInfoToStu(StuInfo stuInfo){
         Student student = new Student();
         return StuInfoToStu(stuInfo, student);
@@ -74,7 +71,7 @@ public class Conversation {
         company.setEmail(companyInfo.getEmail());
         company.setAddress(companyInfo.getAddress());
 
-        Date createTime = this.StringToDate(companyInfo.getCreateTime());
+        Date createTime = AdminToolHelper.StringToDate(companyInfo.getCreateTime());
         company.setCreateTime(createTime);
 
         company.setPrincipal(companyInfo.getPrincipal());
@@ -91,7 +88,7 @@ public class Conversation {
         companyInfo.setEmail(company.getEmail());
         companyInfo.setAddress(company.getAddress());
 
-        String transformDate = this.DateToString(company.getCreateTime());
+        String transformDate = AdminToolHelper.DateToString(company.getCreateTime());
         companyInfo.setCreateTime(transformDate);
 
         companyInfo.setPrincipal(company.getPrincipal());
@@ -103,55 +100,13 @@ public class Conversation {
         DocumentInfo documentInfo = new DocumentInfo();
 
         documentInfo.setId(document.getId());
-        documentInfo.setSize(this.setSize(document.getSize()));
+        documentInfo.setSize(AdminToolHelper.setSize(document.getSize()));
         documentInfo.setFileName(documentInfo.getFileName());
 
-        String transformDate = this.DateToString(document.getUploadTime());
+        String transformDate = AdminToolHelper.DateToString(document.getUploadTime());
         documentInfo.setUploadTime(transformDate);
 
         return documentInfo;
-    }
-
-    private String setSize(long size) {
-        int GB = 1024 * 1024 * 1024;//定义GB的计算常量
-        int MB = 1024 * 1024;//定义MB的计算常量
-        int KB = 1024;//定义KB的计算常量
-        DecimalFormat df = new DecimalFormat("0.00");//格式化小数
-        String resultSize = "";
-        if (size / GB >= 1) {
-            //如果当前Byte的值大于等于1GB
-            resultSize = df.format(size / (float) GB) + "GB   ";
-        } else if (size / MB >= 1) {
-            //如果当前Byte的值大于等于1MB
-            resultSize = df.format(size / (float) MB) + "MB   ";
-        } else if (size / KB >= 1) {
-            //如果当前Byte的值大于等于1KB
-            resultSize = df.format(size / (float) KB) + "KB   ";
-        } else {
-            resultSize = size + "B   ";
-        }
-
-        return resultSize;
-    }
-
-    public Date StringToDate(String dateStr){
-        Date date = new Date();
-
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(Parameter.DatePattern);
-        try {
-            if(dateStr != null && !dateStr.equals("")) {
-                date =  simpleDateFormat.parse(dateStr);
-            }
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        return date;
-    }
-
-    public String DateToString(Date date){
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(Parameter.DatePattern);
-        return simpleDateFormat.format(date);
     }
 
     public NoticeInfo NoticeToNoticeInfo(Notice notice, List<Document> documents){
@@ -172,7 +127,7 @@ public class Conversation {
         noticeInfo.setDocument(documentMap);
 
         if(notice.getPublishTime() != null){
-            String publishTime = this.DateToString(notice.getPublishTime());
+            String publishTime = AdminToolHelper.DateToString(notice.getPublishTime());
             noticeInfo.setPublishTime(publishTime);
         }
 
@@ -194,7 +149,7 @@ public class Conversation {
         String documentIdStr = String.join(Parameter.splitChar, documentIdList);
         notice.setDocumentId(documentIdStr);
 
-        Date publishTime = this.StringToDate(noticeInfo.getPublishTime());
+        Date publishTime = AdminToolHelper.StringToDate(noticeInfo.getPublishTime());
         notice.setPublishTime(publishTime);
 
         return notice;
@@ -231,7 +186,7 @@ public class Conversation {
         MeetingInfo meetingInfo = new MeetingInfo();
 
         meetingInfo.setId(employMeeting.getId());
-        meetingInfo.setTime(this.DateToString(employMeeting.getTime()));
+        meetingInfo.setTime(AdminToolHelper.DateToString(employMeeting.getTime()));
         meetingInfo.setName(employMeeting.getName());
         meetingInfo.setMaster(employMeeting.getMaster());
         meetingInfo.setPlace(employMeeting.getPlace());
@@ -248,7 +203,7 @@ public class Conversation {
         EmployMeeting employMeeting = new EmployMeeting();
 
         employMeeting.setId(meetingInfo.getId());
-        employMeeting.setTime(this.StringToDate(meetingInfo.getTime()));
+        employMeeting.setTime(AdminToolHelper.StringToDate(meetingInfo.getTime()));
         employMeeting.setName(meetingInfo.getName());
         employMeeting.setMaster(meetingInfo.getMaster());
         employMeeting.setPlace(meetingInfo.getPlace());

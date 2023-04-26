@@ -1,10 +1,7 @@
 package com.gdy.thieseback.controller;
 
 
-import com.gdy.thieseback.entity.Parameter;
-import com.gdy.thieseback.service.IAdminDocumentService;
 import com.gdy.thieseback.service.IAdminQuestionnaireService;
-import com.gdy.thieseback.util.Conversation;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.util.List;
 
 /**
@@ -24,9 +20,6 @@ import java.util.List;
 public class AdminQuestionnaireController {
     @Autowired
     private IAdminQuestionnaireService IAdminQuestionnaireService;
-
-    private final Conversation conversation = new Conversation();
-    private final Parameter p = new Parameter();
 
     @ApiOperation("结束")
     @GetMapping("/showAdvices")

@@ -5,8 +5,10 @@ import com.gdy.thieseback.mapper.AdminMapper;
 import com.gdy.thieseback.dto.*;
 import com.gdy.thieseback.entity.*;
 import com.gdy.thieseback.myEnum.*;
+import com.gdy.thieseback.util.AdminToolHelper;
 import com.gdy.thieseback.util.Conversation;
 import com.gdy.thieseback.service.IAdminDocumentService;
+import com.gdy.thieseback.util.ListHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,7 +40,7 @@ public class AdminDocumentServiceImpl extends ServiceImpl<AdminMapper, Admin> im
 
     @Override
     public Boolean downloadDocument(String saveDirPath, Integer id) {
-        Document document = adminMapper.selectDocument(id, null, FlagEnum.Upload.getCode()).get(0);
+        Document document = ListHelper.FirstOrDefault(adminMapper.selectDocument(id, null, FlagEnum.Upload.getCode()));
         String savePath = document.getSavaPath(saveDirPath);
         try {
             document.save(savePath);
@@ -68,7 +70,7 @@ public class AdminDocumentServiceImpl extends ServiceImpl<AdminMapper, Admin> im
 
     @Override
     public Document selectDocument(Integer id, String name) {
-        return adminMapper.selectDocument(id, name, 0).get(0);
+        return ListHelper.FirstOrDefault(adminMapper.selectDocument(id, name, 0));
     }
 
     @Override

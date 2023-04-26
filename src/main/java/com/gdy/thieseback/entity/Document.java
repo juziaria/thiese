@@ -106,8 +106,7 @@ public class Document {
     }
 
     public String getSavaPath(String dirPath){
-        String path = String.format("%s\\\\%s.%s", dirPath, this.name, this.extension);
-        PathHelper pathHelper = new PathHelper(path);
+        PathHelper pathHelper = new PathHelper(dirPath, this.name, this.extension);
         return pathHelper.getPath();
     }
 

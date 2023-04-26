@@ -21,7 +21,11 @@ public class PathHelper {
     public PathHelper(){}
 
     public PathHelper(String path){
-        path = path.replace("\\\\","/");
-        this.path = path;
+        this.path = path.replace("\\\\","/");
+    }
+
+    public PathHelper(String dirPath, String fileName, String extension){
+        String path = String.format("%s\\\\%s.%s", dirPath, fileName, extension);
+        this.path = path.replace("\\\\","/");
     }
 }
