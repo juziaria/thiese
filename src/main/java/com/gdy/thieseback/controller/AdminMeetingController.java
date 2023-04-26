@@ -18,7 +18,7 @@ import java.util.List;
  * 管理员控制层_招聘会
  */
 @RestController
-@RequestMapping("/gdy/admin")
+@RequestMapping("/gdy/admin/meeting")
 @Api(tags = "管理员端")
 public class AdminMeetingController {
     @Autowired

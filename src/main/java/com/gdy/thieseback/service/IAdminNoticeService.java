@@ -5,11 +5,12 @@ import com.gdy.thieseback.entity.Admin;
 import com.gdy.thieseback.entity.Notice;
 import com.gdy.thieseback.myEnum.FlagEnum;
 import com.gdy.thieseback.myEnum.NoticeTypeEnum;
+import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Component
+@Mapper
 public interface IAdminNoticeService extends IService<Admin> {
     /**
      * 查询通知

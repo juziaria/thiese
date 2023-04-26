@@ -5,11 +5,12 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.gdy.thieseback.dto.ResumeInfo;
 import com.gdy.thieseback.entity.Admin;
 import com.gdy.thieseback.entity.Resume;
+import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Component
+@Mapper
 public interface IAdminResumeService extends IService<Admin> {
     /**
      *浏览简历库

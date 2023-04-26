@@ -8,7 +8,6 @@ import io.swagger.models.auth.In;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -55,8 +54,7 @@ public interface AdminMapper extends BaseMapper<Admin> {
 
     List<Recruit> selectRecruitments(@Param("id") Integer id,
                                      @Param("flag") Integer flag,
-                                     @Param("companyScc") String companyScc,
-                                     @Param("major") String major);
+                                     @Param("companyScc") String companyScc);
 
     Boolean updateRecruitmentFlag(@Param("id") Integer id,
                                   @Param("flag") Integer flag);
@@ -77,7 +75,9 @@ public interface AdminMapper extends BaseMapper<Admin> {
 
     Boolean InsertMeeting(@Param("meeting") EmployMeeting employMeeting);
 
-    List<String> selectAdvices(@Param("grade") Integer grade);
+    //TODO
+    List<String> selectAdvices(@Param("grade") Integer grade,
+                               @Param("major") String major);
 
     Boolean updateIfOpenQuestionnaire(@Param("value") Boolean value);
 

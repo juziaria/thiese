@@ -20,7 +20,7 @@ import java.util.List;
  * 管理员控制层_文件
  */
 @RestController
-@RequestMapping("/gdy/admin")
+@RequestMapping("/gdy/admin/document")
 @Api(tags = "管理员端")
 public class AdminDocumentController {
     @Autowired

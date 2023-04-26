@@ -11,6 +11,9 @@ public class Questionnaire {
     @ApiModelProperty(value = "年级")
     private Integer grade;
 
+    @ApiModelProperty(value = "专业")
+    private String major;
+
     @ApiModelProperty(value = "建议")
     private String advice;
 }

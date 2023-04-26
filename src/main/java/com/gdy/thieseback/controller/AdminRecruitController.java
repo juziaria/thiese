@@ -23,7 +23,7 @@ import java.util.List;
  * 管理员控制层_招聘信息
  */
 @RestController
-@RequestMapping("/gdy/admin")
+@RequestMapping("/gdy/admin/recruit")
 @Api(tags = "管理员端")
 public class AdminRecruitController {
     @Autowired
@@ -43,15 +43,14 @@ public class AdminRecruitController {
     @ApiOperation("浏览招聘信息")
     @GetMapping("/recruitmentShow")
     public List<Recruit> recruitmentShow(@RequestParam String flagContent,
-                                         @RequestParam String companyScc,
-                                         @RequestParam String major){
-        if(flagContent != null && !flagContent.equals("")){
-            FlagEnum flagEnum = FlagEnum.find(flagContent);
+                                         @RequestParam String companyScc){
+        FlagEnum flagEnum = null;
 
-            return IAdminRecruitService.recruitmentShow(flagEnum, companyScc, major);
+        if(flagContent != null && !flagContent.equals("")){
+            flagEnum = FlagEnum.find(flagContent);
         }
 
-        return new ArrayList<>();
+        return IAdminRecruitService.recruitmentShow(flagEnum, companyScc);
     }
 
     @ApiOperation("驳回")

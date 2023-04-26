@@ -25,7 +25,7 @@ import java.util.List;
  * 管理员控制层_简历
  */
 @RestController
-@RequestMapping("/gdy/admin")
+@RequestMapping("/gdy/admin/resume")
 @Api(tags = "管理员端")
 public class AdminResumeController {
     @Autowired

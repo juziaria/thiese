@@ -21,8 +21,8 @@ public class AdminQuestionnaireService extends ServiceImpl<AdminMapper, Admin> i
     private final Conversation conversation = new Conversation();
 
     @Override
-    public List<String> showAdvices(Integer grade) {
-        return adminMapper.selectAdvices(grade);
+    public List<String> showAdvices(Integer grade, String major) {
+        return adminMapper.selectAdvices(grade, major);
     }
 
     @Override

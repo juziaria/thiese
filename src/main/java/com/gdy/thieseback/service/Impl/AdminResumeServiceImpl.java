@@ -10,11 +10,13 @@ import com.gdy.thieseback.myEnum.FlagEnum;
 import com.gdy.thieseback.service.IAdminRecruitService;
 import com.gdy.thieseback.service.IAdminResumeService;
 import com.gdy.thieseback.util.Conversation;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class AdminResumeServiceImpl extends ServiceImpl<AdminMapper, Admin> implements IAdminResumeService {
     @Resource
     private AdminMapper adminMapper;

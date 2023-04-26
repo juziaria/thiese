@@ -9,11 +9,13 @@ import com.gdy.thieseback.myEnum.FlagEnum;
 import com.gdy.thieseback.service.IAdminNoticeService;
 import com.gdy.thieseback.service.IAdminRecruitService;
 import com.gdy.thieseback.util.Conversation;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.List;
 
+@Service
 public class AdminRecruitServiceImpl extends ServiceImpl<AdminMapper, Admin> implements IAdminRecruitService {
     @Resource
     private AdminMapper adminMapper;
@@ -35,8 +37,8 @@ public class AdminRecruitServiceImpl extends ServiceImpl<AdminMapper, Admin> imp
     }
 
     @Override
-    public List<Recruit> recruitmentShow(FlagEnum flagEnum, String companyScc, String major) {
-        return adminMapper.selectRecruitments(null, flagEnum.getCode(), companyScc, major);
+    public List<Recruit> recruitmentShow(FlagEnum flagEnum, String companyScc) {
+        return adminMapper.selectRecruitments(null, flagEnum.getCode(), companyScc);
     }
 
     @Override

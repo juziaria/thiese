@@ -7,5 +7,5 @@ public class Technology {
     private Integer id;
 
     @ApiModelProperty(value = "技术")
-    private String technology;
+    private String content;
 }

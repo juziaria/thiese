@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.gdy.graduate.dao.AdminMapper">
+<mapper namespace="com.gdy.thieseback.mapper.AdminMapper">
 
     <select id="selectCompany" resultType="com.gdy.thieseback.entity.Company">
         select *
         from company
         where 1=1
+        <if test="flag != null">
             and flag = #{flag}
+        </if>
         <if test="id != null">
             and id = #{id}
         </if>
         <if test="start != null">
-            and company."createTime" >= #{start}
+            and createTime >= #{start}
         </if>
         <if test="end != null">
-            and #{end} >= company."createTime"
+            and #{end} >= createTime
         </if>
         <if test="address != null and address != ''">
             and address = #{address}
@@ -102,7 +104,7 @@
         where id = #{id}
     </update>
 
-    <select id="selectRecruitments" resultType="com.gdy.thieseback.entity.Recruitment">
+    <select id="selectRecruitments" resultType="com.gdy.thieseback.entity.Recruit">
         select *
         from recruit
         where 1 = 1
@@ -114,9 +116,6 @@
         </if>
         <if test="companyScc != null and companyScc != ''">
             and companyScc = #{companyScc}
-        </if>
-        <if test="major != null and major != ''">
-            and major like %#{major}%
         </if>
     </select>
 
@@ -179,10 +178,12 @@
         </if>
     </select>
 
+<!-- TODO 待create table parameter
     <update id="updateIfOpenQuestionnaire">
         update parameter
         set ifOpenQuestionnaire = #{value}
     </update>
+-->
 
     <select id="countEmploymentStatus" resultType="Integer">
         select count(*)
@@ -205,7 +206,7 @@
 
 
 
-    <select id="employmentDistributionByCompany" resultType="String, Integer">
+    <select id="employmentDistributionByCompany" resultType="map">
         select companyScc, count(*)
         from experience
         where employmentId in (
@@ -226,7 +227,7 @@
         group by companyScc
     </select>
 
-    <select id="employmentDistributionByWorkplace" resultType="String, Integer">
+    <select id="employmentDistributionByWorkplace" resultType="map">
         select workPlace, count(*)
         from experience
         where employmentId in (

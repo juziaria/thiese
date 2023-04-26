@@ -47,7 +47,7 @@ public class Experience {
     private Date endTime;
 
     @ApiModelProperty(value = "技术")
-    private Integer technologyId;
+    private String technologyId;
 
     @ApiModelProperty(value = "工作地点性质")
     private Integer placeProperty;

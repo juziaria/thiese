@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.gdy.thieseback.dto.*;
 import com.gdy.thieseback.entity.*;
 import com.gdy.thieseback.myEnum.*;
+import org.apache.ibatis.annotations.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -12,7 +13,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
-@Component
+@Mapper
 public interface IAdminDocumentService extends IService<Admin> {
     /**
      * 上传文件

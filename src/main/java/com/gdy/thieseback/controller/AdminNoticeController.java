@@ -22,7 +22,7 @@ import java.util.List;
  * 管理员控制层_通知
  */
 @RestController
-@RequestMapping("/gdy/admin")
+@RequestMapping("/gdy/admin/notice")
 @Api(tags = "管理员端")
 public class AdminNoticeController {
     @Autowired
