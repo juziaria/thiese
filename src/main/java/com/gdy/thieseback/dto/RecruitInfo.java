@@ -1,7 +1,6 @@
 package com.gdy.thieseback.dto;
 
-import com.gdy.graduate.entity.Recruitment;
-import com.gdy.graduate.entity.Requirement;
+import com.gdy.thieseback.entity.Recruit;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -20,8 +19,6 @@ public class RecruitInfo {
     private Integer salary;
 
     private String workPlace;
-
-    private Requirement requirement;
 
     private HashMap<String, String> company;
 }

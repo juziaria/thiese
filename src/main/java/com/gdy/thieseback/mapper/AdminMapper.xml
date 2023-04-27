@@ -2,27 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gdy.thieseback.mapper.AdminMapper">
 
-    <select id="selectCompany" resultType="com.gdy.thieseback.entity.Company">
-        select *
-        from company
-        where 1=1
-        <if test="flag != null">
-            and flag = #{flag}
-        </if>
-        <if test="id != null">
-            and id = #{id}
-        </if>
-        <if test="start != null">
-            and createTime >= #{start}
-        </if>
-        <if test="end != null">
-            and #{end} >= createTime
-        </if>
-        <if test="address != null and address != ''">
-            and address = #{address}
-        </if>
-    </select>
-
     <insert id="insertDocument">
         insert into document (extension, name, content, uploadtime, size, flag)
         values (#{file.extension}, #{file.name}, #{file.content}, #{file.uploadTime}, #{file.size}, #{file.flag})
@@ -77,10 +56,10 @@
             and type = #{type}
         </if>
         <if test="name != null and name != ''">
-            and name like #{name}
+            and notice.title like #{name}
         </if>
         <if test="time != null">
-            and time between #{timeBefore} and #{timeLast}
+            and publishTime between #{timeBefore} and #{timeLast}
         </if>
     </select>
 
@@ -160,19 +139,21 @@
     </select>
 
     <update id="updateMeetingFlag">
-        update meeting
+        update employmeeting
         set flag = #{flag}
         where id = #{id}
     </update>
 
     <insert id="InsertMeeting">
-        insert into emplotMeeting()
-        values()
+        insert into employmeeting(time, name, master, place, amount, major, type, flag)
+        values(#{employMeeting.time}, #{employMeeting.name}, #{employMeeting.master},
+               #{employMeeting.place}, #{employMeeting.amount}, #{employMeeting.major},
+               #employMeeting.type),#{employMeeting.flag}
     </insert>
 
     <select id="selectAdvices" resultType="String">
         select advice
-        from questionaire
+        from questionnaire
         <if test="grade != null">
             where grade = #{grade}
         </if>
@@ -185,8 +166,23 @@
     </update>
 -->
 
-    <select id="countEmploymentStatus" resultType="Integer">
-        select count(*)
+
+
+    <select id="CountMeetingType" resultType="map">
+        select type, count(*)
+        from employmeeting
+        where flag != #{flag} and employMeeting.time.YEAR = #{year}
+        group by employMeeting.type
+    </select>
+
+    <select id="CountMeetingForMajor" resultType="map">
+        select major, count(*)
+        from employmeeting
+        where flag != {flag} and employMeeting.time.YEAR = #{year}
+    </select>
+
+    <select id="countEmploymentStatus" resultType="map">
+        select employmentStatus, count(*)
         from employment
         where studentId in (
             select id from student where 1 = 1
@@ -200,8 +196,9 @@
                 and major = #{major}
             </if>
         )
-          and employmentStatus = #{employmentStatus}
-          and workProperty = #{workProperty}
+            and workProperty = #{workProperty}
+            and flag = #{flag}
+        group by employmentStatus
     </select>
 
 

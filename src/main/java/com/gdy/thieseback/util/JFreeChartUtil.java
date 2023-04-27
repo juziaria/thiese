@@ -1,7 +1,8 @@
 package com.gdy.thieseback.util;
 
+
+import org.apache.tomcat.util.http.fileupload.ByteArrayOutputStream;
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.CategoryAxis;
 import org.jfree.chart.axis.CategoryLabelPositions;
@@ -15,27 +16,56 @@ import org.jfree.chart.renderer.category.LineAndShapeRenderer;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.ui.RectangleInsets;
-
+import javax.imageio.ImageIO;
 import java.awt.*;
-import java.io.File;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
 
 public class JFreeChartUtil {
-    private final String fileExtension = "jpg";
-    private String savePath;
-    private String chartName;
-    private DefaultPieDataset pds;      //饼图
-    private DefaultCategoryDataset ds;  //折线图
+    public InputStream imgStream;
 
-    public JFreeChartUtil(String dirPath, String fileName, String chartName){
-        PathHelper pathHelper = new PathHelper(dirPath, fileName, this.fileExtension);
-        this.savePath = pathHelper.getPath();
-        this.chartName = chartName;
+    private String xLabel;
+    private String yLabel;
+    private int width;
+    private int height;
+
+    private DefaultPieDataset pds;      //饼图
+    private DefaultCategoryDataset ds;  //折线图、条形图
+
+    public JFreeChartUtil(){}
+
+    public JFreeChartUtil(int width, int height, String xLabel, String yLabel){
+        this.width = width;
+        this.height = height;
+        this.xLabel = xLabel;
+        this.yLabel = yLabel;
     }
 
+    public JFreeChartUtil(DefaultPieDataset pds, int width, int height) {
+        this(width, height, null, null);
+        this.pds = pds;
+    }
+
+    public JFreeChartUtil(DefaultCategoryDataset ds, int width, int height, String xLabel, String yLabel) {
+        this(width, height, xLabel, yLabel);
+        this.ds = ds;
+    }
+
+    //饼图
+    /*  DefaultPieDataset pds = new DefaultPieDataset();
+        pds.setValue("00点-04点", 100);
+        pds.setValue("04点-08点", 200);
+        pds.setValue("08点-12点", 300);
+        pds.setValue("12点-16点", 400);
+        pds.setValue("16点-20点", 500);
+        pds.setValue("20点-24点", 600);*/
     public void createPieChart() {
         try {
             // 分别是:显示图表的标题、需要提供对应图表的DateSet对象、是否显示图例、是否生成贴士以及是否生成URL链接
-            JFreeChart chart = ChartFactory.createPieChart(this.chartName, this.pds, false, false, true);
+            JFreeChart chart = ChartFactory.createPieChart("", this.pds, false, false, true);
             // 如果不使用Font,中文将显示不出来
             Font font = new Font("宋体", Font.BOLD, 12);
             // 设置图片标题的字体
@@ -52,19 +82,31 @@ public class JFreeChartUtil {
             // 设置标签生成器(默认{0})
             // {0}:key {1}:value {2}:百分比 {3}:sum
             plot.setLabelGenerator(new StandardPieSectionLabelGenerator("{0}({1}占{2})"));
-            // 将内存中的图片写到本地硬盘
-            ChartUtilities.saveChartAsJPEG(new File(this.savePath), chart, 600, 300);
+
+            this.JFreeChartToStream(chart, this.width, this.height);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
 
+    //折线图
+    /*  DefaultCategoryDataset ds = new DefaultCategoryDataset();
+		ds.setValue(10, "ibm", "2018-05-21");
+        ds.setValue(20, "ibm", "2018-05-22");
+        ds.setValue(32, "ibm", "2018-05-23");
+        ds.setValue(25, "ibm", "2018-05-24");
+        ds.setValue(0, "ibm", "2018-05-25");
+        ds.setValue(4, "ibm", "2018-05-26");
+        ds.setValue(32, "ibm", "2018-05-27");
+        ds.setValue(0, "ibm", "2018-05-28");
+        ds.setValue(358, "ibm", "2018-05-29");
+        ds.setValue(4, "ibm", "2018-05-30");*/
     public void createLineChart() {
         try {
-            // 创建柱状图.标题,X坐标,Y坐标,数据集合,orientation,是否显示legend,是否显示tooltip,是否使用url链接
-            JFreeChart chart = ChartFactory.createLineChart(this.chartName, "",
-                    "次数", this.ds, PlotOrientation.VERTICAL,false, true, true);
+            // 标题,X坐标,Y坐标,数据集合,orientation,是否显示legend,是否显示tooltip,是否使用url链接
+            JFreeChart chart = ChartFactory.createLineChart("", this.xLabel,
+                    this.yLabel, this.ds, PlotOrientation.VERTICAL,false, true, true);
             chart.setBackgroundPaint(Color.WHITE);
             Font font = new Font("宋体", Font.BOLD, 12);
             chart.getTitle().setFont(font);
@@ -120,9 +162,42 @@ public class JFreeChartUtil {
             // series 点（即数据点）间有连线可见 显示折点数据
             lineandshaperenderer.setBaseItemLabelGenerator(new StandardCategoryItemLabelGenerator());
             lineandshaperenderer.setBaseItemLabelsVisible(true);
-            ChartUtilities.saveChartAsJPEG(new File(this.savePath), chart, 1207, 500);
+
+            this.JFreeChartToStream(chart, this.width, this.height);
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+
+    //条形图
+    /*  dataset.addValue(1.0, "A", "Ⅰ");
+        dataset.addValue(3.0, "A", "Ⅱ");
+        dataset.addValue(5.0, "A", "Ⅲ");
+        dataset.addValue(5.0, "A", "Ⅳ");
+        dataset.addValue(5.0, "B", "Ⅰ");
+        dataset.addValue(6.0, "B", "Ⅱ");
+        dataset.addValue(10.0, "B", "Ⅲ");
+        dataset.addValue(4.0, "B", "Ⅳ");*/
+    public void createBarChart(){
+        JFreeChart chart = ChartFactory.createBarChart3D("", this.xLabel, this.yLabel, this.ds,
+                PlotOrientation.VERTICAL, true, true, false);
+
+        this.JFreeChartToStream(chart, this.width, this.height);
+    }
+
+
+    private void JFreeChartToStream(JFreeChart chart, int width, int height){
+        if(chart != null){
+            BufferedImage image = chart.createBufferedImage(width, height, 1, null);
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            try {
+                ImageIO.write(image, "jpg", stream);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            this.imgStream = new ByteArrayInputStream(stream.toByteArray());
         }
     }
 

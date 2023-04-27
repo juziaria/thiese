@@ -10,7 +10,7 @@ import java.io.Serializable;
 @ApiModel("企业展示信息")
 public class CompanyInfo {
 
-    private String id;
+    private String scc;
 
     private String name;
 
@@ -20,7 +20,5 @@ public class CompanyInfo {
 
     private String address;
 
-    private String createTime;
-
-    private String curator;
+    private String principal;
 }

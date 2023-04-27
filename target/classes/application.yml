@@ -2,10 +2,10 @@ server:
   port: 8086
 spring:
   datasource:
-    driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/zz?useUnicode=true&characterEncoding=utf-8
-    username: postgres
-    password: 2233
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://43.130.7.116:3306/system?
+    username: root
+    password: 123456
 
   mvc:
     pathmatch:

@@ -65,14 +65,11 @@ public class Conversation {
 
     @Autowired
     public Company CompanyInfoToCompany(CompanyInfo companyInfo, Company company){
-        company.setScc(companyInfo.getId());
+        company.setScc(companyInfo.getScc());
         company.setName(companyInfo.getName());
         company.setPhone(companyInfo.getPhone());
         company.setEmail(companyInfo.getEmail());
         company.setAddress(companyInfo.getAddress());
-
-        Date createTime = AdminToolHelper.StringToDate(companyInfo.getCreateTime());
-        company.setCreateTime(createTime);
 
         company.setPrincipal(companyInfo.getPrincipal());
 
@@ -82,14 +79,11 @@ public class Conversation {
     public CompanyInfo CompanyToCompanyInfo(Company company){
         CompanyInfo companyInfo = new CompanyInfo();
 
-        companyInfo.setId(company.getScc());
+        companyInfo.setScc(company.getScc());
         companyInfo.setName(company.getName());
         companyInfo.setPhone(company.getPhone());
         companyInfo.setEmail(company.getEmail());
         companyInfo.setAddress(company.getAddress());
-
-        String transformDate = AdminToolHelper.DateToString(company.getCreateTime());
-        companyInfo.setCreateTime(transformDate);
 
         companyInfo.setPrincipal(company.getPrincipal());
 
@@ -112,9 +106,6 @@ public class Conversation {
     public NoticeInfo NoticeToNoticeInfo(Notice notice, List<Document> documents){
         NoticeInfo noticeInfo = new NoticeInfo();
 
-        NoticeTypeEnum noticeType = NoticeTypeEnum.find(notice.getType());
-        noticeInfo.setType(noticeType.getContent());
-
         noticeInfo.setId(notice.getId());
         noticeInfo.setCollage(notice.getCollage());
         noticeInfo.setTitle(notice.getTitle());
@@ -136,9 +127,6 @@ public class Conversation {
 
     public Notice NoticeInfoToNotice(NoticeInfo noticeInfo){
         Notice notice = new Notice();
-
-        NoticeTypeEnum noticeType = NoticeTypeEnum.find(noticeInfo.getType());
-        notice.setType(noticeType.getCode());
 
         notice.setId(noticeInfo.getId());
         notice.setCollage(noticeInfo.getCollage());

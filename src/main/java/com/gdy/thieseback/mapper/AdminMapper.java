@@ -18,12 +18,6 @@ import java.util.Map;
 @Mapper
 public interface AdminMapper extends BaseMapper<Admin> {
 
-    List<Company> selectCompany(@Param("id") String id,
-                                @Param("start") Date start,
-                                @Param("end") Date end,
-                                @Param("address") String address,
-                                @Param("flag") Integer flag);
-
     Boolean insertDocument(@Param("file")Document file);
 
     List<Document> selectDocument(@Param("id") Integer id,
@@ -81,11 +75,18 @@ public interface AdminMapper extends BaseMapper<Admin> {
 
     Boolean updateIfOpenQuestionnaire(@Param("value") Boolean value);
 
-    Integer countEmploymentStatus(@Param("grade") Integer grade,
-                                  @Param("collage") String collage,
-                                  @Param("major") String major,
-                                  @Param("employmentStatus") Integer employmentStatus,
-                                  @Param("workProperty") Integer workProperty);
+    //数据分析
+    Map<String, Integer> CountMeetingType(@Param("year") Integer year,
+                                          @Param("flag") Integer flag);
+
+    Map<String, Integer> CountMeetingForMajor(@Param("year") Integer year,
+                                              @Param("flag") Integer flag);
+
+    Map<String, Integer> countEmploymentStatus(@Param("grade") Integer grade,
+                                               @Param("collage") String collage,
+                                               @Param("major") String major,
+                                               @Param("workProperty") Integer workProperty,
+                                               @Param("flag") Integer flag);
 
     Map<String, Integer> employmentDistributionByCompany(@Param("grade") Integer grade,
                                                          @Param("collage") String collage,

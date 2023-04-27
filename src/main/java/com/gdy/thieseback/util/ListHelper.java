@@ -1,12 +1,13 @@
 package com.gdy.thieseback.util;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Method;
+
+import com.gdy.thieseback.entity.Parameter;
+import lombok.val;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public class ListHelper {
 
@@ -26,5 +27,25 @@ public class ListHelper {
             }
         }
         return map;
+    }
+
+    public static Map<String, Integer> SpiltLastGroup(Map<String, Integer> map){
+        Map<String, Integer> result = new HashMap<>();
+        for (Map.Entry<String, Integer> entry : map.entrySet()) {
+            String mapKey = entry.getKey();
+            Integer mapValue = entry.getValue();
+
+            String[] items = mapKey.split(Parameter.splitChar);
+            for(val item : items){
+                if(result.containsKey(item)){
+                    val num = result.get(item);
+                    result.put(item, num + mapValue);
+                }else{
+                    result.put(item, mapValue);
+                }
+            }
+        }
+
+        return result;
     }
 }
