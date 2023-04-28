@@ -24,7 +24,7 @@ import java.util.List;
 @Api(tags = "管理员端")
 public class AdminDocumentController {
     @Autowired
-    private IAdminDocumentService IAdminDocumentService;
+    private IAdminDocumentService iAdminDocumentService;
     private final Conversation conversation = new Conversation();
     private final Parameter p = new Parameter();
 
@@ -35,7 +35,7 @@ public class AdminDocumentController {
         File file = new File(filePath.getPath());
         if(file.exists() && file.isFile()){
             Document document = new Document(file);
-            return IAdminDocumentService.uploadDocument(document);
+            return iAdminDocumentService.uploadDocument(document);
         }
 
         return false;
@@ -45,13 +45,13 @@ public class AdminDocumentController {
     @GetMapping("/downloadDocument")
     public Boolean downloadDocument(@RequestParam String saveDirPath,
                                     @RequestParam Integer id){
-        return IAdminDocumentService.downloadDocument(saveDirPath, id);
+        return iAdminDocumentService.downloadDocument(saveDirPath, id);
     }
 
     @ApiOperation("删除文件")
     @GetMapping("/deleteDocument")
     public Boolean deleteDocument(@RequestParam Integer id){
-        return IAdminDocumentService.deleteDocument(id);
+        return iAdminDocumentService.deleteDocument(id);
     }
 
     @ApiOperation("文件展示")
@@ -59,8 +59,8 @@ public class AdminDocumentController {
     public DocumentShow showDocuments(){
         DocumentShow documentShow = new DocumentShow();
 
-        documentShow.count = IAdminDocumentService.selectDocumentCount(null);
-        documentShow.documentInfoList = IAdminDocumentService.showDocuments(null);
+        documentShow.count = iAdminDocumentService.selectDocumentCount(null);
+        documentShow.documentInfoList = iAdminDocumentService.showDocuments(null);
 
         return documentShow;
     }
@@ -70,8 +70,8 @@ public class AdminDocumentController {
     public DocumentShow selectDocuments(@RequestParam String name){
         DocumentShow documentShow = new DocumentShow();
 
-        documentShow.count = IAdminDocumentService.selectDocumentCount(name);
-        documentShow.documentInfoList = IAdminDocumentService.showDocuments(name);
+        documentShow.count = iAdminDocumentService.selectDocumentCount(name);
+        documentShow.documentInfoList = iAdminDocumentService.showDocuments(name);
 
         return documentShow;
     }
