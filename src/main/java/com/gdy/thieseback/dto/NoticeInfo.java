@@ -1,6 +1,5 @@
 package com.gdy.thieseback.dto;
 
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.util.HashMap;

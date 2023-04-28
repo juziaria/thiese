@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(tags = "管理员端")
 public class AdminDataAnalysisController {
     @Autowired
-    private IAdminDataAnalysisService IAdminDataAnalysisService;
+    private IAdminDataAnalysisService iAdminDataAnalysisService;
 
     private final Conversation conversation = new Conversation();
     private final Parameter p = new Parameter();
