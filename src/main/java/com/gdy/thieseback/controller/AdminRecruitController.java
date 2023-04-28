@@ -27,7 +27,7 @@ import java.util.List;
 @Api(tags = "管理员端")
 public class AdminRecruitController {
     @Autowired
-    private IAdminRecruitService IAdminRecruitService;
+    private IAdminRecruitService iAdminRecruitService;
 
     private final Conversation conversation = new Conversation();
     private final Parameter p = new Parameter();
@@ -37,7 +37,7 @@ public class AdminRecruitController {
     @ApiOperation("返回公司列表")
     @GetMapping("/selectCompanyName")
     public HashMap<String, String> selectCompanyName(){
-        return IAdminRecruitService.selectCompanyName();
+        return iAdminRecruitService.selectCompanyName();
     }
 
     @ApiOperation("浏览招聘信息")
@@ -50,25 +50,25 @@ public class AdminRecruitController {
             flagEnum = FlagEnum.find(flagContent);
         }
 
-        return IAdminRecruitService.recruitmentShow(flagEnum, companyScc);
+        return iAdminRecruitService.recruitmentShow(flagEnum, companyScc);
     }
 
     @ApiOperation("驳回")
     @GetMapping("/rejectRecruitment")
     public Boolean rejectRecruitment(@RequestParam Integer id){
-        return IAdminRecruitService.updateRecruitmentFlag(id, FlagEnum.Reject);
+        return iAdminRecruitService.updateRecruitmentFlag(id, FlagEnum.Reject);
     }
 
     @ApiOperation("结束")
     @GetMapping("/endRecruitment")
     public Boolean endRecruitment(@RequestParam Integer id){
-        return IAdminRecruitService.updateRecruitmentFlag(id, FlagEnum.End);
+        return iAdminRecruitService.updateRecruitmentFlag(id, FlagEnum.End);
     }
 
     @ApiOperation("发布")
     @GetMapping("/publishRecruitment")
     public Boolean publishRecruitment(@RequestParam Integer id){
-        return IAdminRecruitService.updateRecruitmentFlag(id, FlagEnum.Publish);
+        return iAdminRecruitService.updateRecruitmentFlag(id, FlagEnum.Publish);
     }
 
 }

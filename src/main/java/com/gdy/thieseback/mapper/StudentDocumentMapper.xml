@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gdy.thieseback.mapper.StudentDocumentMapper">
+
+    <select id="selectDocument" resultType="com.gdy.thieseback.entity.Document">
+        select *
+        from document
+        where flag = #{flag}
+        <if test="id != null and id != 0">
+            and id = #{id}
+        </if>
+        <if test="name != null and name != ''">
+            and name like #{name}
+        </if>
+    </select>
+
+    <select id="selectDocumentCount" resultType="java.lang.Integer">
+        select distinct count(*)
+        from document
+        where flag = #{flag}
+        <if test="name != null and name != ''">
+            and name like #{name}
+        </if>
+    </select>
+
+
+
+
+
+</mapper>
