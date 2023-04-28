@@ -12,7 +12,7 @@ import javax.annotation.Resource;
 import java.util.List;
 
 @Service
-@Transactional
+//@Transactional
 public class AdminQuestionnaireService extends ServiceImpl<AdminMapper, Admin> implements IAdminQuestionnaireService {
     @Resource
     private AdminMapper adminMapper;

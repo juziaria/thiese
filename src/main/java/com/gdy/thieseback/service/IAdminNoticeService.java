@@ -7,10 +7,12 @@ import com.gdy.thieseback.myEnum.FlagEnum;
 import com.gdy.thieseback.myEnum.NoticeTypeEnum;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Mapper
+//@Mapper
+@Service
 public interface IAdminNoticeService extends IService<Admin> {
     /**
      * 查询通知

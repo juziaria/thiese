@@ -6,11 +6,13 @@ import com.gdy.thieseback.entity.Recruit;
 import com.gdy.thieseback.myEnum.FlagEnum;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.List;
 
-@Mapper
+//@Mapper
+@Service
 public interface IAdminRecruitService extends IService<Admin> {
 
     /**

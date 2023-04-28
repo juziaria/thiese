@@ -9,7 +9,6 @@ import org.mybatis.spring.annotation.MapperScan;
 import java.io.Serializable;
 
 @Data
-@MapperScan
 @ApiModel("管理员实体类")
 public class Admin extends BaseEntity implements Serializable {
     @Id

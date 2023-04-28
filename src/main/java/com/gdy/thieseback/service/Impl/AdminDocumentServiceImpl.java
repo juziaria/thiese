@@ -22,7 +22,7 @@ import java.util.List;
  * 管理员业务层
  */
 @Service
-@Transactional
+//@Transactional
 public class AdminDocumentServiceImpl extends ServiceImpl<AdminMapper, Admin> implements IAdminDocumentService {
     @Resource
     private AdminMapper adminMapper;

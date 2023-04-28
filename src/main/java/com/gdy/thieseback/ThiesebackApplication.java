@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@MapperScan("com.gdy.thieseback.mapper")
-@ComponentScan(basePackages = {"com.gdy.thieseback.mapper"})
+//@MapperScan("com.gdy.thieseback.mapper")
+@ComponentScan(basePackages = {"com.gdy.thieseback.*"})
 public class ThiesebackApplication {
 
     public static void main(String[] args) {

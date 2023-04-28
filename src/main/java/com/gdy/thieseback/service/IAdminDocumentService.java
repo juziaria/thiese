@@ -7,13 +7,15 @@ import com.gdy.thieseback.myEnum.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import javax.xml.crypto.Data;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
-@Mapper
+//@Mapper
+@Service
 public interface IAdminDocumentService extends IService<Admin> {
     /**
      * 上传文件

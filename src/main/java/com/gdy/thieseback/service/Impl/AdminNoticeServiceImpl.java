@@ -17,7 +17,7 @@ import java.util.Date;
 import java.util.List;
 
 @Service
-@Transactional
+//@Transactional
 public class AdminNoticeServiceImpl extends ServiceImpl<AdminMapper, Admin> implements IAdminNoticeService {
     @Resource
     private AdminMapper adminMapper;

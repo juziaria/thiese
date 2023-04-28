@@ -5,10 +5,14 @@ import com.gdy.thieseback.entity.*;
 import com.gdy.thieseback.myEnum.*;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import javax.annotation.Resource;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+@Component
 public class Conversation {
 
     public Student StuInfoToStu(StuInfo stuInfo){
@@ -16,7 +20,6 @@ public class Conversation {
         return StuInfoToStu(stuInfo, student);
     }
 
-    @Autowired
     public Student StuInfoToStu(StuInfo stuInfo, Student student){
         student.setId(stuInfo.getId());
         student.setIdentity(stuInfo.getStudentIdentity());
@@ -63,7 +66,6 @@ public class Conversation {
         return CompanyInfoToCompany(companyInfo, company);
     }
 
-    @Autowired
     public Company CompanyInfoToCompany(CompanyInfo companyInfo, Company company){
         company.setScc(companyInfo.getScc());
         company.setName(companyInfo.getName());

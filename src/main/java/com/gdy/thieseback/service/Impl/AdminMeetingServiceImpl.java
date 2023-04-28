@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-@Transactional
+//@Transactional
 public class AdminMeetingServiceImpl extends ServiceImpl<AdminMapper, Admin> implements IAdminMeetingService {
     @Resource
     private AdminMapper adminMapper;

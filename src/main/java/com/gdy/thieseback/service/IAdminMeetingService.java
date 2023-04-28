@@ -7,10 +7,12 @@ import com.gdy.thieseback.entity.Admin;
 import com.gdy.thieseback.myEnum.FlagEnum;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Mapper
+//@Mapper
+@Service
 public interface IAdminMeetingService extends IService<Admin> {
     /**
      *浏览会议信息
