@@ -31,7 +31,21 @@ public interface IAdminDataAnalysisService extends IService<Admin> {
 
     //按年级、学院、专业、工作性质（实习or正式）展示，统计各地点就职学生人数
     //条形图
-    InputStream employmentDistributionByWorkplace(Integer grade, String collage, String major, Integer workProperty);
+    InputStream employmentDistributionByWorkplace(Integer grade, String collage, String major,
+                                                  Integer workProperty);
 
+    //按年级、学院、专业、工作性质（实习or正式）展示，统计各行业就职学生人数
+    //条形图
+    InputStream employmentDistributionByIndustry(Integer grade, String collage, String major,
+                                                 Integer workProperty);
 
+    //按年级、学院、专业、工作性质（实习or正式）展示，统计岗位就职学生人数
+    //条形图
+    InputStream employmentDistributionByPosition(Integer grade, String collage, String major,
+                                                 Integer workProperty);
+
+    //按年级、学院、专业、工作性质（实习or正式）展示，统计各公司性质职学生人数
+    //条形图
+    InputStream employmentDistributionByCompanyProperty(Integer grade, String collage, String major,
+                                                        Integer workProperty);
 }

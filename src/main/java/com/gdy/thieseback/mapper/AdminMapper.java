@@ -97,4 +97,19 @@ public interface AdminMapper extends BaseMapper<Admin> {
                                                            @Param("collage") String collage,
                                                            @Param("major") String major,
                                                            @Param("workProperty") Integer workProperty);
+
+    Map<String, Integer> employmentDistributionByIndustry(@Param("grade") Integer grade,
+                                                           @Param("collage") String collage,
+                                                           @Param("major") String major,
+                                                           @Param("workProperty") Integer workProperty);
+
+    Map<String, Integer> employmentDistributionByPosition(@Param("grade") Integer grade,
+                                                           @Param("collage") String collage,
+                                                           @Param("major") String major,
+                                                           @Param("workProperty") Integer workProperty);
+
+    Map<String, Integer> employmentDistributionByCompanyProperty(@Param("grade") Integer grade,
+                                                                 @Param("collage") String collage,
+                                                                 @Param("major") String major,
+                                                                 @Param("workProperty") Integer workProperty);
 }

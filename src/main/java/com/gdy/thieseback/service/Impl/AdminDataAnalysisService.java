@@ -119,11 +119,26 @@ public class AdminDataAnalysisService extends ServiceImpl<AdminMapper, Admin> im
 
             AddressHelper addressHelper = new AddressHelper(address);
 
-            ds.setValue(null, "", addressHelper.getPlace());
+            ds.setValue(count, "", addressHelper.getPlace());
         }
 
         JFreeChartUtil jFreeChartUtil = new JFreeChartUtil(ds, 100, 100,"人数","工作地点");
         jFreeChartUtil.createBarChart();
         return jFreeChartUtil.imgStream;
+    }
+
+    @Override
+    public InputStream employmentDistributionByIndustry(Integer grade, String collage, String major, Integer workProperty) {
+        return null;
+    }
+
+    @Override
+    public InputStream employmentDistributionByPosition(Integer grade, String collage, String major, Integer workProperty) {
+        return null;
+    }
+
+    @Override
+    public InputStream employmentDistributionByCompanyProperty(Integer grade, String collage, String major, Integer workProperty) {
+        return null;
     }
 }

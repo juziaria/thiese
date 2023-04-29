@@ -245,4 +245,67 @@
         and workProperty = #{workProperty}
         group by workPlace
     </select>
+
+    <select id="employmentDistributionByIndustry" resultType="map">
+        select industry, count(*)
+        from experience
+        where employmentId in (
+        select id from employment where studentId in (
+            select id from student where 1 = 1
+                <if test="grade != null">
+                    and grade = #{grade}
+                </if>
+                <if test="collage != null and collage != ''">
+                    and collage = #{collage}
+                </if>
+                <if test="major != null and major != ''">
+                    and major = #{major}
+                </if>
+            )
+        )
+        and workProperty = #{workProperty}
+        group by industry
+    </select>
+
+    <select id="employmentDistributionByPosition" resultType="map">
+        select position, count(*)
+        from experience
+        where employmentId in (
+        select id from employment where studentId in (
+        select id from student where 1 = 1
+                <if test="grade != null">
+                    and grade = #{grade}
+                </if>
+                <if test="collage != null and collage != ''">
+                    and collage = #{collage}
+                </if>
+                <if test="major != null and major != ''">
+                    and major = #{major}
+                </if>
+            )
+        )
+        and workProperty = #{workProperty}
+        group by position
+    </select>
+
+    <select id="employmentDistributionByCompanyProperty" resultType="map">
+        select companyProperty, count(*)
+        from experience
+        where employmentId in (
+        select id from employment where studentId in (
+        select id from student where 1 = 1
+                <if test="grade != null">
+                    and grade = #{grade}
+                </if>
+                <if test="collage != null and collage != ''">
+                    and collage = #{collage}
+                </if>
+                <if test="major != null and major != ''">
+                    and major = #{major}
+                </if>
+            )
+        )
+        and workProperty = #{workProperty}
+        group by companyProperty
+    </select>
 </mapper>
