@@ -1,8 +1,9 @@
 package com.gdy.thieseback.util;
 
 import com.gdy.thieseback.entity.Parameter;
-import org.apache.poi.ss.formula.functions.T;
+import org.apache.tomcat.util.http.fileupload.ByteArrayOutputStream;
 
+import java.io.InputStream;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -52,6 +53,19 @@ public class AdminToolHelper {
     public static String DateToString(Date date) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(Parameter.DatePattern);
         return simpleDateFormat.format(date);
+    }
+
+    public static void getImageFromInputStream(InputStream inputStream) throws Exception {
+        /*
+        int n;
+        byte[] buffer = new byte[4096];
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        while (-1 != (n = inputStream.read(buffer))) {
+            output.write(buffer, 0, n);
+        }
+        Image image = Image.getInstance(output.toByteArray());
+
+         */
     }
 
 }

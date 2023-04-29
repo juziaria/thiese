@@ -4,7 +4,6 @@ package com.gdy.thieseback.controller;
 import com.gdy.thieseback.entity.Parameter;
 import com.gdy.thieseback.entity.Recruit;
 import com.gdy.thieseback.myEnum.FlagEnum;
-import com.gdy.thieseback.service.IAdminDocumentService;
 import com.gdy.thieseback.service.IAdminRecruitService;
 import com.gdy.thieseback.util.Conversation;
 import io.swagger.annotations.Api;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -33,12 +31,6 @@ public class AdminRecruitController {
     private final Parameter p = new Parameter();
 
 
-
-    @ApiOperation("返回公司列表")
-    @GetMapping("/selectCompanyName")
-    public HashMap<String, String> selectCompanyName(){
-        return iAdminRecruitService.selectCompanyName();
-    }
 
     @ApiOperation("浏览招聘信息")
     @GetMapping("/recruitmentShow")

@@ -19,24 +19,24 @@ import java.util.List;
 @Api(tags = "管理员端")
 public class AdminQuestionnaireController {
     @Autowired
-    private IAdminQuestionnaireService IAdminQuestionnaireService;
+    private IAdminQuestionnaireService iAdminQuestionnaireService;
 
     @ApiOperation("结束")
     @GetMapping("/showAdvices")
     public List<String> showAdvices(@RequestParam Integer grade,
                                     @RequestParam String major){
-        return IAdminQuestionnaireService.showAdvices(grade, major);
+        return iAdminQuestionnaireService.showAdvices(grade, major);
     }
 
     @ApiOperation("结束")
     @GetMapping("/openQuestionnaire")
     public Boolean openQuestionnaire(){
-        return IAdminQuestionnaireService.updateIfOpenQuestionnaire(true);
+        return iAdminQuestionnaireService.updateIfOpenQuestionnaire(true);
     }
 
     @ApiOperation("结束")
     @GetMapping("/closeQuestionnaire")
     public Boolean closeQuestionnaire(){
-        return IAdminQuestionnaireService.updateIfOpenQuestionnaire(false);
+        return iAdminQuestionnaireService.updateIfOpenQuestionnaire(false);
     }
 }

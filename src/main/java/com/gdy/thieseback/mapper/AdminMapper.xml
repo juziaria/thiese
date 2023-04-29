@@ -171,21 +171,22 @@
     <select id="CountMeetingType" resultType="map">
         select type, count(*)
         from employmeeting
-        where flag != #{flag} and employMeeting.time.YEAR = #{year}
+        where flag != #{notFlag} and employMeeting.time.YEAR = #{year}
         group by employMeeting.type
     </select>
 
     <select id="CountMeetingForMajor" resultType="map">
         select major, count(*)
         from employmeeting
-        where flag != {flag} and employMeeting.time.YEAR = #{year}
+        where flag != {notFlag} and employMeeting.time.YEAR = #{year}
+        group by employMeeting.major
     </select>
 
     <select id="countEmploymentStatus" resultType="map">
         select employmentStatus, count(*)
         from employment
         where studentId in (
-            select id from student where 1 = 1
+            select id from student where flag = 0 
             <if test="grade != null">
                 and grade = #{grade}
             </if>

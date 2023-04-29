@@ -6,7 +6,6 @@ import com.gdy.thieseback.entity.Document;
 import com.gdy.thieseback.entity.Parameter;
 import com.gdy.thieseback.entity.Resume;
 import com.gdy.thieseback.myEnum.FlagEnum;
-import com.gdy.thieseback.service.IAdminRecruitService;
 import com.gdy.thieseback.service.IAdminResumeService;
 import com.gdy.thieseback.util.Conversation;
 import com.gdy.thieseback.util.PathHelper;
@@ -29,7 +28,7 @@ import java.util.List;
 @Api(tags = "管理员端")
 public class AdminResumeController {
     @Autowired
-    private IAdminResumeService IAdminResumeService;
+    private IAdminResumeService iAdminResumeService;
 
     private final Conversation conversation = new Conversation();
     private final Parameter p = new Parameter();
@@ -38,20 +37,20 @@ public class AdminResumeController {
     @ApiOperation("浏览简历")
     @GetMapping("/showResumes")
     public List<ResumeInfo> showResumes(){
-        return IAdminResumeService.showResumes();
+        return iAdminResumeService.showResumes();
     }
 
     @ApiOperation("删除简历")
     @GetMapping("/deleteResume")
     public Boolean deleteResume(@RequestParam Integer id){
-        return IAdminResumeService.deleteResume(id);
+        return iAdminResumeService.deleteResume(id);
     }
 
     @ApiOperation("下载简历")
     @GetMapping("/downloadResume")
     public Boolean downloadResume(@RequestParam Integer id,
                                   @RequestParam String dirPath){
-        return IAdminResumeService.downLoadResume(id, dirPath);
+        return iAdminResumeService.downLoadResume(id, dirPath);
     }
 
     @ApiOperation("上传简历")
@@ -63,7 +62,7 @@ public class AdminResumeController {
             Document document = new Document(file);
             Resume resume = conversation.DocumentToResume(document, FlagEnum.Upload);
 
-            return IAdminResumeService.upLoadResume(resume);
+            return iAdminResumeService.upLoadResume(resume);
         }
         return false;
     }

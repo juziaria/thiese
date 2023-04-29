@@ -77,10 +77,10 @@ public interface AdminMapper extends BaseMapper<Admin> {
 
     //数据分析
     Map<String, Integer> CountMeetingType(@Param("year") Integer year,
-                                          @Param("flag") Integer flag);
+                                          @Param("notFlag") Integer notFlag);
 
     Map<String, Integer> CountMeetingForMajor(@Param("year") Integer year,
-                                              @Param("flag") Integer flag);
+                                              @Param("notFlag") Integer notFlag);
 
     Map<String, Integer> countEmploymentStatus(@Param("grade") Integer grade,
                                                @Param("collage") String collage,

@@ -24,19 +24,6 @@ public class AdminRecruitServiceImpl extends ServiceImpl<AdminMapper, Admin> imp
     private final Conversation conversation = new Conversation();
 
     @Override
-    public HashMap<String, String> selectCompanyName() {
-        List<Company> companyList = adminMapper.selectCompany(null, null, null, null,
-                FlagEnum.Upload.getCode());
-
-        HashMap<String, String> companyInfo = new HashMap<>();
-        for (Company company : companyList) {
-            companyInfo.put(company.getScc(), company.getName());
-        }
-
-        return companyInfo;
-    }
-
-    @Override
     public List<Recruit> recruitmentShow(FlagEnum flagEnum, String companyScc) {
         return adminMapper.selectRecruitments(null, flagEnum.getCode(), companyScc);
     }

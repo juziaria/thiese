@@ -15,10 +15,7 @@ import java.util.List;
 @Service
 public interface IAdminRecruitService extends IService<Admin> {
 
-    /**
-     * 返回公司列表
-     */
-    HashMap<String, String> selectCompanyName();
+
     /**
      *展示招聘信息（需二次处理）
      */

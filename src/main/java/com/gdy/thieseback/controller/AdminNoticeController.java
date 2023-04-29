@@ -26,10 +26,10 @@ import java.util.List;
 @Api(tags = "管理员端")
 public class AdminNoticeController {
     @Autowired
-    private IAdminNoticeService IAdminNoticeService;
+    private IAdminNoticeService iAdminNoticeService;
 
     @Autowired
-    private IAdminDocumentService IAdminDocumentService;
+    private IAdminDocumentService iAdminDocumentService;
 
     private final Conversation conversation = new Conversation();
     private final Parameter p = new Parameter();
@@ -49,14 +49,14 @@ public class AdminNoticeController {
 
     private List<NoticeInfo> noticeShow(FlagEnum flagEnum){
         List<NoticeInfo> noticeInfoList = new ArrayList<>();
-        List<Notice> notices = IAdminNoticeService.selectNotice(null, flagEnum);
+        List<Notice> notices = iAdminNoticeService.selectNotice(null, flagEnum);
         for(Notice notice : notices){
             String[] documentIdList = notice.getDocumentId().split(Parameter.splitChar);
 
             List<Document> documentList = new ArrayList<>();
             for(String documentIdStr : documentIdList){
                 Integer documentId = Integer. parseInt(documentIdStr);
-                Document document = IAdminDocumentService.selectDocument(documentId, null);
+                Document document = iAdminDocumentService.selectDocument(documentId, null);
 
                 if(document != null){
                     documentList.add(document);
@@ -88,7 +88,7 @@ public class AdminNoticeController {
         List<NoticeInfo> noticeInfoList = new ArrayList<>();
 
         NoticeTypeEnum noticeTypeEnum = NoticeTypeEnum.find(type);
-        List<Notice> notices = IAdminNoticeService.selectNotice(noticeTypeEnum, name, day, flagEnum);
+        List<Notice> notices = iAdminNoticeService.selectNotice(noticeTypeEnum, name, day, flagEnum);
 
         for(Notice notice : notices){
             List<Document> documents = new ArrayList<>();
@@ -97,7 +97,7 @@ public class AdminNoticeController {
             for(String documentIdStr : documentIdList){
                 Integer documentId = Integer.parseInt(documentIdStr);
 
-                documents.add(IAdminDocumentService.selectDocument(documentId, null));
+                documents.add(iAdminDocumentService.selectDocument(documentId, null));
             }
 
             noticeInfoList.add(conversation.NoticeToNoticeInfo(notice, documents));
@@ -112,9 +112,9 @@ public class AdminNoticeController {
         Notice notice = conversation.NoticeInfoToNotice(noticeInfo);
         notice.setFlag(FlagEnum.Publish.getCode());
 
-        Integer noticeId = IAdminNoticeService.insertNotice(notice);
+        Integer noticeId = iAdminNoticeService.insertNotice(notice);
 
-        return IAdminNoticeService.updateNoticeState(noticeId, FlagEnum.Publish);
+        return iAdminNoticeService.updateNoticeState(noticeId, FlagEnum.Publish);
     }
 
     @ApiOperation("保存到草稿箱")
@@ -123,20 +123,20 @@ public class AdminNoticeController {
         Notice notice = conversation.NoticeInfoToNotice(noticeInfo);
         notice.setFlag(FlagEnum.NotPublish.getCode());
 
-        List<Notice> notices = IAdminNoticeService.selectNotice(notice.getId(), FlagEnum.NotPublish);
+        List<Notice> notices = iAdminNoticeService.selectNotice(notice.getId(), FlagEnum.NotPublish);
         if(notices.size() > 0){
-            return IAdminNoticeService.updateNotice(notice);
+            return iAdminNoticeService.updateNotice(notice);
         }
         else {
-            Integer noticeId = IAdminNoticeService.insertNotice(notice);
-            return IAdminNoticeService.updateNoticeState(noticeId, FlagEnum.Publish);
+            Integer noticeId = iAdminNoticeService.insertNotice(notice);
+            return iAdminNoticeService.updateNoticeState(noticeId, FlagEnum.Publish);
         }
     }
 
     @ApiOperation("撤回通知")
     @GetMapping("/withdrawNotice")
     public Boolean withdrawNotice(@RequestParam Integer id){
-        return IAdminNoticeService.updateNoticeState(id, FlagEnum.NotPublish);
+        return iAdminNoticeService.updateNoticeState(id, FlagEnum.NotPublish);
     }
 
     @ApiOperation("重新发布通知")
@@ -144,21 +144,21 @@ public class AdminNoticeController {
     public Boolean rePublishNotice(@RequestBody NoticeInfo noticeInfo){
         Notice notice = conversation.NoticeInfoToNotice(noticeInfo);
 
-        IAdminNoticeService.updateNotice(notice);
+        iAdminNoticeService.updateNotice(notice);
 
-        return IAdminNoticeService.updateNoticeState(notice.getId(), FlagEnum.Publish);
+        return iAdminNoticeService.updateNoticeState(notice.getId(), FlagEnum.Publish);
     }
 
     @ApiOperation("删除通知")
     @GetMapping("/deleteNotice")
     public Boolean deleteNotice(@RequestParam Integer id){
-        return IAdminNoticeService.updateNoticeState(id, FlagEnum.Delete);
+        return iAdminNoticeService.updateNoticeState(id, FlagEnum.Delete);
     }
 
     @ApiOperation("修改通知")
     @PostMapping("/updateNotice")
     public Boolean updateNotice(@RequestBody NoticeInfo noticeInfo){
         Notice notice = conversation.NoticeInfoToNotice(noticeInfo);
-        return IAdminNoticeService.updateNotice(notice);
+        return iAdminNoticeService.updateNotice(notice);
     }
 }

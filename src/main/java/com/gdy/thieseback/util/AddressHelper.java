@@ -19,6 +19,8 @@ public class AddressHelper {
     private String town;        //镇
     private String village;     //村
 
+    private String place;
+
     public AddressHelper(String address){
         Matcher m = Pattern.compile(this.regex).matcher(address);
 
@@ -28,6 +30,9 @@ public class AddressHelper {
             this.county = m.group("county");
             this.town = m.group("town");
             this.village = m.group("village");
+
+            this.place = String.format("{0}{1}", this.province, this.city);
         }
     }
+
 }
