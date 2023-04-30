@@ -1,5 +1,6 @@
 package com.gdy.thieseback.myEnum;
 
+import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Objects;
@@ -30,7 +31,7 @@ public enum EmploymentStatusEnum {
     }
 
     public static EmploymentStatusEnum find(int code) {
-        for (EmploymentStatusEnum value : values()) {
+        for (val value : values()) {
             if(code == value.code){
                 return value;
             }
@@ -41,7 +42,7 @@ public enum EmploymentStatusEnum {
 
     @Autowired
     public static EmploymentStatusEnum find(String content) {
-        for (EmploymentStatusEnum value : values()) {
+        for (val value : values()) {
             if(Objects.equals(content, value.content)){
                 return value;
             }

@@ -35,7 +35,7 @@ public interface IAdminDataAnalysisService extends IService<Admin> {
                                                   Integer workProperty);
 
     //按年级、学院、专业、工作性质（实习or正式）展示，统计各行业就职学生人数
-    //条形图
+    //饼图
     InputStream employmentDistributionByIndustry(Integer grade, String collage, String major,
                                                  Integer workProperty);
 
@@ -45,7 +45,27 @@ public interface IAdminDataAnalysisService extends IService<Admin> {
                                                  Integer workProperty);
 
     //按年级、学院、专业、工作性质（实习or正式）展示，统计各公司性质职学生人数
-    //条形图
+    //饼图
     InputStream employmentDistributionByCompanyProperty(Integer grade, String collage, String major,
                                                         Integer workProperty);
+
+    //按工作性质（实习or正式）展示，统计各行业平均薪资
+    //折线图
+    InputStream salaryDistributionByIndustry(Integer workProperty);
+
+    //按工作性质（实习or正式）展示，统计各岗位平均薪资
+    //折线图
+    InputStream salaryDistributionByPosition(Integer workProperty);
+
+    //按工作性质（实习or正式）展示，统计各工作地点平均薪资
+    //折线图
+    InputStream salaryDistributionByWorkPlace(Integer workProperty);
+
+    //按工作性质（实习or正式）展示，统计各公司平均薪资
+    //折线图
+    InputStream salaryDistributionByCompany(Integer workProperty);
+
+    //按工作性质（实习or正式）展示，统计各公司性质平均薪资
+    //折线图
+    InputStream salaryDistributionByCompanyProperty(Integer workProperty);
 }

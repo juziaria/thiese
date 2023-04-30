@@ -1,6 +1,6 @@
 package com.gdy.thieseback.myEnum;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.val;
 
 import java.util.Objects;
 
@@ -15,42 +15,39 @@ public enum CompanyPropertyEnum {
     Army(7,"部队"),
     ;
 
-
-
-    public int getCode() {
-        return code;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    private int code;
-    private String content;
-
     CompanyPropertyEnum(int code, String content){
         this.code = code;
         this.content = content;
     }
 
+    private int code;
+    private String content;
+
+    public Integer getCode(){
+        return this.code;
+    }
+
+    public String getContent(){
+        return this.content;
+    }
+
     public static CompanyPropertyEnum find(int code) {
-        for (CompanyPropertyEnum value : values()) {
-            if(code == value.code){
+        for (val value : values()) {
+            if(Objects.equals(code, value.code)){
                 return value;
             }
         }
-
         return null;
     }
 
-    @Autowired
     public static CompanyPropertyEnum find(String content) {
-        for (CompanyPropertyEnum value : values()) {
+        for (val value : values()) {
             if(Objects.equals(content, value.content)){
                 return value;
             }
         }
-
         return null;
     }
+
+
 }

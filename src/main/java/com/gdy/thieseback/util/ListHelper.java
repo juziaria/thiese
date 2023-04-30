@@ -4,6 +4,7 @@ package com.gdy.thieseback.util;
 import com.gdy.thieseback.entity.Parameter;
 import lombok.val;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,21 +16,7 @@ public class ListHelper {
         return list.stream().findFirst().orElse(null);
     }
 
-    public static <T> Map<String, List<T>> GroupBy(List<T> list, String fieldName){
-        Map<String,List<T>> map = new HashMap<>();
-        for(T t : list){
-            if(map.containsKey(fieldName)){
-                map.get(fieldName).add(t);
-            }else{
-                List<T> newList = new ArrayList<>();
-                newList.add(t);
-                map.put(fieldName, newList);
-            }
-        }
-        return map;
-    }
-
-    public static Map<String, Integer> SpiltLastGroup(Map<String, Integer> map){
+    public static Map<String, Integer> MapSpiltLastGroup(Map<String, Integer> map){
         Map<String, Integer> result = new HashMap<>();
         for (Map.Entry<String, Integer> entry : map.entrySet()) {
             String mapKey = entry.getKey();
@@ -45,7 +32,6 @@ public class ListHelper {
                 }
             }
         }
-
         return result;
     }
 }

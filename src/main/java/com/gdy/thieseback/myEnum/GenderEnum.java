@@ -1,6 +1,7 @@
 package com.gdy.thieseback.myEnum;
 
 
+import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Objects;
@@ -28,7 +29,7 @@ public enum GenderEnum {
     }
 
     public static GenderEnum find(int code) {
-        for (GenderEnum value : values()) {
+        for (val value : values()) {
             if(code == value.code){
                 return value;
             }
@@ -39,7 +40,7 @@ public enum GenderEnum {
 
     @Autowired
     public static GenderEnum find(String content) {
-        for (GenderEnum value : values()) {
+        for (val value : values()) {
             if(Objects.equals(content, value.content)){
                 return value;
             }

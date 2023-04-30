@@ -1,5 +1,6 @@
 package com.gdy.thieseback.myEnum;
 
+import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Objects;
@@ -29,7 +30,7 @@ public enum NoticeTypeEnum {
     }
 
     public static NoticeTypeEnum find(int code) {
-        for (NoticeTypeEnum value : values()) {
+        for (val value : values()) {
             if(code == value.code){
                 return value;
             }
@@ -40,7 +41,7 @@ public enum NoticeTypeEnum {
 
     @Autowired
     public static NoticeTypeEnum find(String content) {
-        for (NoticeTypeEnum value : values()) {
+        for (val value : values()) {
             if(Objects.equals(content, value.content)){
                 return value;
             }

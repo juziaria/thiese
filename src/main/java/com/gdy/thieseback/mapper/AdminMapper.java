@@ -76,17 +76,16 @@ public interface AdminMapper extends BaseMapper<Admin> {
     Boolean updateIfOpenQuestionnaire(@Param("value") Boolean value);
 
     //数据分析
-    Map<String, Integer> CountMeetingType(@Param("year") Integer year,
-                                          @Param("notFlag") Integer notFlag);
+    Map<Integer, Integer> CountMeetingType(@Param("year") Integer year,
+                                           @Param("notFlag") Integer notFlag);
 
     Map<String, Integer> CountMeetingForMajor(@Param("year") Integer year,
                                               @Param("notFlag") Integer notFlag);
 
-    Map<String, Integer> countEmploymentStatus(@Param("grade") Integer grade,
-                                               @Param("collage") String collage,
-                                               @Param("major") String major,
-                                               @Param("workProperty") Integer workProperty,
-                                               @Param("flag") Integer flag);
+    Map<Integer, Integer> countEmploymentStatus(@Param("grade") Integer grade,
+                                                @Param("collage") String collage,
+                                                @Param("major") String major,
+                                                @Param("workProperty") Integer workProperty);
 
     Map<String, Integer> employmentDistributionByCompany(@Param("grade") Integer grade,
                                                          @Param("collage") String collage,
@@ -108,8 +107,18 @@ public interface AdminMapper extends BaseMapper<Admin> {
                                                            @Param("major") String major,
                                                            @Param("workProperty") Integer workProperty);
 
-    Map<String, Integer> employmentDistributionByCompanyProperty(@Param("grade") Integer grade,
+    Map<Integer, Integer> employmentDistributionByCompanyProperty(@Param("grade") Integer grade,
                                                                  @Param("collage") String collage,
                                                                  @Param("major") String major,
                                                                  @Param("workProperty") Integer workProperty);
+
+    Map<String, Integer> salaryDistributionByIndustry(@Param("workProperty") Integer workProperty,);
+
+    Map<String, Integer> salaryDistributionByPosition(@Param("workProperty") Integer workProperty);
+
+    Map<String, Integer> salaryDistributionByWorkPlace(@Param("workProperty") Integer workProperty);
+
+    Map<String, Integer> salaryDistributionByCompany(@Param("workProperty") Integer workProperty);
+
+    Map<Integer, Integer> salaryDistributionByCompanyProperty(@Param("workProperty") Integer workProperty);
 }

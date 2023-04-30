@@ -1,6 +1,7 @@
 package com.gdy.thieseback.myEnum;
 
 
+import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Objects;
@@ -50,7 +51,7 @@ public enum FlagEnum {
     }
 
     public static FlagEnum find(int code) {
-        for (FlagEnum value : values()) {
+        for (val value : values()) {
             if(code == value.code){
                 return value;
             }
@@ -61,7 +62,7 @@ public enum FlagEnum {
 
     @Autowired
     public static FlagEnum find(String content) {
-        for (FlagEnum value : values()) {
+        for (val value : values()) {
             if(Objects.equals(content, value.content)){
                 return value;
             }

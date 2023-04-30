@@ -1,5 +1,6 @@
 package com.gdy.thieseback.myEnum;
 
+import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Objects;
@@ -27,7 +28,7 @@ public enum MeetingTypeEnum {
     }
 
     public static MeetingTypeEnum find(int code) {
-        for (MeetingTypeEnum value : values()) {
+        for (val value : values()) {
             if(code == value.code){
                 return value;
             }
@@ -38,7 +39,7 @@ public enum MeetingTypeEnum {
 
     @Autowired
     public static MeetingTypeEnum find(String content) {
-        for (MeetingTypeEnum value : values()) {
+        for (val value : values()) {
             if(Objects.equals(content, value.content)){
                 return value;
             }

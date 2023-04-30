@@ -1,5 +1,6 @@
 package com.gdy.thieseback.myEnum;
 
+import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Objects;
@@ -26,7 +27,7 @@ public enum PlacePropertyEnum {
     }
 
     public static PlacePropertyEnum find(int code) {
-        for (PlacePropertyEnum value : values()) {
+        for (val value : values()) {
             if(code == value.code){
                 return value;
             }
@@ -35,9 +36,8 @@ public enum PlacePropertyEnum {
         return null;
     }
 
-    @Autowired
     public static PlacePropertyEnum find(String content) {
-        for (PlacePropertyEnum value : values()) {
+        for (val value : values()) {
             if(Objects.equals(content, value.content)){
                 return value;
             }

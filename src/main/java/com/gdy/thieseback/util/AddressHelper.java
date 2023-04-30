@@ -31,7 +31,7 @@ public class AddressHelper {
             this.town = m.group("town");
             this.village = m.group("village");
 
-            this.place = String.format("{0}{1}", this.province, this.city);
+            this.place = String.format("%s%s", this.province, this.city);
         }
     }
 

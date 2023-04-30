@@ -168,21 +168,20 @@
 
 
 
-    <select id="CountMeetingType" resultType="map">
+    <select id="CountMeetingType" resultType="java.util.HashMap">
         select type, count(*)
         from employmeeting
-        where flag != #{notFlag} and employMeeting.time.YEAR = #{year}
-        group by employMeeting.type
+        where flag != #{notFlag} and YEAR(employMeeting.time) = #{year}
     </select>
 
-    <select id="CountMeetingForMajor" resultType="map">
+    <select id="CountMeetingForMajor" resultType="java.util.HashMap">
         select major, count(*)
         from employmeeting
         where flag != {notFlag} and employMeeting.time.YEAR = #{year}
-        group by employMeeting.major
     </select>
 
-    <select id="countEmploymentStatus" resultType="map">
+
+    <select id="countEmploymentStatus" resultType="java.util.HashMap">
         select employmentStatus, count(*)
         from employment
         where studentId in (
@@ -198,15 +197,13 @@
             </if>
         )
             and workProperty = #{workProperty}
-            and flag = #{flag}
-        group by employmentStatus
+            and flag = 0
     </select>
 
 
-
-    <select id="employmentDistributionByCompany" resultType="map">
-        select companyScc, count(*)
-        from experience
+    <select id="employmentDistributionByCompany" resultType="java.util.HashMap">
+        select b.name, count(*)
+        from experience a, company b
         where employmentId in (
             select id from employment where studentId in (
                 select id from student where 1 = 1
@@ -222,10 +219,11 @@
             )
         )
         and workProperty = #{workProperty}
-        group by companyScc
+        and flag = 0
+        and a.companyScc = b.scc
     </select>
 
-    <select id="employmentDistributionByWorkplace" resultType="map">
+    <select id="employmentDistributionByWorkplace" resultType="java.util.HashMap">
         select workPlace, count(*)
         from experience
         where employmentId in (
@@ -243,10 +241,10 @@
             )
         )
         and workProperty = #{workProperty}
-        group by workPlace
+        and flag = 0
     </select>
 
-    <select id="employmentDistributionByIndustry" resultType="map">
+    <select id="employmentDistributionByIndustry" resultType="java.util.HashMap">
         select industry, count(*)
         from experience
         where employmentId in (
@@ -264,48 +262,79 @@
             )
         )
         and workProperty = #{workProperty}
-        group by industry
+        and flag = 0
     </select>
 
-    <select id="employmentDistributionByPosition" resultType="map">
+    <select id="employmentDistributionByPosition" resultType="java.util.HashMap">
         select position, count(*)
         from experience
         where employmentId in (
-        select id from employment where studentId in (
-        select id from student where 1 = 1
-                <if test="grade != null">
-                    and grade = #{grade}
-                </if>
-                <if test="collage != null and collage != ''">
-                    and collage = #{collage}
-                </if>
-                <if test="major != null and major != ''">
-                    and major = #{major}
-                </if>
+            select id from employment where studentId in (
+                select id from student where 1 = 1
+                        <if test="grade != null">
+                            and grade = #{grade}
+                        </if>
+                        <if test="collage != null and collage != ''">
+                            and collage = #{collage}
+                        </if>
+                        <if test="major != null and major != ''">
+                            and major = #{major}
+                        </if>
+                )
             )
-        )
         and workProperty = #{workProperty}
-        group by position
+        and flag = 0
     </select>
 
-    <select id="employmentDistributionByCompanyProperty" resultType="map">
+    <select id="employmentDistributionByCompanyProperty" resultType="java.util.HashMap">
         select companyProperty, count(*)
         from experience
         where employmentId in (
-        select id from employment where studentId in (
-        select id from student where 1 = 1
-                <if test="grade != null">
-                    and grade = #{grade}
-                </if>
-                <if test="collage != null and collage != ''">
-                    and collage = #{collage}
-                </if>
-                <if test="major != null and major != ''">
-                    and major = #{major}
-                </if>
+            select id from employment where studentId in (
+                select id from student where 1 = 1
+                    <if test="grade != null">
+                        and grade = #{grade}
+                    </if>
+                    <if test="collage != null and collage != ''">
+                        and collage = #{collage}
+                    </if>
+                    <if test="major != null and major != ''">
+                        and major = #{major}
+                    </if>
+                )
             )
-        )
         and workProperty = #{workProperty}
-        group by companyProperty
+        and flag = 0
+    </select>
+    
+    <select id="salaryDistributionByIndustry" resultType="java.util.HashMap">
+        select industry, avg(salary)
+        from experience
+        where workProperty = #{workProperty}
+    </select>
+
+    <select id="salaryDistributionByPosition" resultType="java.util.HashMap">
+        select position, avg(salary)
+        from experience
+        where workProperty = #{workProperty}
+    </select>
+
+    <select id="salaryDistributionByWorkPlace" resultType="java.util.HashMap">
+        select workPlace, avg(salary)
+        from experience
+        where workProperty = #{workProperty}
+    </select>
+
+    <select id="salaryDistributionByCompany" resultType="java.util.HashMap">
+        select b.name, avg(a.salary)
+        from experience a, company b
+        where a.companyScc = b.scc
+          and a.workProperty = #{workProperty}
+    </select>
+
+    <select id="salaryDistributionByCompanyProperty" resultType="java.util.HashMap">
+        select companyProperty, avg(salary)
+        from experience
+        where workProperty = #{workProperty}
     </select>
 </mapper>
