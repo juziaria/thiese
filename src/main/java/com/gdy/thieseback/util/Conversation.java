@@ -6,6 +6,7 @@ import com.gdy.thieseback.myEnum.*;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import com.gdy.thieseback.entity.Student;
 
 import javax.annotation.Resource;
 import java.util.Date;
@@ -176,7 +177,7 @@ public class Conversation {
         MeetingInfo meetingInfo = new MeetingInfo();
 
         meetingInfo.setId(employMeeting.getId());
-        meetingInfo.setTime(AdminToolHelper.DateToString(employMeeting.getTime()));
+        meetingInfo.setTime(AdminToolHelper.DateToString(employMeeting.getMeetingtime()));
         meetingInfo.setName(employMeeting.getName());
         meetingInfo.setMaster(employMeeting.getMaster());
         meetingInfo.setPlace(employMeeting.getPlace());
@@ -193,7 +194,7 @@ public class Conversation {
         EmployMeeting employMeeting = new EmployMeeting();
 
         employMeeting.setId(meetingInfo.getId());
-        employMeeting.setTime(AdminToolHelper.StringToDate(meetingInfo.getTime()));
+        employMeeting.setMeetingtime(AdminToolHelper.StringToDate(meetingInfo.getTime()));
         employMeeting.setName(meetingInfo.getName());
         employMeeting.setMaster(meetingInfo.getMaster());
         employMeeting.setPlace(meetingInfo.getPlace());

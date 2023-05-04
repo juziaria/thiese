@@ -1,10 +1,11 @@
 package com.gdy.thieseback.controller;
 
-import com.gdy.thieseback.entity.EmployPosition;
+import com.gdy.thieseback.entity.EmployDoubleMeeting;
+import com.gdy.thieseback.req.EmployDoubleMeetingReq;
 import com.gdy.thieseback.req.EmployPositionReq;
 import com.gdy.thieseback.resp.CommonResp;
 import com.gdy.thieseback.resp.PageResp;
-import com.gdy.thieseback.service.EmployPositionService;
+import com.gdy.thieseback.service.EmployDoubleMeetingService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,14 +14,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @RestController =@RequestBody+@Controller
- * 正式岗位、实习岗位
+ * 双选会
  * */
 @RestController
 @RequestMapping("/gdy/employ_position")
 @Api(tags = "正式岗位")
-public class EmployPositionController {
+public class EmployDoubleMeetingController {
     @Autowired
-    private EmployPositionService employPositionService;
+    private EmployDoubleMeetingService employDoubleMeetingService;
 
     /**
      *根据employ_position判断宣讲会的会议日期，会议名字，
@@ -29,10 +30,10 @@ public class EmployPositionController {
      *
      * */
     @GetMapping("/getlist")
-    public CommonResp getList(EmployPositionReq employPositionReq){
+    public CommonResp getList(EmployDoubleMeetingReq employDoubleMeetingReq){
 
-        CommonResp<PageResp<EmployPosition>> resp = new CommonResp<>();
-        PageResp<EmployPosition> list = employPositionService.getList(employPositionReq);
+        CommonResp<PageResp<EmployDoubleMeeting>> resp = new CommonResp<>();
+        PageResp<EmployDoubleMeeting> list = employDoubleMeetingService.getList(employDoubleMeetingReq);
         resp.setContent(list);
         return resp;
 
