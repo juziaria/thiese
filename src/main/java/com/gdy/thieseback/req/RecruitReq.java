@@ -1,17 +1,19 @@
-package com.gdy.thieseback.entity;
+package com.gdy.thieseback.req;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.gdy.thieseback.entity.BaseEntity;
 import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 
-@EqualsAndHashCode(callSuper = true)
+
 @Data
-public class Recruit extends BaseEntity implements Serializable {
+public class RecruitReq {
 
     @JsonIgnore
     @ApiModelProperty(value = "自动排序")
@@ -30,6 +32,11 @@ public class Recruit extends BaseEntity implements Serializable {
     @ApiModelProperty(value = "专业")
     private List<String> major;
 
+    @Schema(description = "专业id列表")
+    private List<String> majorIds;
+    @Schema(description = "先别")
+    private List<String> recruitIds;
+
     @ApiModelProperty(value = "联系方式")
     private String contactInfo;
 
@@ -39,30 +46,21 @@ public class Recruit extends BaseEntity implements Serializable {
     @ApiModelProperty(value = "状态")
     private Integer flag;
 
-    @ApiModelProperty(value = "岗位要求")
-    private String demand;
+    /**
+     * 分页大小
+     */
+    @Schema(description = "分页大小")
+    @NotNull
+    private Integer pageSize = 1;
 
-    @ApiModelProperty(value = "岗位薪资")
-    private String salary;
 
-    @ApiModelProperty(value = "岗位描述")
-    private String description;
+    /**
+     * 页码
+     */
+    @Schema(description = "页码")
+    @NotNull
+    private Integer pageNum = 1;
 
-    @ApiModelProperty(value = "招聘人数")
-    private Integer number;
 
-    @ApiModelProperty(value = "投递说明")
-    private String delivery_description;
 
-    @ApiModelProperty(value = "岗位名称")
-    private String jobName;
-
-    @ApiModelProperty(value = "有效期")
-    private Date availbleTime;
-
-    @ApiModelProperty(value = "学历")
-    private String degree;
-
-    @ApiModelProperty(value = "薪资待遇")
-    private String welfare;
 }

@@ -3,7 +3,6 @@ package com.gdy.thieseback.controller;
 import com.gdy.thieseback.dto.DocumentShow;
 import com.gdy.thieseback.entity.Document;
 import com.gdy.thieseback.entity.Parameter;
-import com.gdy.thieseback.service.IAdminDocumentService;
 import com.gdy.thieseback.service.IStudentDocumentService;
 import com.gdy.thieseback.util.Conversation;
 import com.gdy.thieseback.util.PathHelper;
@@ -60,4 +59,6 @@ public class StudentDocumentController {
 
         return documentShow;
     }
+
+
 }

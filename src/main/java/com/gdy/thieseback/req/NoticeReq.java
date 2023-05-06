@@ -1,22 +1,23 @@
-package com.gdy.thieseback.entity;
+package com.gdy.thieseback.req;
 
-import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.io.Serializable;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Data
-@Setter
 @Getter
-@TableName(value = "notice")
-public class Notice extends BaseEntity implements Serializable {
+@Setter
+public class NoticeReq {
     @ApiModelProperty(value = "主键")
     private int id;
 
+    @NotNull(message = "通知类型不能为空")
+    @Schema(description = "类型（0 1 2 3 4 5）")
     @ApiModelProperty(value = "通知类型")
     private Integer type;
 
@@ -37,4 +38,11 @@ public class Notice extends BaseEntity implements Serializable {
 
     @ApiModelProperty(value = "通知附件")
     private String documentId;
+
+    @NotNull(message = "页码不能为空")
+    private Integer pageNum;
+
+
+    @NotNull(message = "页面大小不能为空")
+    private Integer pageSize;
 }

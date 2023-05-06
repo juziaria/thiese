@@ -7,6 +7,13 @@ spring:
     username: root
     password: 123456
 
+    servlet:
+      multipart:
+        enabled: true
+        file-size-threshold: 0
+        max-file-size: 100MB
+        max-request-size: 100MB
+
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
@@ -16,3 +23,8 @@ mybatis-plus:
     aggressive-lazy-loading: true
   mapper-locations: classpath*:com/gdy/thieseback/mapper/*.xml
   type-aliases-package: com.gdy.thieseback.entity
+
+
+files:
+  upload:
+    path: D:/upload/
